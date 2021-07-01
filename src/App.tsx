@@ -1,12 +1,10 @@
 import React from 'react';
-import { SafeAreaView, Text, View } from 'react-native';
+import { Box, NativeBaseProvider } from 'native-base';
 
 const App = () => (
-  <SafeAreaView>
-    <View>
-      <Text>HELLO WORLD</Text>
-    </View>
-  </SafeAreaView>
+  <NativeBaseProvider>
+    <Box safeArea>Hello world</Box>
+  </NativeBaseProvider>
 );
 
 export default App;
