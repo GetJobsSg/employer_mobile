@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "employer_app.app"
-               BlueprintName = "employer_app"
-               ReferencedContainer = "container:employer_app.xcodeproj">
+               BuildableName = "GetJobsBusiness.app"
+               BlueprintName = "GetJobsBusiness"
+               ReferencedContainer = "container:GetJobsBusiness.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "employer_appTests.xctest"
-               BlueprintName = "employer_appTests"
-               ReferencedContainer = "container:employer_app.xcodeproj">
+               BuildableName = "GetJobsBusinessTests.xctest"
+               BlueprintName = "GetJobsBusinessTests"
+               ReferencedContainer = "container:GetJobsBusiness.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "employer_app.app"
-            BlueprintName = "employer_app"
-            ReferencedContainer = "container:employer_app.xcodeproj">
+            BuildableName = "GetJobsBusiness.app"
+            BlueprintName = "GetJobsBusiness"
+            ReferencedContainer = "container:GetJobsBusiness.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "employer_app.app"
-            BlueprintName = "employer_app"
-            ReferencedContainer = "container:employer_app.xcodeproj">
+            BuildableName = "GetJobsBusiness.app"
+            BlueprintName = "GetJobsBusiness"
+            ReferencedContainer = "container:GetJobsBusiness.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

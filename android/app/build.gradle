@@ -131,7 +131,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.employer_app"
+        applicationId "com.getjobs.business"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

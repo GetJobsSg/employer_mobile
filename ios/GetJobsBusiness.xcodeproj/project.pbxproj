@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* employer_appTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* employer_appTests.m */; };
+		00E356F31AD99517003FC87E /* GetJobsBusinessTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* GetJobsBusinessTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		674AA1F3FB1B4D3AD96A06FA /* libPods-employer_app.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6B8D2EF18C32A915FBD365 /* libPods-employer_app.a */; };
-		6A9B90110797EE88EC78128B /* libPods-employer_app-employer_appTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 12F6D88650908A31256FB4FC /* libPods-employer_app-employer_appTests.a */; };
+		674AA1F3FB1B4D3AD96A06FA /* libPods-GetJobsBusiness.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6B8D2EF18C32A915FBD365 /* libPods-GetJobsBusiness.a */; };
+		6A9B90110797EE88EC78128B /* libPods-GetJobsBusiness-GetJobsBusinessTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 12F6D88650908A31256FB4FC /* libPods-GetJobsBusiness-GetJobsBusinessTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -22,27 +22,27 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = employer_app;
+			remoteInfo = GetJobsBusiness;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00E356EE1AD99517003FC87E /* employer_appTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = employer_appTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* GetJobsBusinessTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GetJobsBusinessTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* employer_appTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = employer_appTests.m; sourceTree = "<group>"; };
-		12F6D88650908A31256FB4FC /* libPods-employer_app-employer_appTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-employer_app-employer_appTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07F961A680F5B00A75B9A /* employer_app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = employer_app.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = employer_app/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = employer_app/AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = employer_app/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = employer_app/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = employer_app/main.m; sourceTree = "<group>"; };
-		2B1F406E07132DD0359FB89F /* Pods-employer_app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-employer_app.release.xcconfig"; path = "Target Support Files/Pods-employer_app/Pods-employer_app.release.xcconfig"; sourceTree = "<group>"; };
-		481F7395E0B29CD4F9CDA073 /* Pods-employer_app-employer_appTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-employer_app-employer_appTests.release.xcconfig"; path = "Target Support Files/Pods-employer_app-employer_appTests/Pods-employer_app-employer_appTests.release.xcconfig"; sourceTree = "<group>"; };
-		495E79B46DF5185AEE667D54 /* Pods-employer_app-employer_appTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-employer_app-employer_appTests.debug.xcconfig"; path = "Target Support Files/Pods-employer_app-employer_appTests/Pods-employer_app-employer_appTests.debug.xcconfig"; sourceTree = "<group>"; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = employer_app/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		DA6B8D2EF18C32A915FBD365 /* libPods-employer_app.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-employer_app.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DAA269FEE9E7D73C53B9AD27 /* Pods-employer_app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-employer_app.debug.xcconfig"; path = "Target Support Files/Pods-employer_app/Pods-employer_app.debug.xcconfig"; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* GetJobsBusinessTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GetJobsBusinessTests.m; sourceTree = "<group>"; };
+		12F6D88650908A31256FB4FC /* libPods-GetJobsBusiness-GetJobsBusinessTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GetJobsBusiness-GetJobsBusinessTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* GetJobsBusiness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GetJobsBusiness.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = GetJobsBusiness/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = GetJobsBusiness/AppDelegate.m; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = GetJobsBusiness/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = GetJobsBusiness/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = GetJobsBusiness/main.m; sourceTree = "<group>"; };
+		2B1F406E07132DD0359FB89F /* Pods-GetJobsBusiness.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetJobsBusiness.release.xcconfig"; path = "Target Support Files/Pods-GetJobsBusiness/Pods-GetJobsBusiness.release.xcconfig"; sourceTree = "<group>"; };
+		481F7395E0B29CD4F9CDA073 /* Pods-GetJobsBusiness-GetJobsBusinessTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetJobsBusiness-GetJobsBusinessTests.release.xcconfig"; path = "Target Support Files/Pods-GetJobsBusiness-GetJobsBusinessTests/Pods-GetJobsBusiness-GetJobsBusinessTests.release.xcconfig"; sourceTree = "<group>"; };
+		495E79B46DF5185AEE667D54 /* Pods-GetJobsBusiness-GetJobsBusinessTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetJobsBusiness-GetJobsBusinessTests.debug.xcconfig"; path = "Target Support Files/Pods-GetJobsBusiness-GetJobsBusinessTests/Pods-GetJobsBusiness-GetJobsBusinessTests.debug.xcconfig"; sourceTree = "<group>"; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = GetJobsBusiness/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DA6B8D2EF18C32A915FBD365 /* libPods-GetJobsBusiness.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GetJobsBusiness.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAA269FEE9E7D73C53B9AD27 /* Pods-GetJobsBusiness.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetJobsBusiness.debug.xcconfig"; path = "Target Support Files/Pods-GetJobsBusiness/Pods-GetJobsBusiness.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -51,7 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6A9B90110797EE88EC78128B /* libPods-employer_app-employer_appTests.a in Frameworks */,
+				6A9B90110797EE88EC78128B /* libPods-GetJobsBusiness-GetJobsBusinessTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,20 +59,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				674AA1F3FB1B4D3AD96A06FA /* libPods-employer_app.a in Frameworks */,
+				674AA1F3FB1B4D3AD96A06FA /* libPods-GetJobsBusiness.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* employer_appTests */ = {
+		00E356EF1AD99517003FC87E /* GetJobsBusinessTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* employer_appTests.m */,
+				00E356F21AD99517003FC87E /* GetJobsBusinessTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = employer_appTests;
+			path = GetJobsBusinessTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -83,7 +83,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* employer_app */ = {
+		13B07FAE1A68108700A75B9A /* GetJobsBusiness */ = {
 			isa = PBXGroup;
 			children = (
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -93,15 +93,15 @@
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = employer_app;
+			name = GetJobsBusiness;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				DA6B8D2EF18C32A915FBD365 /* libPods-employer_app.a */,
-				12F6D88650908A31256FB4FC /* libPods-employer_app-employer_appTests.a */,
+				DA6B8D2EF18C32A915FBD365 /* libPods-GetJobsBusiness.a */,
+				12F6D88650908A31256FB4FC /* libPods-GetJobsBusiness-GetJobsBusinessTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -116,9 +116,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* employer_app */,
+				13B07FAE1A68108700A75B9A /* GetJobsBusiness */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* employer_appTests */,
+				00E356EF1AD99517003FC87E /* GetJobsBusinessTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				C0C1403B4E1AB4EF99FEE8EA /* Pods */,
@@ -131,8 +131,8 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* employer_app.app */,
-				00E356EE1AD99517003FC87E /* employer_appTests.xctest */,
+				13B07F961A680F5B00A75B9A /* GetJobsBusiness.app */,
+				00E356EE1AD99517003FC87E /* GetJobsBusinessTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -140,21 +140,20 @@
 		C0C1403B4E1AB4EF99FEE8EA /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				DAA269FEE9E7D73C53B9AD27 /* Pods-employer_app.debug.xcconfig */,
-				2B1F406E07132DD0359FB89F /* Pods-employer_app.release.xcconfig */,
-				495E79B46DF5185AEE667D54 /* Pods-employer_app-employer_appTests.debug.xcconfig */,
-				481F7395E0B29CD4F9CDA073 /* Pods-employer_app-employer_appTests.release.xcconfig */,
+				DAA269FEE9E7D73C53B9AD27 /* Pods-GetJobsBusiness.debug.xcconfig */,
+				2B1F406E07132DD0359FB89F /* Pods-GetJobsBusiness.release.xcconfig */,
+				495E79B46DF5185AEE667D54 /* Pods-GetJobsBusiness-GetJobsBusinessTests.debug.xcconfig */,
+				481F7395E0B29CD4F9CDA073 /* Pods-GetJobsBusiness-GetJobsBusinessTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* employer_appTests */ = {
+		00E356ED1AD99517003FC87E /* GetJobsBusinessTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "employer_appTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "GetJobsBusinessTests" */;
 			buildPhases = (
 				B4B27CFA618A6EB35D85D2D5 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
@@ -168,14 +167,14 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = employer_appTests;
-			productName = employer_appTests;
-			productReference = 00E356EE1AD99517003FC87E /* employer_appTests.xctest */;
+			name = GetJobsBusinessTests;
+			productName = GetJobsBusinessTests;
+			productReference = 00E356EE1AD99517003FC87E /* GetJobsBusinessTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* employer_app */ = {
+		13B07F861A680F5B00A75B9A /* GetJobsBusiness */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "employer_app" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "GetJobsBusiness" */;
 			buildPhases = (
 				88D9BC067A6D1188B89E47D1 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
@@ -190,9 +189,9 @@
 			);
 			dependencies = (
 			);
-			name = employer_app;
-			productName = employer_app;
-			productReference = 13B07F961A680F5B00A75B9A /* employer_app.app */;
+			name = GetJobsBusiness;
+			productName = GetJobsBusiness;
+			productReference = 13B07F961A680F5B00A75B9A /* GetJobsBusiness.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -212,7 +211,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "employer_app" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "GetJobsBusiness" */;
 			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -225,8 +224,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* employer_app */,
-				00E356ED1AD99517003FC87E /* employer_appTests */,
+				13B07F861A680F5B00A75B9A /* GetJobsBusiness */,
+				00E356ED1AD99517003FC87E /* GetJobsBusinessTests */,
 			);
 		};
 /* End PBXProject section */
@@ -271,15 +270,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-employer_app/Pods-employer_app-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-GetJobsBusiness/Pods-GetJobsBusiness-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-employer_app/Pods-employer_app-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-GetJobsBusiness/Pods-GetJobsBusiness-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-employer_app/Pods-employer_app-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GetJobsBusiness/Pods-GetJobsBusiness-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		6D8C89BB6CE6E986C26DD6A2 /* [CP] Embed Pods Frameworks */ = {
@@ -288,15 +287,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-employer_app-employer_appTests/Pods-employer_app-employer_appTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-GetJobsBusiness-GetJobsBusinessTests/Pods-GetJobsBusiness-GetJobsBusinessTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-employer_app-employer_appTests/Pods-employer_app-employer_appTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-GetJobsBusiness-GetJobsBusinessTests/Pods-GetJobsBusiness-GetJobsBusinessTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-employer_app-employer_appTests/Pods-employer_app-employer_appTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GetJobsBusiness-GetJobsBusinessTests/Pods-GetJobsBusiness-GetJobsBusinessTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		7FFF4AFB225BCF919F207A20 /* [CP] Copy Pods Resources */ = {
@@ -305,15 +304,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-employer_app/Pods-employer_app-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-GetJobsBusiness/Pods-GetJobsBusiness-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-employer_app/Pods-employer_app-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-GetJobsBusiness/Pods-GetJobsBusiness-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-employer_app/Pods-employer_app-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GetJobsBusiness/Pods-GetJobsBusiness-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		85A142D7347F9E962BE90FFC /* [CP] Copy Pods Resources */ = {
@@ -322,15 +321,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-employer_app-employer_appTests/Pods-employer_app-employer_appTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-GetJobsBusiness-GetJobsBusinessTests/Pods-GetJobsBusiness-GetJobsBusinessTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-employer_app-employer_appTests/Pods-employer_app-employer_appTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-GetJobsBusiness-GetJobsBusinessTests/Pods-GetJobsBusiness-GetJobsBusinessTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-employer_app-employer_appTests/Pods-employer_app-employer_appTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GetJobsBusiness-GetJobsBusinessTests/Pods-GetJobsBusiness-GetJobsBusinessTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		88D9BC067A6D1188B89E47D1 /* [CP] Check Pods Manifest.lock */ = {
@@ -348,7 +347,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-employer_app-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-GetJobsBusiness-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -370,7 +369,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-employer_app-employer_appTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-GetJobsBusiness-GetJobsBusinessTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -403,7 +402,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* employer_appTests.m in Sources */,
+				00E356F31AD99517003FC87E /* GetJobsBusinessTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -421,7 +420,7 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* employer_app */;
+			target = 13B07F861A680F5B00A75B9A /* GetJobsBusiness */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -429,14 +428,14 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 495E79B46DF5185AEE667D54 /* Pods-employer_app-employer_appTests.debug.xcconfig */;
+			baseConfigurationReference = 495E79B46DF5185AEE667D54 /* Pods-GetJobsBusiness-GetJobsBusinessTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = employer_appTests/Info.plist;
+				INFOPLIST_FILE = GetJobsBusinessTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -450,17 +449,17 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/employer_app.app/employer_app";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GetJobsBusiness.app/GetJobsBusiness";
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 481F7395E0B29CD4F9CDA073 /* Pods-employer_app-employer_appTests.release.xcconfig */;
+			baseConfigurationReference = 481F7395E0B29CD4F9CDA073 /* Pods-GetJobsBusiness-GetJobsBusinessTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				INFOPLIST_FILE = employer_appTests/Info.plist;
+				INFOPLIST_FILE = GetJobsBusinessTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -474,19 +473,19 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/employer_app.app/employer_app";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GetJobsBusiness.app/GetJobsBusiness";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DAA269FEE9E7D73C53B9AD27 /* Pods-employer_app.debug.xcconfig */;
+			baseConfigurationReference = DAA269FEE9E7D73C53B9AD27 /* Pods-GetJobsBusiness.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = employer_app/Info.plist;
+				INFOPLIST_FILE = GetJobsBusiness/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -496,8 +495,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = employer_app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.getjobs.business;
+				PRODUCT_NAME = GetJobsBusiness;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -506,12 +505,12 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2B1F406E07132DD0359FB89F /* Pods-employer_app.release.xcconfig */;
+			baseConfigurationReference = 2B1F406E07132DD0359FB89F /* Pods-GetJobsBusiness.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				INFOPLIST_FILE = employer_app/Info.plist;
+				INFOPLIST_FILE = GetJobsBusiness/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -521,8 +520,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = employer_app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.getjobs.business;
+				PRODUCT_NAME = GetJobsBusiness;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -654,7 +653,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "employer_appTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "GetJobsBusinessTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -663,7 +662,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "employer_app" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "GetJobsBusiness" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -672,7 +671,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "employer_app" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "GetJobsBusiness" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,

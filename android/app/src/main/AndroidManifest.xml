@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.employer_app">
+  package="com.getjobs.business">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
