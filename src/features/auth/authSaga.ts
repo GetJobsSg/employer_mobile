@@ -2,6 +2,7 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { call, fork, put, takeLatest, takeLeading } from 'redux-saga/effects';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 
+import { setItem, removeItem, StorageKey } from 'src/utils/storage';
 import { authTransformer } from './transformer';
 import { authActions, authSlice } from './slice';
 import { getProfile } from './apis';
@@ -24,20 +25,25 @@ function* loginSaga(action: PayloadAction<ILoginCredential>) {
 
 function* setCurrentUserSaga(action: PayloadAction<FirebaseAuthTypes.User | null>) {
   const user = action.payload;
+
   if (!user) {
+    // user is logout
     yield put(authActions.reset());
+    yield call(removeItem, StorageKey.ACCESS_TOKEN);
     return;
   }
 
   try {
+    // user is login
     const token: string = yield call([user, user.getIdToken]);
-    yield put(authSlice.actions.setCurrentUserAuthInfo(token));
+    yield put(authSlice.actions.setCurrentUserAuth(token));
+    yield call(setItem, StorageKey.ACCESS_TOKEN, token);
 
     const res: ICurrentUserInfoResponse = yield call(getProfile);
     const currentUser: ICurrentUserInfo = authTransformer.toState(res);
     yield put(authActions.setCurrentUserSuccess(currentUser));
   } catch (e) {
-    yield 'Apis call to retrieve user info failed';
+    yield put(authActions.setCurrentUserError(e));
   }
 }
 

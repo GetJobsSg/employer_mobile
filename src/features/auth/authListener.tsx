@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { node } from 'prop-types';
+import { Spinner, Center } from 'native-base';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
-import { useAppDispatch } from 'src/hooks';
-import { authActions } from 'src/auth/slice';
+import { node } from 'prop-types';
+import { useAppDispatch, useAppSelector } from 'src/hooks';
+import { authActions } from 'src/features/auth/slice';
 
 const AuthListener: React.FC = (props) => {
   const { children } = props;
   const [initializing, setInitializing] = useState(true);
+
   const dispatch = useAppDispatch();
+  const { isLoadingSetCurrentUser } = useAppSelector((state) => state.auth);
 
   const idTokenChanged: FirebaseAuthTypes.AuthListenerCallback = (user: FirebaseAuthTypes.User | null) => {
     if (user) {
@@ -24,7 +27,13 @@ const AuthListener: React.FC = (props) => {
     return subscriber;
   }, []);
 
-  if (initializing) return null;
+  if (initializing || isLoadingSetCurrentUser) {
+    return (
+      <Center w="100%" h="100%">
+        <Spinner />
+      </Center>
+    );
+  }
   return <>{children}</>;
 };
 

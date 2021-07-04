@@ -1,4 +1,4 @@
-import { authReducers } from 'src/auth/slice';
+import { authReducers } from 'src/features/auth/slice';
 
 const rootReducer = {
   auth: authReducers,

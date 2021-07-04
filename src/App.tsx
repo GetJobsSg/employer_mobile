@@ -2,16 +2,16 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { NativeBaseProvider } from 'native-base';
 import { store } from 'src/store';
-import AuthListener from 'src/auth/authListener';
-import AuthScreen from './auth/auth';
+import AuthListener from 'src/features/auth/authListener';
+import RootNavigator from 'src/navigator/root-navigator';
 
 const App = () => (
   <Provider store={store}>
-    <AuthListener>
-      <NativeBaseProvider>
-        <AuthScreen />
-      </NativeBaseProvider>
-    </AuthListener>
+    <NativeBaseProvider>
+      <AuthListener>
+        <RootNavigator />
+      </AuthListener>
+    </NativeBaseProvider>
   </Provider>
 );
 export default App;

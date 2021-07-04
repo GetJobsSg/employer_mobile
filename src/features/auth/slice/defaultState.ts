@@ -3,8 +3,9 @@ import { IAuthInitialState } from './types';
 const authInitialState: IAuthInitialState = {
   isLoadingLogin: false,
   isLoadingLogout: false,
+  isLoadingSetCurrentUser: false,
 
-  accessToken: null,
+  accessToken: '',
   isAuthenticated: false,
 
   user: {

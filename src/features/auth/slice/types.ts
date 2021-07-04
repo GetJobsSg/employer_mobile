@@ -17,6 +17,7 @@ export interface ICurrentUserInfo {
 export interface IAuthInitialState {
   isLoadingLogin: boolean;
   isLoadingLogout: boolean;
+  isLoadingSetCurrentUser: boolean;
 
   accessToken: string | null;
   isAuthenticated: boolean;
