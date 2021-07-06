@@ -1,30 +1,38 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box, Button, FormControl, Heading, Input, VStack } from 'native-base';
-// import * as yup from 'yup';
+import * as yup from 'yup';
+import { useFormik } from 'formik';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
-// import { emailValidator, passwordValidator } from 'src/utils/validator';
+import { emailValidator, passwordValidator } from 'src/utils/validator';
 import { authActions } from '../../slice';
 
-// const loginSchema = yup.object({
-//   email: emailValidator,
-//   password: passwordValidator,
-// });
+const loginSchema = yup.object({
+  email: emailValidator,
+  password: passwordValidator,
+});
+
+enum FieldName {
+  email = 'email',
+  password = 'password',
+}
 
 const LoginScreen = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
   const dispatch = useAppDispatch();
   const { isLoadingLogin } = useAppSelector((state) => state.auth);
 
-  const handleLogin = () => {
-    dispatch(authActions.login({ email, password }));
-  };
+  const { errors, handleSubmit, handleChange, isSubmitting, isValidating, touched, values } = useFormik({
+    initialValues: {
+      [FieldName.email]: '',
+      [FieldName.password]: '',
+    },
+    validationSchema: loginSchema,
+    onSubmit: (_values) => {
+      const { email, password } = _values;
+      dispatch(authActions.login({ email, password }));
+    },
+  });
 
-  const isFormValid = () => {
-    if (!email || !password) return false;
-    return true;
-  };
+  const isSubmitButtonLoading = isSubmitting || isValidating || isLoadingLogin;
 
   return (
     <Box pt={8} safeArea bg="white" position="relative" h="100%" w="100%">
@@ -33,25 +41,30 @@ const LoginScreen = () => {
           GetJobs Business
         </Heading>
 
-        <FormControl>
-          <Input width="100%" value={email} onChangeText={(text) => setEmail(text)} placeholder="Email" />
-          <FormControl.ErrorMessage>Invalid Email</FormControl.ErrorMessage>
-        </FormControl>
-
-        <FormControl>
+        <FormControl isInvalid={touched.email && Boolean(errors.email)}>
           <Input
-            width="100%"
             autoCapitalize="none"
-            secureTextEntry
-            value={password}
-            onChangeText={(text) => setPassword(text)}
-            placeholder="Password"
+            autoCorrect={false}
+            onChangeText={handleChange(FieldName.email)}
+            placeholder="Email"
+            value={values.email}
           />
-          <FormControl.ErrorMessage>Password Incorrect</FormControl.ErrorMessage>
+          <FormControl.ErrorMessage>{errors.email}</FormControl.ErrorMessage>
         </FormControl>
 
-        <Button disabled={!isFormValid()} onPress={handleLogin} isLoading={isLoadingLogin}>
-          {!isLoadingLogin && 'Login'}
+        <FormControl isInvalid={touched.password && Boolean(errors.password)}>
+          <Input
+            autoCapitalize="none"
+            onChangeText={handleChange(FieldName.password)}
+            secureTextEntry
+            placeholder="Password"
+            value={values.password}
+          />
+          <FormControl.ErrorMessage>{errors.password}</FormControl.ErrorMessage>
+        </FormControl>
+
+        <Button isLoadingText="Logging in..." onPress={handleSubmit} isLoading={isSubmitButtonLoading}>
+          Login
         </Button>
 
         <Button variant="ghost">Forget Password</Button>
