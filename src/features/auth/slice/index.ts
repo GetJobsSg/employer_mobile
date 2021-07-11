@@ -18,6 +18,7 @@ export const authSlice = createSlice({
       state.isAuthenticated = !!action.payload;
     },
     setCurrentUserSuccess(state, action: PayloadAction<ICurrentUserInfo>) {
+      state.error = null;
       state.user = action.payload;
       state.isLoadingSetCurrentUser = false;
     },
@@ -26,16 +27,31 @@ export const authSlice = createSlice({
       state.isLoadingSetCurrentUser = false;
     },
 
+    // send reset password email
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    sendResetPasswordEmail(state, action: PayloadAction<string>) {
+      state.isLoadingSendResetPasswordEmail = true;
+    },
+    sendResetPasswordEmailSuccess(state) {
+      state.error = null;
+      state.isLoadingSendResetPasswordEmail = false;
+    },
+    sendResetPasswordEmailError(state, action) {
+      state.error = action.payload;
+      state.isLoadingSendResetPasswordEmail = false;
+    },
+
     // login
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     login(state, action: PayloadAction<ILoginCredential>) {
       state.isLoadingLogin = true;
-      state.error = null;
     },
     loginSuccess(state) {
+      state.error = null;
       state.isLoadingLogin = false;
     },
     loginError(state, action) {
+      state.isLoadingLogin = false;
       state.error = action.payload;
     },
 
@@ -44,9 +60,11 @@ export const authSlice = createSlice({
       state.isLoadingLogout = true;
     },
     logoutSuccess(state) {
+      state.error = null;
       state.isLoadingLogout = false;
     },
     logoutError(state, action) {
+      state.isLoadingLogout = false;
       state.error = action.payload;
     },
 

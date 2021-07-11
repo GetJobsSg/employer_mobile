@@ -1,0 +1,5 @@
+export enum RouteName {
+  'AUTH_LOGIN' = 'AUTH_LOGIN',
+  'AUTH_FORGET_PASSWORD' = 'AUTH_FORGET_PASSWORD',
+  'JOB_LISTING' = 'JOB_LISTING',
+}

@@ -1,25 +1,36 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { call, fork, put, takeLatest, takeLeading } from 'redux-saga/effects';
-import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import { call, fork, put, takeLatest } from 'redux-saga/effects';
+import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 
 import { setItem, removeItem, StorageKey } from 'src/utils/storage';
+import { login, logout, sendPasswordResetEmail } from 'src/utils/firebase';
+
 import { authTransformer } from './transformer';
-import { authActions, authSlice } from './slice';
+import { authActions, authSlice } from './slice/index';
 import { getProfile } from './apis';
 
 import { ILoginCredential } from './types';
 import { ICurrentUserInfo } from './slice/types';
 import { ICurrentUserInfoResponse } from './apis/types';
 
-const fireAuth = auth();
-
 function* loginSaga(action: PayloadAction<ILoginCredential>) {
   try {
     const { email, password } = action.payload;
-    yield call([fireAuth, fireAuth.signInWithEmailAndPassword], email, password);
+    yield call(login, email, password);
     yield put(authActions.loginSuccess());
   } catch (e) {
     yield put(authActions.loginError(e));
+  }
+}
+
+function* sendPasswordResetEmailSaga(action: PayloadAction<string>) {
+  try {
+    const email = action.payload;
+    yield call(sendPasswordResetEmail, email);
+    yield put(authActions.sendResetPasswordEmailSuccess());
+  } catch (e) {
+    const err = e as FirebaseAuthTypes.NativeFirebaseAuthError;
+    yield put(authActions.sendResetPasswordEmailError({ code: err.code, message: err.message }));
   }
 }
 
@@ -49,7 +60,7 @@ function* setCurrentUserSaga(action: PayloadAction<FirebaseAuthTypes.User | null
 
 function* logoutSaga() {
   try {
-    yield call([fireAuth, fireAuth.signOut]);
+    yield call(logout);
     yield put(authActions.logoutSuccess());
   } catch (e) {
     yield put(authActions.logoutError(e));
@@ -57,9 +68,12 @@ function* logoutSaga() {
 }
 
 function* watchAuthSaga() {
-  yield takeLeading(authActions.login.type, loginSaga);
-  yield takeLeading(authActions.logout.type, logoutSaga);
+  yield takeLatest(authActions.login.type, loginSaga);
+  yield takeLatest(authActions.logout.type, logoutSaga);
   yield takeLatest(authActions.setCurrentUser.type, setCurrentUserSaga);
+  yield takeLatest(authActions.sendResetPasswordEmail.type, sendPasswordResetEmailSaga);
 }
 
-export default [fork(watchAuthSaga)];
+const authSaga = [fork(watchAuthSaga)];
+
+export default authSaga;

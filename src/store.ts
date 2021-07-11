@@ -11,8 +11,15 @@ const sagaMiddleware = createSagaMiddleware();
 
 const options = {
   serializableCheck: {
-    // allow setCurrentUser actions to pass non-serializable value
-    ignoredActions: [authActions.setCurrentUser.type],
+    // Following actions will pass non-serializable value
+    // Skip the serializable check as exception
+    ignoredActions: [
+      authActions.loginError.type,
+      authActions.sendResetPasswordEmailError.type,
+      authActions.logoutError.type,
+      authActions.setCurrentUser.type,
+      authActions.setCurrentUserError.type,
+    ],
   },
 };
 
@@ -20,7 +27,7 @@ export const store = configureStore({
   reducer: rootReducer,
   middleware: () => {
     if (__DEV__) return getDefaultMiddleware(options).concat([logger, sagaMiddleware]);
-    return getDefaultMiddleware(options).concat(sagaMiddleware);
+    return getDefaultMiddleware(options).concat([sagaMiddleware]);
   },
 });
 
