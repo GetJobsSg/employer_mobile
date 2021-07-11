@@ -4,8 +4,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import { ForgetPasswordScreen, LoginScreen } from 'src/features/auth';
 import { MyJobListingScreen } from 'src/features/my-job-listing';
-import { useAppSelector } from 'src/hooks';
+import { CollectCardDetailScreen } from 'src/features/stripe';
 
+import { useAppSelector } from 'src/hooks';
 import { RouteName } from './route';
 import { RootStackParams } from './types';
 
@@ -27,7 +28,10 @@ const RootNavigator = () => {
             />
           </>
         ) : (
-          <RootStack.Screen name={RouteName.JOB_LISTING} component={MyJobListingScreen} />
+          <>
+            <RootStack.Screen name={RouteName.COLLECT_CARD_DETAILS} component={CollectCardDetailScreen} />
+            <RootStack.Screen name={RouteName.JOB_LISTING} component={MyJobListingScreen} />
+          </>
         )}
       </RootStack.Navigator>
     </NavigationContainer>
