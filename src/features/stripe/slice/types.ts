@@ -13,6 +13,7 @@ export interface PaymentMethodPayload {
 
 export interface IStripeInitialState {
   isLoadingPaymentMethods: boolean;
+  isLoadingAddPaymentMethods: boolean;
   error: null | any;
   defaultMethod: MethodDetails;
   otherMethod: MethodDetails[];

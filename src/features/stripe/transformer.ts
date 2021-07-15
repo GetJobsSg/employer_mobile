@@ -4,21 +4,23 @@ import { MethodDetails } from './slice/types';
 export const stripeTransformer = {
   toState(data: IPaymentMethodResponse) {
     const method = data.data;
-    const defaultMethod: MethodDetails = {
-      id: method.default_payment_method.id || '',
-      brand: method.default_payment_method.card?.brand || '',
-      last4: method.default_payment_method.card?.last4 || '',
-      type: method.default_payment_method.type || '',
-    };
 
-    // excluded the default method
-    const restMethod = method.payment_methods.filter((f) => f.id !== defaultMethod.id);
-    const otherMethod: MethodDetails[] = restMethod.map((m) => ({
+    const otherMethod: MethodDetails[] = method.payment_methods.map((m) => ({
       id: m.id || '',
       brand: m.card.brand || '',
       last4: m.card.last4 || '',
       type: m.type || '',
     }));
+
+    const defaultMethodId = method.default_payment_method.id;
+    const found = otherMethod.find((m) => m.id === defaultMethodId);
+
+    const defaultMethod: MethodDetails = {
+      id: found?.id || '',
+      brand: found?.brand || '',
+      last4: found?.last4 || '',
+      type: found?.type || '',
+    };
 
     return {
       defaultMethod,

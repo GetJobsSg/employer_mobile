@@ -1,39 +1,39 @@
 import React, { useState } from 'react';
-import { Box, Button } from 'native-base';
-import { CardField, useStripe, CardFieldInput } from '@stripe/stripe-react-native';
-import { getSetupIntentClientSecret } from '../../apis';
+import { Box, Button, Heading, VStack } from 'native-base';
+import { CardField, CardFieldInput } from '@stripe/stripe-react-native';
+import { useAppDispatch, useAppSelector, useCheckSuccess } from 'src/hooks';
+import { stripeActions } from '../../slice';
+import { CollectCardScreenProps } from './types';
 
-const CollectCardDetailScreen = () => {
+const CollectCardDetailScreen = (props: CollectCardScreenProps) => {
+  const { navigation } = props;
   const [card, setCard] = useState<CardFieldInput.Details>();
-  const { confirmSetupIntent } = useStripe();
+
+  const dispatch = useAppDispatch();
+  const { error, isLoadingAddPaymentMethods } = useAppSelector((state) => state.stripePayment);
+
+  // successfully addded card
+  const successAddCard = useCheckSuccess({ loadingState: isLoadingAddPaymentMethods, error });
+  if (successAddCard) navigation.goBack();
 
   const handleAddCard = async () => {
-    const { data: clientSecret } = await getSetupIntentClientSecret();
-    try {
-      const res = await confirmSetupIntent(clientSecret, {
-        type: 'Card',
-        billingDetails: {
-          email: 'benson7667@gmail.com',
-          phone: '90449045',
-          name: 'TOH BAN SOON',
-        },
-      });
-      console.log(card);
-      console.log(res);
-    } catch (e) {
-      console.log(e);
-    }
+    dispatch(stripeActions.addPaymentMethodRequest());
   };
 
   return (
-    <Box safeArea px={4}>
-      <CardField
-        onCardChange={(cardDetails) => setCard(cardDetails)}
-        style={{ borderWidth: 1, width: '100%', height: 50, backgroundColor: 'white' }}
-      />
-      <Button onPress={handleAddCard} mt={4}>
-        Add Card
-      </Button>
+    <Box safeArea bg="white" position="relative" h="100%" w="100%">
+      <VStack px={4}>
+        <Heading py={4} size="md">
+          Card Details
+        </Heading>
+        <CardField
+          onCardChange={(cardDetails) => setCard(cardDetails)}
+          style={{ borderWidth: 1, width: '100%', height: 50, backgroundColor: 'white' }}
+        />
+        <Button disabled={!card?.complete} isLoading={isLoadingAddPaymentMethods} onPress={handleAddCard} mt={4}>
+          Add
+        </Button>
+      </VStack>
     </Box>
   );
 };

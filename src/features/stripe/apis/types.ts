@@ -76,3 +76,7 @@ export interface IPaymentMethodResponse {
 export interface ISetupIntentSecretResponse {
   data: string;
 }
+
+export interface IDefaultPaymentMethodPayload {
+  payment_method_id: string;
+}

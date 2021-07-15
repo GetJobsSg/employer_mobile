@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { ConfirmSetupIntentError, StripeError } from '@stripe/stripe-react-native';
 import stripeDefaultState from './defaultState';
 import { PaymentMethodPayload } from './types';
 
@@ -13,6 +14,14 @@ const stripeSlice = createSlice({
       state.isLoadingPaymentMethods = false;
       state.defaultMethod = action.payload.defaultMethod;
       state.otherMethod = action.payload.otherMethod;
+      state.error = action.payload.error ? action.payload.error : null;
+    },
+
+    addPaymentMethodRequest(state) {
+      state.isLoadingAddPaymentMethods = true;
+    },
+    addPaymentMethodResponse(state, action: PayloadAction<{ error?: any | StripeError<ConfirmSetupIntentError> }>) {
+      state.isLoadingAddPaymentMethods = false;
       state.error = action.payload.error ? action.payload.error : null;
     },
   },

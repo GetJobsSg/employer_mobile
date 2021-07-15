@@ -2,6 +2,7 @@ import { IStripeInitialState } from './types';
 
 const stripeDefaultState: IStripeInitialState = {
   isLoadingPaymentMethods: false,
+  isLoadingAddPaymentMethods: false,
   error: null,
   otherMethod: [],
   defaultMethod: {
