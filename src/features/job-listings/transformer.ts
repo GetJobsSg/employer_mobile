@@ -1,8 +1,9 @@
 import { IJobResponse } from './apis/types';
-import { IActiveJobs } from './slice/types';
+import { IJobActive } from './slice/types';
 
 export const activeJobTransformer = {
-  toState(data: IJobResponse[]): IActiveJobs {
+  toState(data: IJobResponse[]): IJobActive[] {
+    if (!data) return [];
     return data.map((item) => {
       const { job } = item;
       return {

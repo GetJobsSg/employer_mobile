@@ -10,14 +10,14 @@ const Tab = (props: TabProps) => {
   };
 
   return (
-    <HStack my={2} px={4} space={4}>
+    <HStack my={2} px={4} space={0} overflow="scroll">
       {options.map((option) => (
         <Button
           key={option.id}
           border={selected.id === option.id ? 2 : 0}
           borderRadius={50}
           variant="unstyled"
-          size="sm"
+          size="xs"
           bg={selected.id === option.id ? 'black' : 'white'}
           p={2}
           onPress={handleSelect(option)}

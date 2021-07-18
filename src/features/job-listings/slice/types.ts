@@ -16,45 +16,48 @@ export interface IJobCommon {
   };
 }
 
-export type IActiveJobs = IJobCommon[];
-export type IOngoingJobs = IJobCommon[];
-export type ICompletedJobs = IJobCommon[];
-export type ICancelledJobs = IJobCommon[];
+export interface IJobActive extends IJobCommon {}
+
+export interface IJobOngoing extends IJobCommon {}
+
+export interface IJobCompleted extends IJobCommon {}
+
+export interface IJobCancelled extends IJobCommon {}
 
 export interface IJobListingInitialState {
   isLoadingActiveJobs: boolean;
   errorActiveJobs: null | any;
-  activeJobs: IActiveJobs;
+  activeJobs: IJobActive[];
 
   isLoadingOngoingJobs: boolean;
   errorOngoingJobs: null | any;
-  onGoingJobs: IActiveJobs;
+  onGoingJobs: IJobOngoing[];
 
   isLoadingCompletedJobs: boolean;
   errorCompletedJobs: null | any;
-  completedJobs: IActiveJobs;
+  completedJobs: IJobCompleted[];
 
   isLoadingCancelledJobs: boolean;
   errorCancelledJobs: null | any;
-  cancelledJobs: IActiveJobs;
+  cancelledJobs: IJobCancelled[];
 }
 
 export interface IActiveJobListPayload {
-  list: IActiveJobs;
+  list: IJobActive[];
   error: null | any;
 }
 
 export interface IOngoingJobListPayload {
-  list: IOngoingJobs;
+  list: IJobOngoing[];
   error: null | any;
 }
 
 export interface ICompletedJobListPayload {
-  list: ICompletedJobs;
+  list: IJobCompleted[];
   error: null | any;
 }
 
 export interface ICancelledJobListPayload {
-  list: ICancelledJobs;
+  list: IJobCancelled[];
   error: null | any;
 }

@@ -6,12 +6,12 @@ import { JobStatus } from 'src/constants/status';
 import { jobListingActions } from '../../slice';
 import { IJobActive } from '../../slice/types';
 
-const ActiveList = () => {
+const CompletedList = () => {
   const dispatch = useAppDispatch();
-  const { isLoadingActiveJobs, activeJobs } = useAppSelector((state) => state.jobListings);
+  const { isLoadingCompletedJobs, completedJobs } = useAppSelector((state) => state.jobListings);
 
   useEffect(() => {
-    dispatch(jobListingActions.getActiveJobListRequest(JobStatus.OPEN));
+    dispatch(jobListingActions.getCompletedJobListRequest(JobStatus.COMPLETED));
   }, [dispatch]);
 
   const renderItem: ListRenderItem<IJobActive> = ({ item }) => (
@@ -24,7 +24,7 @@ const ActiveList = () => {
     </Box>
   );
 
-  if (isLoadingActiveJobs) {
+  if (isLoadingCompletedJobs) {
     return (
       <Box my={4}>
         <Spinner />;
@@ -34,7 +34,7 @@ const ActiveList = () => {
 
   return (
     <FlatList
-      data={activeJobs}
+      data={completedJobs}
       keyExtractor={(item) => String(item.id)}
       ListFooterComponent={<Box pb={100} />}
       renderItem={renderItem}
@@ -43,4 +43,4 @@ const ActiveList = () => {
   );
 };
 
-export default ActiveList;
+export default CompletedList;
