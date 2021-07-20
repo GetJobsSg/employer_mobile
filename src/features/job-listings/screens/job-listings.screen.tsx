@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Heading, HStack, VStack } from 'native-base';
+import { Heading, HStack, Stack, VStack } from 'native-base';
 import { Scaffold, Tab } from 'src/components';
 import ActiveList from '../components/active-list';
 import OngoingList from '../components/ongoing-list';
@@ -22,7 +22,9 @@ const JobListingScreen = () => {
         <Heading size="md">Listing</Heading>
       </HStack>
 
-      <Tab selected={activeTab} options={TabOptionList} onSelect={(option) => setActiveTab(option)} />
+      <Stack px={4}>
+        <Tab selected={activeTab} options={TabOptionList} onSelect={(option) => setActiveTab(option)} />
+      </Stack>
 
       <VStack h="100%">
         {activeTab.id === 0 && <ActiveList />}
