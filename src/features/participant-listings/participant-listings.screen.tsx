@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FlatList, ListRenderItem } from 'react-native';
 import { Box, Heading, Text, HStack, VStack, Stack } from 'native-base';
 import { Scaffold, Tab } from 'src/components';
+import { useAppDispatch } from 'src/hooks';
+import { JobApplicationStatus } from 'src/constants/status';
 import ParticipantCard from './components/participants-card';
+import { participantListingActions } from './slice';
 
 const tabOptions = [
-  { id: 0, label: 'Applicants' },
-  { id: 1, label: 'Offer Sent' },
-  { id: 2, label: 'Accepted' },
+  { id: JobApplicationStatus.PENDING, label: 'Applicants' },
+  { id: JobApplicationStatus.OFFERED, label: 'Offer Sent' },
+  { id: JobApplicationStatus.ACCEPTED, label: 'Accepted' },
+  { id: JobApplicationStatus.REJECTED, label: 'Rejected' },
 ];
 
 const dummyData = [
@@ -24,12 +28,38 @@ const dummyData = [
 
 const ParticipantListingScreen = () => {
   const [selectedTab, setSelectedTab] = useState(tabOptions[0]);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    switch (selectedTab.id) {
+      case JobApplicationStatus.PENDING:
+        dispatch(participantListingActions.getAllPendingParticipantRequest({ jobId: 17 }));
+        break;
+
+      case JobApplicationStatus.OFFERED:
+        dispatch(participantListingActions.getAllOfferSentParticipantRequest({ jobId: 17 }));
+        break;
+
+      case JobApplicationStatus.REJECTED:
+        dispatch(participantListingActions.getAllRejectedParticipantRequest({ jobId: 17 }));
+        break;
+
+      case JobApplicationStatus.ACCEPTED:
+        dispatch(participantListingActions.getAllAcceptedParticipantRequest({ jobId: 17 }));
+        break;
+
+      default:
+        break;
+    }
+  }, [dispatch, selectedTab]);
 
   const renderItem: ListRenderItem<{ id: number; name: string }> = () => (
     <Stack px={3} mb={4}>
       <ParticipantCard avatarUrl="" age={27} name="Benson Toh" gender="Male" ratings={4.6} />
     </Stack>
   );
+
+  console.log(selectedTab);
 
   return (
     <Scaffold>
