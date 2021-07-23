@@ -19,8 +19,8 @@ const ActiveList = () => {
       <Text fontSize="sm" fontWeight="bold">
         {item.title}
       </Text>
-      <Text fontSize="sm">14 June 2021 (Sat)</Text>
-      <Text fontSize="sm">07:00am - 10:00am</Text>
+      <Text fontSize="sm">{item.formattedDate}</Text>
+      <Text fontSize="sm">{`${item.startTime} - ${item.endTime}`}</Text>
     </Box>
   );
 

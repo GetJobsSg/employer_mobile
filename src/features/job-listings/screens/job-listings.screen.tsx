@@ -22,7 +22,7 @@ const JobListingScreen = () => {
         <Heading size="md">Listing</Heading>
       </HStack>
 
-      <Stack px={4}>
+      <Stack px={3} py={4}>
         <Tab selected={activeTab} options={TabOptionList} onSelect={(option) => setActiveTab(option)} />
       </Stack>
 
