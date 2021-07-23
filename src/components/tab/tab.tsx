@@ -10,7 +10,7 @@ const Tab = (props: TabProps) => {
   };
 
   return (
-    <HStack my={2} px={4} space={0} overflow="scroll">
+    <HStack space={1}>
       {options.map((option) => (
         <Button
           key={option.id}

@@ -1,3 +1,4 @@
+import { constructJobDate, convertTimeToAmPm } from 'src/utils/dateTime';
 import { IJobResponse } from './apis/types';
 import { IJobActive } from './slice/types';
 
@@ -11,8 +12,9 @@ export const activeJobTransformer = {
         title: job.title || '',
         startDate: job.start_date || '',
         endDate: job.end_date || '',
-        startTime: job.start_time || '',
-        endTime: job.end_time || '',
+        formattedDate: constructJobDate(job.start_date, job.end_date) || '',
+        startTime: convertTimeToAmPm(job.start_time) || '',
+        endTime: convertTimeToAmPm(job.end_time) || '',
         hourlyRate: job.hourly_rate || 0,
         company: {
           id: job.company.id,

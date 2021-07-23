@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { ForgetPasswordScreen, LoginScreen } from 'src/features/auth';
+import { ParticipantListingScreen } from 'src/features/participant-listings';
 import { JobListingScreen } from 'src/features/job-listings';
 import { CollectCardDetailScreen, PaymenMethodScreen } from 'src/features/stripe';
 
@@ -26,8 +27,14 @@ const RootNavigator = () => {
           </>
         ) : (
           <>
+            {/* JOB DETAILS */}
+            {/* <RootStack.Screen name={RouteName.JOB_DETAILS} component={JobDetailScreen} /> */}
+
             {/* JOB LISTING */}
             <RootStack.Screen name={RouteName.JOB_LISTING} component={JobListingScreen} />
+
+            {/* PARTICIPANTS LISTING */}
+            <RootStack.Screen name={RouteName.PARTICIPANTS_LISTING} component={ParticipantListingScreen} />
 
             {/* PAYMENT SETUP */}
             <RootStack.Screen name={RouteName.PAYMENT_METHODS} component={PaymenMethodScreen} />

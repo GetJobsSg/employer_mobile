@@ -32,6 +32,16 @@ const CompletedList = () => {
     );
   }
 
+  if (completedJobs.length === 0) {
+    return (
+      <Box px={4} py={2}>
+        <Text fontWeight="bold" color="gray.400">
+          You have no completed jobs
+        </Text>
+      </Box>
+    );
+  }
+
   return (
     <FlatList
       data={completedJobs}

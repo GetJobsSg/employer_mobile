@@ -3,6 +3,7 @@ export interface IJobCommon {
   title: string;
   startDate: string;
   endDate: string;
+  formattedDate: string;
   startTime: string;
   endTime: string;
   hourlyRate: number;
