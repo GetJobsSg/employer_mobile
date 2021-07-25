@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Heading, HStack, Stack, VStack } from 'native-base';
+import { Button, Heading, HStack, Stack, VStack } from 'native-base';
 import { Scaffold, Tab } from 'src/components';
 import ActiveList from '../components/active-list';
 import OngoingList from '../components/ongoing-list';
@@ -18,8 +18,11 @@ const JobListingScreen = () => {
 
   return (
     <Scaffold>
-      <HStack px={4}>
+      <HStack px={4} justifyContent="space-between" alignItems="center">
         <Heading size="md">Listing</Heading>
+        <Button variant="solid" size="sm">
+          Create Job
+        </Button>
       </HStack>
 
       <Stack px={3} py={4}>

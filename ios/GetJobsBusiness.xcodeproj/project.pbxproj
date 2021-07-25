@@ -32,6 +32,7 @@
 		00E356EE1AD99517003FC87E /* GetJobsBusinessTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GetJobsBusinessTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* GetJobsBusinessTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GetJobsBusinessTests.m; sourceTree = "<group>"; };
+		0F60A0FD151D47C88D276D8D /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		12F6D88650908A31256FB4FC /* libPods-GetJobsBusiness-GetJobsBusinessTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GetJobsBusiness-GetJobsBusinessTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07F961A680F5B00A75B9A /* GetJobsBusiness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GetJobsBusiness.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = GetJobsBusiness/AppDelegate.h; sourceTree = "<group>"; };
@@ -39,13 +40,28 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = GetJobsBusiness/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = GetJobsBusiness/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = GetJobsBusiness/main.m; sourceTree = "<group>"; };
+		1966B86D4A52484BA20315C2 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
+		253CFE61A88F4934A7423FAE /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		2B1F406E07132DD0359FB89F /* Pods-GetJobsBusiness.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetJobsBusiness.release.xcconfig"; path = "Target Support Files/Pods-GetJobsBusiness/Pods-GetJobsBusiness.release.xcconfig"; sourceTree = "<group>"; };
+		2E49C6F727AF451EA241E74D /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		372ECCA7B99A413A864F859D /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
+		3FB2C401ADC84DE580D991FD /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		481F7395E0B29CD4F9CDA073 /* Pods-GetJobsBusiness-GetJobsBusinessTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetJobsBusiness-GetJobsBusinessTests.release.xcconfig"; path = "Target Support Files/Pods-GetJobsBusiness-GetJobsBusinessTests/Pods-GetJobsBusiness-GetJobsBusinessTests.release.xcconfig"; sourceTree = "<group>"; };
 		495E79B46DF5185AEE667D54 /* Pods-GetJobsBusiness-GetJobsBusinessTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetJobsBusiness-GetJobsBusinessTests.debug.xcconfig"; path = "Target Support Files/Pods-GetJobsBusiness-GetJobsBusinessTests/Pods-GetJobsBusiness-GetJobsBusinessTests.debug.xcconfig"; sourceTree = "<group>"; };
+		4D91ADF207294C358A5D21D9 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
+		562AF5C0B83741B8966C062F /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
+		5C797B8EE8E44F1DAC19F27C /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
+		5E24F58ADD684AF9BD193AAE /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
+		7702D072A60546D686EFAF14 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = GetJobsBusiness/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		AF1F0C999E184BB0A13BED05 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
+		B13F3CB2A12D464FAE053C5C /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		D4BCFF6F092F443E95FA1987 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		DA6B8D2EF18C32A915FBD365 /* libPods-GetJobsBusiness.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GetJobsBusiness.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAA269FEE9E7D73C53B9AD27 /* Pods-GetJobsBusiness.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetJobsBusiness.debug.xcconfig"; path = "Target Support Files/Pods-GetJobsBusiness/Pods-GetJobsBusiness.debug.xcconfig"; sourceTree = "<group>"; };
+		E7A4F7ABEE4A48AE8DE10CA2 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		EFA3AA9CEFE942F59948367A /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		F798012A268F6569002B3662 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F7AE3554269B48C2000D1FA4 /* GetJobsBusiness-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GetJobsBusiness-Bridging-Header.h"; sourceTree = "<group>"; };
 		F7AE3555269B48C3000D1FA4 /* fix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fix.swift; sourceTree = "<group>"; };
@@ -130,6 +146,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				C0C1403B4E1AB4EF99FEE8EA /* Pods */,
 				F7AE3554269B48C2000D1FA4 /* GetJobsBusiness-Bridging-Header.h */,
+				AB80483035334F65B625E371 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -143,6 +160,29 @@
 				00E356EE1AD99517003FC87E /* GetJobsBusinessTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		AB80483035334F65B625E371 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0F60A0FD151D47C88D276D8D /* AntDesign.ttf */,
+				D4BCFF6F092F443E95FA1987 /* Entypo.ttf */,
+				4D91ADF207294C358A5D21D9 /* EvilIcons.ttf */,
+				3FB2C401ADC84DE580D991FD /* Feather.ttf */,
+				5C797B8EE8E44F1DAC19F27C /* FontAwesome.ttf */,
+				562AF5C0B83741B8966C062F /* FontAwesome5_Brands.ttf */,
+				5E24F58ADD684AF9BD193AAE /* FontAwesome5_Regular.ttf */,
+				372ECCA7B99A413A864F859D /* FontAwesome5_Solid.ttf */,
+				E7A4F7ABEE4A48AE8DE10CA2 /* Fontisto.ttf */,
+				1966B86D4A52484BA20315C2 /* Foundation.ttf */,
+				B13F3CB2A12D464FAE053C5C /* Ionicons.ttf */,
+				253CFE61A88F4934A7423FAE /* MaterialCommunityIcons.ttf */,
+				2E49C6F727AF451EA241E74D /* MaterialIcons.ttf */,
+				AF1F0C999E184BB0A13BED05 /* Octicons.ttf */,
+				7702D072A60546D686EFAF14 /* SimpleLineIcons.ttf */,
+				EFA3AA9CEFE942F59948367A /* Zocial.ttf */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		C0C1403B4E1AB4EF99FEE8EA /* Pods */ = {
