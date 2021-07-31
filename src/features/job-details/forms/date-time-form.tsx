@@ -1,58 +1,31 @@
 import React, { useRef } from 'react';
-import { useFormik } from 'formik';
+import { FormControl, HStack, Icon, Pressable, Text, VStack } from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import { Button, FormControl, HStack, Icon, Pressable, Text, VStack } from 'native-base';
-import moment from 'moment';
 import DatePicker from 'react-native-date-picker';
+import moment from 'moment';
+
 import { DD_MMM_YYYY, HH_MM_A } from 'src/constants/dateTime';
 import { getCalendarDay } from 'src/utils/dateTime';
-import { Footer } from 'src/components';
-import { CommonLayout } from 'src/constants/layout';
-import * as yup from 'yup';
-
-enum FieldName {
-  startDate = 'startDate',
-  endDate = 'endDate',
-  startTime = 'startTime',
-  endTime = 'endTime',
-}
-
-const schema = () =>
-  yup.object({
-    [FieldName.startDate]: yup.date().required(),
-    [FieldName.endDate]: yup.date().required(),
-    [FieldName.startTime]: yup.date().required(),
-    [FieldName.endTime]: yup.date().required(),
-  });
+import { FieldName } from './formInitialValues';
 
 const ArrowRight = () => <Icon as={Ionicons} name="ios-chevron-forward" size={5} ml={4} color="gray.400" />;
 
-const SelectDateTimeForm = () => {
-  //   console.log(props);
-  const jobDateRef = useRef<any>();
+interface DateTimeFormProps {
+  formValues: any;
+  formErrors: any;
+  setFormFieldValue: (fieldName: FieldName, fieldValue: any) => void;
+}
+
+const DateTimeForm = (props: DateTimeFormProps) => {
+  const { formValues, formErrors, setFormFieldValue } = props;
+
+  const startDateRef = useRef<any>();
   const startTimeRef = useRef<any>();
   const endTimeRef = useRef<any>();
 
-  const { errors, setFieldValue, handleSubmit, values } = useFormik({
-    initialValues: {
-      [FieldName.startDate]: undefined,
-      [FieldName.endDate]: undefined,
-      [FieldName.startTime]: undefined,
-      [FieldName.endTime]: undefined,
-    },
-    validationSchema: schema,
-    validate: () => {
-      console.log('on validating...');
-    },
-    validateOnChange: true,
-    onSubmit: (_values) => {
-      console.log(_values);
-    },
-  });
-
   const renderDate = () => {
-    const jobDate = values[FieldName.startDate];
+    const jobDate = formValues[FieldName.startDate];
 
     if (jobDate) {
       const formattedDate = `${moment(jobDate).format(DD_MMM_YYYY)} (${getCalendarDay(jobDate)})`;
@@ -70,8 +43,7 @@ const SelectDateTimeForm = () => {
   };
 
   const renderStartTime = () => {
-    const startTime = values[FieldName.startTime];
-    console.log({ startTime });
+    const startTime = formValues[FieldName.startTime];
 
     if (startTime) {
       const formattedTime = moment(startTime).format(HH_MM_A);
@@ -89,8 +61,7 @@ const SelectDateTimeForm = () => {
   };
 
   const renderEndTime = () => {
-    const endTime = values[FieldName.endTime];
-    console.log({ endTime });
+    const endTime = formValues[FieldName.endTime];
 
     if (endTime) {
       const formattedTime = moment(endTime).format(HH_MM_A);
@@ -109,9 +80,9 @@ const SelectDateTimeForm = () => {
 
   return (
     <>
-      <VStack bg="white" px={CommonLayout.containerX} flex={1}>
+      <VStack bg="white">
         <FormControl isInvalid mb={8}>
-          <Pressable onPress={() => jobDateRef.current.open()}>
+          <Pressable onPress={() => startDateRef.current.open()}>
             <VStack>
               <Text fontSize="xs" mb={1} color="gray.400" fontWeight="500">
                 Date
@@ -122,7 +93,7 @@ const SelectDateTimeForm = () => {
               </HStack>
             </VStack>
           </Pressable>
-          <FormControl.ErrorMessage>{errors[FieldName.startDate]}</FormControl.ErrorMessage>
+          <FormControl.ErrorMessage>{formErrors[FieldName.startDate]}</FormControl.ErrorMessage>
         </FormControl>
 
         <FormControl isInvalid mb={8}>
@@ -137,7 +108,7 @@ const SelectDateTimeForm = () => {
               </HStack>
             </VStack>
           </Pressable>
-          <FormControl.ErrorMessage>{errors[FieldName.startTime]}</FormControl.ErrorMessage>
+          <FormControl.ErrorMessage>{formErrors[FieldName.startTime]}</FormControl.ErrorMessage>
         </FormControl>
 
         <FormControl isInvalid mb={8}>
@@ -152,24 +123,16 @@ const SelectDateTimeForm = () => {
               </HStack>
             </VStack>
           </Pressable>
-          <FormControl.ErrorMessage>{errors[FieldName.endTime]}</FormControl.ErrorMessage>
+          <FormControl.ErrorMessage>{formErrors[FieldName.endTime]}</FormControl.ErrorMessage>
         </FormControl>
       </VStack>
 
-      <Footer>
-        <Button onPress={handleSubmit}>Next</Button>
-      </Footer>
-
-      <RBSheet customStyles={{}} ref={jobDateRef}>
+      <RBSheet customStyles={{}} ref={startDateRef}>
         <DatePicker
           mode="date"
           minimumDate={new Date()} // must greater than current time
-          date={values[FieldName.startDate] || new Date()}
-          onDateChange={(date) => {
-            // we only need to cater single day, so both startDate endDate will always be the same
-            setFieldValue(FieldName.startDate, date);
-            setFieldValue(FieldName.endDate, date);
-          }}
+          date={formValues[FieldName.startDate] || new Date()}
+          onDateChange={(date) => setFormFieldValue(FieldName.startDate, date)}
         />
       </RBSheet>
 
@@ -177,11 +140,8 @@ const SelectDateTimeForm = () => {
         <DatePicker
           mode="time"
           minuteInterval={15}
-          date={values[FieldName.startTime] || new Date()}
-          onDateChange={(time) => {
-            console.log({ time });
-            setFieldValue(FieldName.startTime, time);
-          }}
+          date={formValues[FieldName.startTime] || new Date()}
+          onDateChange={(time) => setFormFieldValue(FieldName.startTime, time)}
         />
       </RBSheet>
 
@@ -189,12 +149,12 @@ const SelectDateTimeForm = () => {
         <DatePicker
           mode="time"
           minuteInterval={15}
-          date={values[FieldName.endTime] || new Date()}
-          onDateChange={(time) => setFieldValue(FieldName.endTime, time)}
+          date={formValues[FieldName.endTime] || new Date()}
+          onDateChange={(time) => setFormFieldValue(FieldName.endTime, time)}
         />
       </RBSheet>
     </>
   );
 };
 
-export default SelectDateTimeForm;
+export default DateTimeForm;
