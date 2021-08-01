@@ -1,4 +1,4 @@
 export enum CommonLayout {
   containerX = 4,
-  containerY = 8,
+  containerY = 4,
 }

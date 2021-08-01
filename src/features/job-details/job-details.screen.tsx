@@ -100,7 +100,7 @@ const JobDetailScreen = () => {
 
       <Footer>
         <HStack space={1}>
-          <Button onPress={handlePrevStage}>Back</Button>
+          {currStep !== Step.DATETIME_INFO && <Button onPress={handlePrevStage}>Back</Button>}
           <Button flex={1} onPress={currStep === Step.PREVIEW ? handleCreate : handleSubmit}>
             {renderButtonLabel()}
           </Button>
