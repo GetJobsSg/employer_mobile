@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "267035541733",
+    "project_id": "getjobs-business-dev",
+    "storage_bucket": "getjobs-business-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:267035541733:android:c5f0108b805a1e2919d40c",
+        "android_client_info": {
+          "package_name": "com.getjobs.business"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "267035541733-oevtphpl3puskno34tl0ol8pd36f9ivj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLTmoYAOXqI_PRpf3DRy1cLIOo4hD5BrA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "267035541733-oevtphpl3puskno34tl0ol8pd36f9ivj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "267035541733-a06ah5nbik5qfcude7ae0vpjjlo6e49r.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.getjobs.business"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

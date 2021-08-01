@@ -6,7 +6,9 @@ export type RootStackParams = {
 
   [RouteName.PARTICIPANTS_LISTING]: undefined;
   [RouteName.JOB_LISTING]: undefined;
-  [RouteName.JOB_DETAILS]: undefined;
+  [RouteName.JOB_DETAILS]: { mode: 'create' | 'edit' | 'preview' };
+
+  [RouteName.PROFILE]: undefined;
 
   [RouteName.PAYMENT_METHODS]: undefined;
   [RouteName.COLLECT_CARD_DETAILS]: undefined;

@@ -3,8 +3,8 @@ import { ListRenderItem, FlatList, RefreshControl } from 'react-native';
 import { Box, Spinner, Text } from 'native-base';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { JobStatus } from 'src/constants/status';
-import { jobListingActions } from '../../slice';
-import { IJobActive } from '../../slice/types';
+import { jobListingActions } from '../slice';
+import { IJobActive } from '../slice/types';
 
 const CompletedList = () => {
   const dispatch = useAppDispatch();
@@ -27,7 +27,7 @@ const CompletedList = () => {
   if (isLoadingCompletedJobs) {
     return (
       <Box my={4}>
-        <Spinner />;
+        <Spinner />
       </Box>
     );
   }

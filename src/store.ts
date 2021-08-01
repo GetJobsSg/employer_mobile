@@ -6,6 +6,7 @@ import rootReducer from 'src/rootReducer';
 import rootSaga from 'src/rootSaga';
 
 import { authActions } from 'src/features/auth/slice';
+import { jobDetailsActions } from './features/job-details/slice';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -19,6 +20,7 @@ const options = {
       authActions.logoutError.type,
       authActions.setCurrentUser.type,
       authActions.setCurrentUserError.type,
+      jobDetailsActions.createJobResponse.type,
     ],
   },
 };

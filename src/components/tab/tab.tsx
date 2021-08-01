@@ -1,5 +1,5 @@
 import React from 'react';
-import { HStack, Button } from 'native-base';
+import { HStack, Button, Text } from 'native-base';
 import { TabProps, TabOption } from './tab.props';
 
 const Tab = (props: TabProps) => {
@@ -10,19 +10,22 @@ const Tab = (props: TabProps) => {
   };
 
   return (
-    <HStack space={1}>
+    <HStack alignItems="center" justifyContent="space-between">
       {options.map((option) => (
         <Button
           key={option.id}
-          border={selected.id === option.id ? 2 : 0}
           borderRadius={50}
           variant="unstyled"
           size="xs"
+          pt={2}
+          pb={2}
+          px={3}
           bg={selected.id === option.id ? 'black' : 'white'}
-          p={2}
           onPress={handleSelect(option)}
         >
-          {option.label}
+          <Text fontSize="xs" fontWeight="500" color={selected.id === option.id ? 'white' : 'gray.400'}>
+            {option.label}
+          </Text>
         </Button>
       ))}
     </HStack>
