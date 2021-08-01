@@ -17,6 +17,7 @@ const RequirementForm = (props: RequirementFormProps) => {
           Requirement
         </Text>
         <Input
+          textAlignVertical="top"
           returnKeyType="next"
           value={formValues[FieldName.requirement]}
           multiline

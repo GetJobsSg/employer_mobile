@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
+import { Platform } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { KeyboardAvoidingView, ScrollView, HStack, VStack, Text, Button } from 'native-base';
+import { Icon, KeyboardAvoidingView, ScrollView, HStack, VStack, Text, Button } from 'native-base';
 
 import { CommonLayout } from 'src/constants/layout';
 import { Footer, Header } from 'src/components';
-import { IconSize } from 'src/constants/icons';
 
-import { useDispatch } from 'react-redux';
 import { formInitialValues } from './forms/formInitialValues';
 import { formValidationSchema } from './forms/formValidationSchema';
 
@@ -17,6 +18,7 @@ import RequirementForm from './forms/requirement-form';
 import ResponsibilitiesForm from './forms/responsiblity-form';
 import LocationForm from './forms/location-form';
 import Preview from './forms/preview';
+
 import { jobDetailsActions } from './slice';
 
 enum Step {
@@ -30,6 +32,7 @@ enum Step {
 
 const JobDetailScreen = () => {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   const [currStep, setCurrStep] = useState(0);
 
   const { values, errors, handleSubmit, setFieldValue } = useFormik({
@@ -85,8 +88,11 @@ const JobDetailScreen = () => {
 
   return (
     <VStack flex={1}>
-      <Header iconLeft={<Ionicons name="close-outline" size={IconSize.lg} onPress={() => {}} />} title="Create Job" />
-      <KeyboardAvoidingView behavior="padding" flex={1}>
+      <Header
+        iconLeft={<Icon as={Ionicons} name="close-outline" onPress={() => navigation.goBack()} />}
+        title="Create Job"
+      />
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} flex={1}>
         <ScrollView px={CommonLayout.containerX} bg="white">
           {renderFormContent()}
         </ScrollView>

@@ -10,7 +10,7 @@ const Tab = (props: TabProps) => {
   };
 
   return (
-    <HStack space={1}>
+    <HStack justifyContent="space-between" alignItems="center">
       {options.map((option) => (
         <Button
           key={option.id}

@@ -35,10 +35,10 @@ const BasicInfoForm = (props: BasicInfoFormProps) => {
             Job Description
           </Text>
           <Input
+            textAlignVertical="top"
             returnKeyType="next"
             height={200}
             value={formValues[FieldName.jobDescription]}
-            multiline
             onChangeText={(descrip) => setFormFieldValue(FieldName.jobDescription, descrip)}
           />
           {formErrors[FieldName.jobDescription] && (
@@ -81,16 +81,32 @@ const BasicInfoForm = (props: BasicInfoFormProps) => {
           </Pressable>
           <FormControl.ErrorMessage>{formErrors[FieldName.endTime]}</FormControl.ErrorMessage>
         </FormControl>
-      </VStack>
 
-      <Picker
-        ref={categoryPickerRef}
-        selectedValue={selectedLanguage}
-        onValueChange={(itemValue) => setSelectedLanguage(itemValue)}
-      >
-        <Picker.Item label="Java" value="java" />
-        <Picker.Item label="JavaScript" value="js" />
-      </Picker>
+        <FormControl isInvalid mb={8}>
+          {/* <Pressable onPress={() => {}}>
+            <VStack>
+              <Text fontSize="xs" mb={1} color="gray.400" fontWeight="500">
+                Job Category
+              </Text>
+              <HStack justifyContent="space-between">
+                <Text>Select Category</Text>
+              </HStack>
+            </VStack>
+          </Pressable> */}
+          <Text fontSize="xs" mb={1} color="gray.400" fontWeight="500">
+            Job Category
+          </Text>
+          <Picker
+            ref={categoryPickerRef}
+            selectedValue={selectedLanguage}
+            onValueChange={(itemValue) => setSelectedLanguage(itemValue)}
+          >
+            <Picker.Item label="Java" value="java" />
+            <Picker.Item label="JavaScript" value="js" />
+          </Picker>
+          <FormControl.ErrorMessage>{formErrors[FieldName.endTime]}</FormControl.ErrorMessage>
+        </FormControl>
+      </VStack>
     </>
   );
 };

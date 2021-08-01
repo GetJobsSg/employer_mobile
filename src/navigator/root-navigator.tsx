@@ -6,6 +6,7 @@ import { ForgetPasswordScreen, LoginScreen } from 'src/features/auth';
 import { ParticipantListingScreen } from 'src/features/participant-listings';
 import { JobDetailScreen } from 'src/features/job-details';
 import { JobListingScreen } from 'src/features/job-listings';
+import { ProfileScreen } from 'src/features/profile';
 import { CollectCardDetailScreen, PaymenMethodScreen } from 'src/features/stripe';
 
 import { useAppSelector } from 'src/hooks';
@@ -19,25 +20,23 @@ const RootNavigator = () => {
 
   return (
     <NavigationContainer>
-      <RootStack.Navigator headerMode="none">
+      <RootStack.Navigator
+        initialRouteName={isAuthenticated ? RouteName.JOB_LISTING : RouteName.AUTH_LOGIN}
+        headerMode="none"
+      >
         {!isAuthenticated ? (
           <>
-            {/* AUTHENTICATION */}
             <RootStack.Screen name={RouteName.AUTH_LOGIN} component={LoginScreen} />
             <RootStack.Screen name={RouteName.AUTH_FORGET_PASSWORD} component={ForgetPasswordScreen} />
           </>
         ) : (
           <>
-            {/* JOB DETAILS */}
-            <RootStack.Screen name={RouteName.JOB_DETAILS} component={JobDetailScreen} />
-
-            {/* JOB LISTING */}
             <RootStack.Screen name={RouteName.JOB_LISTING} component={JobListingScreen} />
-
-            {/* PARTICIPANTS LISTING */}
+            <RootStack.Screen name={RouteName.JOB_DETAILS} component={JobDetailScreen} />
             <RootStack.Screen name={RouteName.PARTICIPANTS_LISTING} component={ParticipantListingScreen} />
 
-            {/* PAYMENT SETUP */}
+            <RootStack.Screen name={RouteName.PROFILE} component={ProfileScreen} />
+
             <RootStack.Screen name={RouteName.PAYMENT_METHODS} component={PaymenMethodScreen} />
             <RootStack.Screen name={RouteName.COLLECT_CARD_DETAILS} component={CollectCardDetailScreen} />
           </>

@@ -3,18 +3,18 @@ import { ListRenderItem, FlatList, RefreshControl } from 'react-native';
 import { Box, Spinner, Text } from 'native-base';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { JobStatus } from 'src/constants/status';
-import { jobListingActions } from '../../slice';
-import { IJobActive } from '../../slice/types';
+import { jobListingActions } from '../slice';
+import { IJobCancelled } from '../slice/types';
 
-const OngoingList = () => {
+const CancelledList = () => {
   const dispatch = useAppDispatch();
-  const { isLoadingOngoingJobs, onGoingJobs } = useAppSelector((state) => state.jobListings);
+  const { isLoadingCancelledJobs, cancelledJobs } = useAppSelector((state) => state.jobListings);
 
   useEffect(() => {
-    dispatch(jobListingActions.getOngoingJobListRequest(JobStatus.ONGOING));
+    dispatch(jobListingActions.getCancelledJobListRequest(JobStatus.CANCELLED));
   }, [dispatch]);
 
-  const renderItem: ListRenderItem<IJobActive> = ({ item }) => (
+  const renderItem: ListRenderItem<IJobCancelled> = ({ item }) => (
     <Box bg="gray.50" borderRadius={5} my={1} mx={4} p={4}>
       <Text fontSize="sm" fontWeight="bold">
         {item.title}
@@ -24,17 +24,17 @@ const OngoingList = () => {
     </Box>
   );
 
-  if (isLoadingOngoingJobs) {
+  if (isLoadingCancelledJobs) {
     return (
       <Box my={4}>
-        <Spinner />;
+        <Spinner />
       </Box>
     );
   }
 
   return (
     <FlatList
-      data={onGoingJobs}
+      data={cancelledJobs}
       keyExtractor={(item) => String(item.id)}
       ListFooterComponent={<Box pb={100} />}
       renderItem={renderItem}
@@ -43,4 +43,4 @@ const OngoingList = () => {
   );
 };
 
-export default OngoingList;
+export default CancelledList;

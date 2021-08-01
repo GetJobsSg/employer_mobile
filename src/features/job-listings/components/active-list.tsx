@@ -3,38 +3,38 @@ import { ListRenderItem, FlatList, RefreshControl } from 'react-native';
 import { Box, Spinner, Text } from 'native-base';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { JobStatus } from 'src/constants/status';
-import { jobListingActions } from '../../slice';
-import { IJobCancelled } from '../../slice/types';
+import { jobListingActions } from '../slice';
+import { IJobActive } from '../slice/types';
 
-const CancelledList = () => {
+const ActiveList = () => {
   const dispatch = useAppDispatch();
-  const { isLoadingCancelledJobs, cancelledJobs } = useAppSelector((state) => state.jobListings);
+  const { isLoadingActiveJobs, activeJobs } = useAppSelector((state) => state.jobListings);
 
   useEffect(() => {
-    dispatch(jobListingActions.getCancelledJobListRequest(JobStatus.CANCELLED));
+    dispatch(jobListingActions.getActiveJobListRequest(JobStatus.OPEN));
   }, [dispatch]);
 
-  const renderItem: ListRenderItem<IJobCancelled> = ({ item }) => (
+  const renderItem: ListRenderItem<IJobActive> = ({ item }) => (
     <Box bg="gray.50" borderRadius={5} my={1} mx={4} p={4}>
       <Text fontSize="sm" fontWeight="bold">
         {item.title}
       </Text>
-      <Text fontSize="sm">14 June 2021 (Sat)</Text>
-      <Text fontSize="sm">07:00am - 10:00am</Text>
+      <Text fontSize="sm">{item.formattedDate}</Text>
+      <Text fontSize="sm">{`${item.startTime} - ${item.endTime}`}</Text>
     </Box>
   );
 
-  if (isLoadingCancelledJobs) {
+  if (isLoadingActiveJobs) {
     return (
       <Box my={4}>
-        <Spinner />;
+        <Spinner />
       </Box>
     );
   }
 
   return (
     <FlatList
-      data={cancelledJobs}
+      data={activeJobs}
       keyExtractor={(item) => String(item.id)}
       ListFooterComponent={<Box pb={100} />}
       renderItem={renderItem}
@@ -43,4 +43,4 @@ const CancelledList = () => {
   );
 };
 
-export default CancelledList;
+export default ActiveList;

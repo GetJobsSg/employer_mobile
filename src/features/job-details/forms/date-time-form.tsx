@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { Dimensions } from 'react-native';
 import { FormControl, HStack, Icon, Pressable, Text, VStack } from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import RBSheet from 'react-native-raw-bottom-sheet';
@@ -10,7 +11,6 @@ import { getCalendarDay } from 'src/utils/dateTime';
 import { FieldName } from './formInitialValues';
 
 const ArrowRight = () => <Icon as={Ionicons} name="ios-chevron-forward" size={5} ml={4} color="gray.400" />;
-
 interface DateTimeFormProps {
   formValues: any;
   formErrors: any;
@@ -149,12 +149,18 @@ const DateTimeForm = (props: DateTimeFormProps) => {
       </RBSheet>
 
       <RBSheet customStyles={{}} ref={endTimeRef}>
-        <DatePicker
-          mode="time"
-          minuteInterval={15}
-          date={formValues[FieldName.endTime] || new Date()}
-          onDateChange={(time) => setFormFieldValue(FieldName.endTime, time)}
-        />
+        <VStack flex={1} bg="dark.800">
+          <HStack>
+            <Text>Done</Text>
+          </HStack>
+          <DatePicker
+            style={{ width: Dimensions.get('window').width }}
+            mode="time"
+            minuteInterval={15}
+            date={formValues[FieldName.endTime] || new Date()}
+            onDateChange={(time) => setFormFieldValue(FieldName.endTime, time)}
+          />
+        </VStack>
       </RBSheet>
     </>
   );
