@@ -2,7 +2,7 @@ import { constructJobDate, convertTimeToAmPm } from 'src/utils/dateTime';
 import { IJobResponse } from './apis/types';
 import { IJobActive } from './slice/types';
 
-export const activeJobTransformer = {
+export const jobListingTransformer = {
   toState(data: IJobResponse[]): IJobActive[] {
     if (!data) return [];
     return data.map((item) => {

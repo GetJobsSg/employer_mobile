@@ -11,4 +11,27 @@ export const formValidationSchema = [
   }),
 
   // Stage 2
+  yup.object({
+    [FieldName.jobTitle]: yup.string().required(),
+    [FieldName.jobDescription]: yup.string().required(),
+    [FieldName.hourlyRate]: yup.string().required(),
+  }),
+
+  // Stage 3
+  yup.object({
+    [FieldName.requirement]: yup.string().required(),
+  }),
+
+  // Stage 4
+  yup.object({
+    [FieldName.responsiblities]: yup.string().required(),
+  }),
+
+  // Stage 5
+  yup.object({
+    [FieldName.address]: yup.string().required(),
+    [FieldName.postalCode]: yup.string().required(),
+    [FieldName.blockNo]: yup.string(),
+    [FieldName.unitNo]: yup.string().required(),
+  }),
 ];

@@ -14,7 +14,7 @@ const ArrowRight = () => <Icon as={Ionicons} name="ios-chevron-forward" size={5}
 interface DateTimeFormProps {
   formValues: any;
   formErrors: any;
-  setFormFieldValue: (fieldName: FieldName, fieldValue: any) => void;
+  setFormFieldValue: any;
 }
 
 const DateTimeForm = (props: DateTimeFormProps) => {
@@ -80,7 +80,7 @@ const DateTimeForm = (props: DateTimeFormProps) => {
 
   return (
     <>
-      <VStack bg="white">
+      <VStack bg="white" pt={4}>
         <FormControl isInvalid mb={8}>
           <Pressable onPress={() => startDateRef.current.open()}>
             <VStack>
@@ -132,7 +132,10 @@ const DateTimeForm = (props: DateTimeFormProps) => {
           mode="date"
           minimumDate={new Date()} // must greater than current time
           date={formValues[FieldName.startDate] || new Date()}
-          onDateChange={(date) => setFormFieldValue(FieldName.startDate, date)}
+          onDateChange={(date) => {
+            setFormFieldValue(FieldName.startDate, date);
+            setFormFieldValue(FieldName.endDate, date);
+          }}
         />
       </RBSheet>
 
