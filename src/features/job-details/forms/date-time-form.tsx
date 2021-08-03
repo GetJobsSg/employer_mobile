@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Dimensions } from 'react-native';
 import { FormControl, HStack, Icon, Pressable, Text, VStack } from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -6,6 +6,7 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import DatePicker from 'react-native-date-picker';
 import moment from 'moment';
 
+import { Picker } from 'src/components';
 import { DD_MMM_YYYY, HH_MM_A } from 'src/constants/dateTime';
 import { getCalendarDay } from 'src/utils/dateTime';
 import { FieldName } from './formInitialValues';
@@ -78,6 +79,12 @@ const DateTimeForm = (props: DateTimeFormProps) => {
     );
   };
 
+  const [selected, setSelected] = useState();
+  const handleSelect = (selectedOption: any) => {
+    console.log('selectedOption>>>', selectedOption);
+    setSelected(selectedOption);
+  };
+
   return (
     <>
       <VStack bg="white" pt={4}>
@@ -92,8 +99,8 @@ const DateTimeForm = (props: DateTimeFormProps) => {
                 <ArrowRight />
               </HStack>
             </VStack>
+            <FormControl.ErrorMessage>{formErrors[FieldName.startDate]}</FormControl.ErrorMessage>
           </Pressable>
-          <FormControl.ErrorMessage>{formErrors[FieldName.startDate]}</FormControl.ErrorMessage>
         </FormControl>
 
         <FormControl isInvalid mb={8}>
@@ -107,8 +114,8 @@ const DateTimeForm = (props: DateTimeFormProps) => {
                 <ArrowRight />
               </HStack>
             </VStack>
+            <FormControl.ErrorMessage>{formErrors[FieldName.startTime]}</FormControl.ErrorMessage>
           </Pressable>
-          <FormControl.ErrorMessage>{formErrors[FieldName.startTime]}</FormControl.ErrorMessage>
         </FormControl>
 
         <FormControl isInvalid mb={8}>
@@ -122,10 +129,20 @@ const DateTimeForm = (props: DateTimeFormProps) => {
                 <ArrowRight />
               </HStack>
             </VStack>
+            <FormControl.ErrorMessage>{formErrors[FieldName.endTime]}</FormControl.ErrorMessage>
           </Pressable>
-          <FormControl.ErrorMessage>{formErrors[FieldName.endTime]}</FormControl.ErrorMessage>
         </FormControl>
       </VStack>
+
+      <Picker
+        selectedValue={selected}
+        onChange={handleSelect}
+        options={[
+          { label: 'Java', value: 1 },
+          { label: 'Javascript', value: 2 },
+          { label: 'C++', value: 3 },
+        ]}
+      />
 
       <RBSheet customStyles={{}} ref={startDateRef}>
         <DatePicker

@@ -32,7 +32,11 @@ const RootNavigator = () => {
         ) : (
           <>
             <RootStack.Screen name={RouteName.JOB_LISTING} component={JobListingScreen} />
-            <RootStack.Screen name={RouteName.JOB_DETAILS} component={JobDetailScreen} />
+            <RootStack.Screen
+              name={RouteName.JOB_DETAILS}
+              options={{ gestureEnabled: false }}
+              component={JobDetailScreen}
+            />
             <RootStack.Screen name={RouteName.PARTICIPANTS_LISTING} component={ParticipantListingScreen} />
 
             <RootStack.Screen name={RouteName.PROFILE} component={ProfileScreen} />
