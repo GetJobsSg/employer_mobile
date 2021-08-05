@@ -77,7 +77,7 @@ const JobDetailScreen = () => {
 
   const handleExit = () => {
     if (dirty) {
-      return Alert.alert('Ab', 'Would you like to abort the', [
+      return Alert.alert('Exit?', 'All the information you have insert will be lost.', [
         { text: 'Cancel' },
         { text: 'OK', onPress: () => navigation.goBack() },
       ]);

@@ -1,14 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ICreateJobResponsePayload } from './types';
+import { ICategory, ICreateJobResponsePayload } from './types';
+import { jobDetailInitialState } from './defaultState';
 
 const jobDetailSlice = createSlice({
   name: 'jobDetails',
-  initialState: {
-    isLoadingCreateJob: false,
-    errorCreateJob: null,
-
-    isLoadingGetJobDetails: false,
-  },
+  initialState: jobDetailInitialState,
   reducers: {
     // create job
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -27,6 +23,22 @@ const jobDetailSlice = createSlice({
     },
     getJobResponse(state) {
       state.isLoadingGetJobDetails = false;
+    },
+
+    // get all job categories
+    getAllCategoriesRequest(state) {
+      state.isLoadingGetAllCategories = true;
+    },
+    getAllCategoriesResponse(
+      state,
+      action: PayloadAction<{
+        list: Pick<ICategory, 'id' | 'name'>[];
+        error: any | null;
+      }>,
+    ) {
+      state.isLoadingGetAllCategories = false;
+      state.allCategoriesErr = action.payload.error ? action.payload.error : null;
+      state.allCategories = action.payload.error ? state.allCategories : action.payload.list;
     },
   },
 });
