@@ -1,6 +1,5 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import { FormControl, Text, Input, VStack, Pressable, HStack } from 'native-base';
-import { Picker } from '@react-native-picker/picker';
 import { FieldName } from './formInitialValues';
 
 interface BasicInfoFormProps {
@@ -10,8 +9,7 @@ interface BasicInfoFormProps {
 }
 
 const BasicInfoForm = (props: BasicInfoFormProps) => {
-  const categoryPickerRef = useRef<any>();
-  const [selectedLanguage, setSelectedLanguage] = useState('java');
+  // const categoryPickerRef = useRef<any>();
   const { formValues, formErrors, setFormFieldValue } = props;
 
   return (
@@ -36,6 +34,7 @@ const BasicInfoForm = (props: BasicInfoFormProps) => {
           </Text>
           <Input
             textAlignVertical="top"
+            multiline
             returnKeyType="next"
             height={200}
             value={formValues[FieldName.jobDescription]}
@@ -83,7 +82,7 @@ const BasicInfoForm = (props: BasicInfoFormProps) => {
         </FormControl>
 
         <FormControl isInvalid mb={8}>
-          {/* <Pressable onPress={() => {}}>
+          <Pressable onPress={() => {}}>
             <VStack>
               <Text fontSize="xs" mb={1} color="gray.400" fontWeight="500">
                 Job Category
@@ -92,18 +91,12 @@ const BasicInfoForm = (props: BasicInfoFormProps) => {
                 <Text>Select Category</Text>
               </HStack>
             </VStack>
-          </Pressable> */}
-          <Text fontSize="xs" mb={1} color="gray.400" fontWeight="500">
-            Job Category
-          </Text>
-          <Picker
-            ref={categoryPickerRef}
-            selectedValue={selectedLanguage}
-            onValueChange={(itemValue) => setSelectedLanguage(itemValue)}
-          >
+          </Pressable>
+
+          {/* <Picker selectedValue={selectedLanguage} onValueChange={(itemValue) => setSelectedLanguage(itemValue)}>
             <Picker.Item label="Java" value="java" />
             <Picker.Item label="JavaScript" value="js" />
-          </Picker>
+          </Picker> */}
           <FormControl.ErrorMessage>{formErrors[FieldName.endTime]}</FormControl.ErrorMessage>
         </FormControl>
       </VStack>

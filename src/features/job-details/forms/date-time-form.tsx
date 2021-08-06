@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Dimensions } from 'react-native';
 import { FormControl, HStack, Icon, Pressable, Text, VStack } from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -6,9 +6,13 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import DatePicker from 'react-native-date-picker';
 import moment from 'moment';
 
+import { Picker } from 'src/components';
+import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { DD_MMM_YYYY, HH_MM_A } from 'src/constants/dateTime';
 import { getCalendarDay } from 'src/utils/dateTime';
+
 import { FieldName } from './formInitialValues';
+import { jobDetailsActions } from '../slice';
 
 const ArrowRight = () => <Icon as={Ionicons} name="ios-chevron-forward" size={5} ml={4} color="gray.400" />;
 interface DateTimeFormProps {
@@ -18,11 +22,19 @@ interface DateTimeFormProps {
 }
 
 const DateTimeForm = (props: DateTimeFormProps) => {
+  const dispatch = useAppDispatch();
+  const { isLoadingGetAllCategories, allCategories } = useAppSelector((state) => state.jobDetails);
+  console.log({ isLoadingGetAllCategories, allCategories });
+
   const { formValues, formErrors, setFormFieldValue } = props;
 
   const startDateRef = useRef<any>();
   const startTimeRef = useRef<any>();
   const endTimeRef = useRef<any>();
+
+  useEffect(() => {
+    dispatch(jobDetailsActions.getAllCategoriesRequest());
+  }, [dispatch]);
 
   const renderDate = () => {
     const jobDate = formValues[FieldName.startDate];
@@ -78,6 +90,12 @@ const DateTimeForm = (props: DateTimeFormProps) => {
     );
   };
 
+  const [selected, setSelected] = useState();
+  const handleSelect = (selectedOption: any) => {
+    setSelected(selectedOption);
+  };
+  const categoryOptionList = allCategories.map((c) => ({ label: c.name, value: c.id }));
+
   return (
     <>
       <VStack bg="white" pt={4}>
@@ -92,8 +110,8 @@ const DateTimeForm = (props: DateTimeFormProps) => {
                 <ArrowRight />
               </HStack>
             </VStack>
+            <FormControl.ErrorMessage>{formErrors[FieldName.startDate]}</FormControl.ErrorMessage>
           </Pressable>
-          <FormControl.ErrorMessage>{formErrors[FieldName.startDate]}</FormControl.ErrorMessage>
         </FormControl>
 
         <FormControl isInvalid mb={8}>
@@ -107,8 +125,8 @@ const DateTimeForm = (props: DateTimeFormProps) => {
                 <ArrowRight />
               </HStack>
             </VStack>
+            <FormControl.ErrorMessage>{formErrors[FieldName.startTime]}</FormControl.ErrorMessage>
           </Pressable>
-          <FormControl.ErrorMessage>{formErrors[FieldName.startTime]}</FormControl.ErrorMessage>
         </FormControl>
 
         <FormControl isInvalid mb={8}>
@@ -122,12 +140,14 @@ const DateTimeForm = (props: DateTimeFormProps) => {
                 <ArrowRight />
               </HStack>
             </VStack>
+            <FormControl.ErrorMessage>{formErrors[FieldName.endTime]}</FormControl.ErrorMessage>
           </Pressable>
-          <FormControl.ErrorMessage>{formErrors[FieldName.endTime]}</FormControl.ErrorMessage>
         </FormControl>
       </VStack>
 
-      <RBSheet customStyles={{}} ref={startDateRef}>
+      <Picker selectedValue={selected} onChange={handleSelect} options={categoryOptionList} />
+
+      <RBSheet ref={startDateRef}>
         <DatePicker
           mode="date"
           minimumDate={new Date()} // must greater than current time
@@ -139,7 +159,7 @@ const DateTimeForm = (props: DateTimeFormProps) => {
         />
       </RBSheet>
 
-      <RBSheet customStyles={{}} ref={startTimeRef}>
+      <RBSheet ref={startTimeRef}>
         <DatePicker
           mode="time"
           minuteInterval={15}
@@ -148,7 +168,7 @@ const DateTimeForm = (props: DateTimeFormProps) => {
         />
       </RBSheet>
 
-      <RBSheet customStyles={{}} ref={endTimeRef}>
+      <RBSheet ref={endTimeRef}>
         <VStack flex={1} bg="dark.800">
           <HStack>
             <Text>Done</Text>

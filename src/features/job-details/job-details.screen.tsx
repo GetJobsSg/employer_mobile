@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
-import { Platform } from 'react-native';
+import { Alert, Platform } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Icon, KeyboardAvoidingView, ScrollView, HStack, VStack, Text, Button } from 'native-base';
+import { KeyboardAvoidingView, ScrollView, HStack, VStack, Text, Button } from 'native-base';
 
 import { CommonLayout } from 'src/constants/layout';
 import { Footer, Header } from 'src/components';
@@ -35,7 +34,7 @@ const JobDetailScreen = () => {
   const navigation = useNavigation();
   const [currStep, setCurrStep] = useState(0);
 
-  const { values, errors, handleSubmit, setFieldValue } = useFormik({
+  const { values, dirty, errors, handleSubmit, setFieldValue } = useFormik({
     initialValues: formInitialValues[currStep],
     validationSchema: formValidationSchema[currStep],
     validateOnChange: false,
@@ -76,21 +75,45 @@ const JobDetailScreen = () => {
     }
   };
 
+  const handleExit = () => {
+    if (dirty) {
+      return Alert.alert('Exit?', 'All the information you have insert will be lost.', [
+        { text: 'Cancel' },
+        { text: 'OK', onPress: () => navigation.goBack() },
+      ]);
+    }
+    return navigation.goBack();
+  };
+
   const handleCreate = () => {
     dispatch(jobDetailsActions.createJobRequest(values));
   };
 
   const renderButtonLabel = () => {
-    if (currStep === Step.PREVIEW) return 'Create';
-    if (currStep === Step.LOCATION_INFO) return 'Preview';
-    return 'Next';
+    let label = 'Next';
+    if (currStep === Step.PREVIEW) {
+      label = 'Create';
+    }
+    if (currStep === Step.LOCATION_INFO) {
+      label = 'Preview';
+    }
+
+    return (
+      <Text fontWeight="500" color="white">
+        {label}
+      </Text>
+    );
   };
 
   return (
     <VStack flex={1}>
       <Header
-        iconLeft={<Icon as={Ionicons} name="close-outline" onPress={() => navigation.goBack()} />}
         title="Create Job"
+        labelRight={
+          <Text color="gray.900" underline fontWeight="600" onPress={handleExit}>
+            Exit
+          </Text>
+        }
       />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} flex={1}>
         <ScrollView px={CommonLayout.containerX} bg="white">
@@ -99,9 +122,23 @@ const JobDetailScreen = () => {
       </KeyboardAvoidingView>
 
       <Footer>
-        <HStack space={1}>
-          {currStep !== Step.DATETIME_INFO && <Button onPress={handlePrevStage}>Back</Button>}
-          <Button flex={1} onPress={currStep === Step.PREVIEW ? handleCreate : handleSubmit}>
+        <HStack space={1} alignItems="center">
+          {currStep !== Step.DATETIME_INFO && (
+            <Button variant="outline" bgColor="white" borderColor="gray.900" borderWidth={2} onPress={handlePrevStage}>
+              <Text fontWeight="500" color="black">
+                Previous
+              </Text>
+            </Button>
+          )}
+
+          <Button
+            variant="outline"
+            bgColor="gray.900"
+            borderColor="gray.900"
+            borderWidth={2}
+            flex={1}
+            onPress={currStep === Step.PREVIEW ? handleCreate : handleSubmit}
+          >
             {renderButtonLabel()}
           </Button>
         </HStack>

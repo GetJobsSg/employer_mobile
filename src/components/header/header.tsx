@@ -4,16 +4,16 @@ import { CommonLayout } from 'src/constants/layout';
 import { HeaderProps } from './header.props';
 
 const Header = (props: HeaderProps) => {
-  const { children, title, iconLeft, iconRight } = props;
+  const { children, title, iconLeft, iconRight, labelRight } = props;
 
   const renderHeaderContent = () => {
     if (children) return children;
     return (
-      <HStack justifyContent="space-between" alignItems="center">
+      <HStack height={8} justifyContent="space-between" alignItems="center">
         <HStack alignItems="center">
           {iconLeft && <View mr={2}>{iconLeft}</View>}
           {title && (
-            <Heading size="md" color="black">
+            <Heading fontWeight="600" size="md" color="black">
               {title}
             </Heading>
           )}
@@ -21,6 +21,7 @@ const Header = (props: HeaderProps) => {
 
         <HStack space={6}>
           {iconRight && iconRight.map((iconComp, index) => <View key={index}>{iconComp}</View>)}
+          {labelRight && labelRight}
         </HStack>
       </HStack>
     );
