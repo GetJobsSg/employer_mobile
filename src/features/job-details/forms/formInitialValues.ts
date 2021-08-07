@@ -9,6 +9,7 @@ export enum FieldName {
   jobTitle = 'jobTitle',
   jobDescription = 'jobDescription',
   hourlyRate = 'hourlyRate',
+  category = 'category',
 
   // Stage 3
   requirement = 'requirement',

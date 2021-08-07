@@ -5,12 +5,11 @@ import { Picker as RNPicker } from '@react-native-picker/picker';
 import RNSheet from 'react-native-raw-bottom-sheet';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+import { isIOS, isAndroid } from 'src/utils/platform';
 import { PickerProps } from './picker.props';
 
-// const isIOS = Platform.OS === 'ios';
-
 const Picker = (props: PickerProps) => {
-  const { onChange, options, selectedValue } = props;
+  const { onChange, label, options, placeholder, selectedValue } = props;
   const sheetRef = useRef<any>();
 
   const handleDone = () => {
@@ -30,45 +29,59 @@ const Picker = (props: PickerProps) => {
     return x;
   }, [options]);
 
-  return (
-    <>
-      <Pressable onPress={() => sheetRef.current.open()}>
-        <HStack alignItems="center" py={2} pb={4} borderBottomWidth={1} borderBottomColor="gray.100">
-          <VStack flex={1}>
-            <Text mb={2} fontSize="xs" color="gray.500">
-              Category
+  // ios need to display the picker inside pop up sheet
+  if (isIOS) {
+    return (
+      <>
+        <Pressable onPress={() => sheetRef.current.open()}>
+          <HStack alignItems="center" py={2} pb={4} borderBottomWidth={1} borderBottomColor="gray.100">
+            <VStack flex={1}>
+              <Text mb={2} fontSize="xs" color="gray.500">
+                {label}
+              </Text>
+
+              {!selectedValue && (
+                <Text fontWeight="600" color="gray.400">
+                  {placeholder || 'Select an option'}
+                </Text>
+              )}
+
+              {selectedValue && (
+                <Text fontWeight="600" color="black">
+                  {optionsMap[selectedValue]}
+                </Text>
+              )}
+            </VStack>
+            <Icon as={Ionicons} color="gray.400" name="chevron-forward-outline" size={5} />
+          </HStack>
+        </Pressable>
+
+        <RNSheet ref={sheetRef}>
+          <HStack borderBottomWidth={1} borderBottomColor="gray.200" justifyContent="flex-end">
+            <Text fontWeight="500" color="blue.500" p={3} onPress={handleDone}>
+              Done
             </Text>
+          </HStack>
+          <RNPicker selectedValue={selectedValue} onValueChange={onChange}>
+            {options.map((option) => (
+              <RNPicker.Item key={option.value} label={option.label} value={option.value} />
+            ))}
+          </RNPicker>
+        </RNSheet>
+      </>
+    );
+  }
 
-            {!selectedValue && (
-              <Text fontWeight="bold" color="gray.400">
-                Select an option
-              </Text>
-            )}
+  // android do not need pop up sheet
+  if (isAndroid) {
+    <RNPicker selectedValue={selectedValue} onValueChange={onChange}>
+      {options.map((option) => (
+        <RNPicker.Item key={option.value} label={option.label} value={option.value} />
+      ))}
+    </RNPicker>;
+  }
 
-            {selectedValue && (
-              <Text fontWeight="bold" color="black">
-                {optionsMap[selectedValue]}
-              </Text>
-            )}
-          </VStack>
-          <Icon as={Ionicons} color="gray.400" name="chevron-forward-outline" size={5} />
-        </HStack>
-      </Pressable>
-
-      <RNSheet ref={sheetRef}>
-        <HStack borderBottomWidth={1} borderBottomColor="gray.200" justifyContent="flex-end">
-          <Text fontWeight="500" color="blue.500" p={3} onPress={handleDone}>
-            Done
-          </Text>
-        </HStack>
-        <RNPicker selectedValue={selectedValue} onValueChange={onChange}>
-          {options.map((option) => (
-            <RNPicker.Item key={option.value} label={option.label} value={option.value} />
-          ))}
-        </RNPicker>
-      </RNSheet>
-    </>
-  );
+  return null;
 };
 
 export default Picker;

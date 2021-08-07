@@ -4,6 +4,8 @@ export type PickerOption = {
 };
 
 export interface PickerProps {
+  label: string;
+  placeholder?: string;
   onChange: (option: any) => void;
   options: PickerOption[];
   selectedValue: any;

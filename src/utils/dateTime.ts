@@ -7,6 +7,9 @@ export const getAge = (birthDate: string) => {
   return moment().diff(mBirthDate, 'years');
 };
 
+export const addHoursMinFromDate = (fromDate: string, hours: number, minutes: number) =>
+  moment(fromDate).add(hours, 'hours').add(minutes, 'minutes');
+
 export const isSameDay = (date1: string, date2: string) => {
   const m1 = moment(date1);
   const m2 = moment(date2);
