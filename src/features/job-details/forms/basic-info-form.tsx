@@ -1,6 +1,10 @@
-import React from 'react';
-import { FormControl, Text, Input, VStack, Pressable, HStack } from 'native-base';
+import React, { useEffect, useMemo } from 'react';
+import { FormControl, Text, Input, VStack } from 'native-base';
+import { Picker } from 'src/components';
+import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { FieldName } from './formInitialValues';
+
+import { jobDetailsActions } from '../slice';
 
 interface BasicInfoFormProps {
   formValues: any;
@@ -9,8 +13,19 @@ interface BasicInfoFormProps {
 }
 
 const BasicInfoForm = (props: BasicInfoFormProps) => {
-  // const categoryPickerRef = useRef<any>();
+  const dispatch = useAppDispatch();
+  const { allCategories } = useAppSelector((state) => state.jobDetails);
   const { formValues, formErrors, setFormFieldValue } = props;
+
+  useEffect(() => {
+    dispatch(jobDetailsActions.getAllCategoriesRequest());
+  }, [dispatch]);
+
+  const handleCategorySelect = (selectedOption: any) => {
+    setFormFieldValue(FieldName.category, selectedOption);
+  };
+
+  const categoryOptionList = useMemo(() => allCategories.map((c) => ({ label: c.name, value: c.id })), [allCategories]);
 
   return (
     <>
@@ -56,6 +71,7 @@ const BasicInfoForm = (props: BasicInfoFormProps) => {
             onChangeText={(amount) => {
               const decimalVal = amount.split('.')[1];
               // user can input maximum 2 number after decimal point
+              // TODO: need a separate component to have a better pricing input experience
               if (amount && decimalVal && decimalVal.length > 2) {
                 return;
               }
@@ -67,37 +83,14 @@ const BasicInfoForm = (props: BasicInfoFormProps) => {
           )}
         </FormControl>
 
-        <FormControl isInvalid mb={8}>
-          <Pressable onPress={() => {}}>
-            <VStack>
-              <Text fontSize="xs" mb={1} color="gray.400" fontWeight="500">
-                Job Category
-              </Text>
-              <HStack justifyContent="space-between">
-                <Text>Select Category</Text>
-              </HStack>
-            </VStack>
-          </Pressable>
-          <FormControl.ErrorMessage>{formErrors[FieldName.endTime]}</FormControl.ErrorMessage>
-        </FormControl>
-
-        <FormControl isInvalid mb={8}>
-          <Pressable onPress={() => {}}>
-            <VStack>
-              <Text fontSize="xs" mb={1} color="gray.400" fontWeight="500">
-                Job Category
-              </Text>
-              <HStack justifyContent="space-between">
-                <Text>Select Category</Text>
-              </HStack>
-            </VStack>
-          </Pressable>
-
-          {/* <Picker selectedValue={selectedLanguage} onValueChange={(itemValue) => setSelectedLanguage(itemValue)}>
-            <Picker.Item label="Java" value="java" />
-            <Picker.Item label="JavaScript" value="js" />
-          </Picker> */}
-          <FormControl.ErrorMessage>{formErrors[FieldName.endTime]}</FormControl.ErrorMessage>
+        <FormControl isInvalid mb={2}>
+          <Picker
+            label="Category"
+            selectedValue={formValues[FieldName.category]}
+            onChange={handleCategorySelect}
+            options={categoryOptionList}
+          />
+          <FormControl.ErrorMessage>{formErrors[FieldName.category]}</FormControl.ErrorMessage>
         </FormControl>
       </VStack>
     </>
