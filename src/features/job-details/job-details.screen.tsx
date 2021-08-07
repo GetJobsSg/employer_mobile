@@ -44,6 +44,8 @@ const JobDetailScreen = () => {
     },
   });
 
+  console.log(values);
+
   const handlePrevStage = () => {
     if (currStep > 0) {
       setCurrStep(currStep - 1);

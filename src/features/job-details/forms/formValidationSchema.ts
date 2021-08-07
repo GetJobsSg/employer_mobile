@@ -32,26 +32,27 @@ export const formValidationSchema = [
 
   // Stage 2
   yup.object({
-    [FieldName.jobTitle]: yup.string().required(),
-    [FieldName.jobDescription]: yup.string().required(),
-    [FieldName.hourlyRate]: yup.string().required(),
+    [FieldName.jobTitle]: yup.string().required('Job title is required'),
+    [FieldName.jobDescription]: yup.string().required('Job description is required'),
+    [FieldName.hourlyRate]: yup.string().required('Please insert the amount of salary per hour'),
+    [FieldName.category]: yup.number().required('Please select a job cateogry'),
   }),
 
   // Stage 3
   yup.object({
-    [FieldName.requirement]: yup.string().required(),
+    [FieldName.requirement]: yup.string().required('Please input job requirement'),
   }),
 
   // Stage 4
   yup.object({
-    [FieldName.responsiblities]: yup.string().required(),
+    [FieldName.responsiblities]: yup.string().required('Please input job responsibilities'),
   }),
 
   // Stage 5
   yup.object({
-    [FieldName.address]: yup.string().required(),
-    [FieldName.postalCode]: yup.string().required(),
+    [FieldName.address]: yup.string().required('Please insert the address'),
+    [FieldName.postalCode]: yup.string().required('Please insert postal code'),
     [FieldName.blockNo]: yup.string(),
-    [FieldName.unitNo]: yup.string().required(),
+    [FieldName.unitNo]: yup.string().required('Please insert  unit number'),
   }),
 ];

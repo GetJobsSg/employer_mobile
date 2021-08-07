@@ -1,6 +1,5 @@
 import React, { useRef, useMemo } from 'react';
-import { Pressable } from 'react-native';
-import { HStack, Icon, Text, VStack } from 'native-base';
+import { Box, HStack, Icon, Pressable, Text, VStack } from 'native-base';
 import { Picker as RNPicker } from '@react-native-picker/picker';
 import RNSheet from 'react-native-raw-bottom-sheet';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -11,6 +10,7 @@ import { PickerProps } from './picker.props';
 const Picker = (props: PickerProps) => {
   const { onChange, label, options, placeholder, selectedValue } = props;
   const sheetRef = useRef<any>();
+  const androidPickerRef = useRef<any>();
 
   const handleDone = () => {
     // user open picker and then click done without roll to select, pick the first option
@@ -74,11 +74,43 @@ const Picker = (props: PickerProps) => {
 
   // android do not need pop up sheet
   if (isAndroid) {
-    <RNPicker selectedValue={selectedValue} onValueChange={onChange}>
-      {options.map((option) => (
-        <RNPicker.Item key={option.value} label={option.label} value={option.value} />
-      ))}
-    </RNPicker>;
+    return (
+      <VStack>
+        <Text mb={2} fontSize="xs" color="gray.500">
+          {label}
+        </Text>
+
+        <Box position="relative" borderBottomWidth={1} borderColor="gray.100">
+          <>
+            <RNPicker
+              ref={androidPickerRef}
+              style={{ marginLeft: -16, marginTop: -8 }}
+              selectedValue={selectedValue}
+              onValueChange={onChange}
+            >
+              {options.map((option) => (
+                <RNPicker.Item key={option.value} label={option.label} value={option.value} />
+              ))}
+            </RNPicker>
+
+            {!selectedValue && (
+              <Pressable
+                onPress={() => androidPickerRef.current.focus()}
+                flex={1}
+                bg="white"
+                position="absolute"
+                width="100%"
+                h="100%"
+              >
+                <Text fontWeight="600" color="gray.400">
+                  {placeholder || 'Select an option'}
+                </Text>
+              </Pressable>
+            )}
+          </>
+        </Box>
+      </VStack>
+    );
   }
 
   return null;
