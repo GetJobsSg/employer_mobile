@@ -106,7 +106,13 @@ const ForgetPasswordScreen = (props: ForgetPasswordScreenProps) => {
   return (
     <VStack bg="white" safeArea>
       <HStack py={4} px={CommonLayout.containerX} justifyContent="flex-start" alignItems="center">
-        <Icon mr={4} as={Ionicons} color="gray.900" name="chevron-back-circle-outline" onPress={() => {}} />
+        <Icon
+          mr={4}
+          as={Ionicons}
+          color="gray.900"
+          name="chevron-back-circle-outline"
+          onPress={() => navigation.goBack()}
+        />
         <Text fontSize="xl" color="gray.900" fontWeight={800} my={2}>
           Forget Password
         </Text>
