@@ -20,7 +20,7 @@ const options = {
       authActions.logoutError.type,
       authActions.setCurrentUser.type,
       authActions.setCurrentUserError.type,
-      jobDetailsActions.createJobResponse.type,
+      jobDetailsActions.createJobRequest.type,
     ],
   },
 };

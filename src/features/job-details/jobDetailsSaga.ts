@@ -1,9 +1,11 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { call, fork, put, takeLatest } from 'redux-saga/effects';
+import { JobStatus } from 'src/constants/status';
 import { jobDetailsActions } from './slice';
 import { createJobTransformer } from './transformer';
 import { createJob, getAllCategories } from './apis';
 import { IGetAllCategoriesResponse } from './slice/types';
+import { jobListingActions } from '../job-listings/slice';
 
 function* createJobSaga(action: PayloadAction<any>) {
   const jobData = action.payload;
@@ -12,6 +14,7 @@ function* createJobSaga(action: PayloadAction<any>) {
   try {
     yield call(createJob, transformedJobData);
     yield put(jobDetailsActions.createJobResponse({ error: null }));
+    yield put(jobListingActions.getActiveJobListRequest(JobStatus.OPEN));
   } catch (e) {
     yield put(jobDetailsActions.createJobResponse({ error: e }));
   }

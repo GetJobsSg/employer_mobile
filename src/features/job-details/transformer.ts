@@ -6,7 +6,7 @@ export const createJobTransformer = {
     return {
       title: jobData.jobTitle,
       desc: jobData.jobDescription,
-      job_category_id: jobData.jobCategoryId || 1,
+      job_category_id: jobData.category || 1,
       requirements: jobData.requirement,
       responsibilities: jobData.responsibilities,
       start_date: moment(jobData.startDate).toISOString(),

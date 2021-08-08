@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { ListRenderItem, FlatList, RefreshControl } from 'react-native';
 import { Box, Spinner, Text } from 'native-base';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
@@ -10,9 +10,13 @@ const ActiveList = () => {
   const dispatch = useAppDispatch();
   const { isLoadingActiveJobs, activeJobs } = useAppSelector((state) => state.jobListings);
 
-  useEffect(() => {
+  const fetchActiveList = useCallback(() => {
     dispatch(jobListingActions.getActiveJobListRequest(JobStatus.OPEN));
   }, [dispatch]);
+
+  useEffect(() => {
+    fetchActiveList();
+  }, [fetchActiveList]);
 
   const renderItem: ListRenderItem<IJobActive> = ({ item }) => (
     <Box bg="gray.50" borderRadius={5} my={1} mx={4} p={4}>
@@ -38,7 +42,7 @@ const ActiveList = () => {
       keyExtractor={(item) => String(item.id)}
       ListFooterComponent={<Box pb={100} />}
       renderItem={renderItem}
-      refreshControl={<RefreshControl refreshing={false} onRefresh={() => {}} />}
+      refreshControl={<RefreshControl refreshing={false} onRefresh={() => fetchActiveList()} />}
     />
   );
 };

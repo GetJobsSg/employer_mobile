@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
 import { Alert, Platform } from 'react-native';
 import { useDispatch } from 'react-redux';
@@ -8,6 +8,7 @@ import { KeyboardAvoidingView, ScrollView, HStack, VStack, Text, Button } from '
 import { CommonLayout } from 'src/constants/layout';
 import { Footer, Header } from 'src/components';
 
+import { useAppSelector, useCheckSuccess } from 'src/hooks';
 import { formInitialValues } from './forms/formInitialValues';
 import { formValidationSchema } from './forms/formValidationSchema';
 
@@ -31,6 +32,7 @@ enum Step {
 
 const JobDetailScreen = () => {
   const dispatch = useDispatch();
+  const { isLoadingCreateJob, errorCreateJob } = useAppSelector((state) => state.jobDetails);
   const navigation = useNavigation();
   const [currStep, setCurrStep] = useState(0);
 
@@ -39,12 +41,19 @@ const JobDetailScreen = () => {
     validationSchema: formValidationSchema[currStep],
     validateOnChange: false,
     onSubmit: (_values) => {
+      // eslint-disable-next-line no-console
       console.log(_values);
       setCurrStep(currStep + 1);
     },
   });
 
-  console.log(values);
+  // successfully created job
+  const successCreateJob = useCheckSuccess({ loadingState: isLoadingCreateJob, error: errorCreateJob });
+  useEffect(() => {
+    if (successCreateJob) {
+      navigation.goBack();
+    }
+  }, [navigation, successCreateJob]);
 
   const handlePrevStage = () => {
     if (currStep > 0) {
@@ -139,6 +148,7 @@ const JobDetailScreen = () => {
             borderColor="gray.900"
             borderWidth={2}
             flex={1}
+            isLoading={isLoadingCreateJob}
             onPress={currStep === Step.PREVIEW ? handleCreate : handleSubmit}
           >
             {renderButtonLabel()}
