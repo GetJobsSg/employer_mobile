@@ -1,10 +1,12 @@
 import React from 'react';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
-import { Alert, Box, Button, FormControl, Heading, Input, VStack, HStack, Text } from 'native-base';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Alert, Button, FormControl, Heading, Input, VStack, HStack, Text, Icon } from 'native-base';
 import { emailValidator } from 'src/utils/validator';
 import { useAppDispatch, useAppSelector, useCheckSuccess } from 'src/hooks';
 import { getFirebaseErrMessage } from 'src/utils/errors';
+import { CommonLayout } from 'src/constants/layout';
 import { authActions } from '../../slice';
 import { ForgetPasswordScreenProps } from '../../types';
 
@@ -48,40 +50,38 @@ const ForgetPasswordScreen = (props: ForgetPasswordScreenProps) => {
   };
 
   const renderSendEmailForm = () => (
-    <>
-      <HStack mx={4} mt={4} mb={2} justifyContent="space-between">
-        <Text fontSize="xl" fontWeight={800}>
-          Forget Password
-        </Text>
-      </HStack>
+    <VStack px={CommonLayout.containerX} mt={4} space={6}>
+      <FormControl isInvalid={touched[FieldName.email] && Boolean(errors[FieldName.email])}>
+        <Input
+          fontWeight="600"
+          autoCapitalize="none"
+          borderWidth={2}
+          borderColor="gray.900"
+          autoCorrect={false}
+          onChangeText={handleChange(FieldName.email)}
+          placeholder="Email"
+          value={values[FieldName.email]}
+        />
+        <FormControl.ErrorMessage>{errors[FieldName.email]}</FormControl.ErrorMessage>
+      </FormControl>
 
-      <Heading mx={4} mb={4} size="sm" fontWeight={300}>
-        We will send a password reset email to your inbox. Please insert your registered email address
-      </Heading>
+      {renderErrorContent()}
 
-      <VStack mx={4} mt={4} space={6}>
-        <FormControl isInvalid={touched[FieldName.email] && Boolean(errors[FieldName.email])}>
-          <Input
-            autoCapitalize="none"
-            autoCorrect={false}
-            onChangeText={handleChange(FieldName.email)}
-            placeholder="Email"
-            value={values[FieldName.email]}
-          />
-          <FormControl.ErrorMessage>{errors[FieldName.email]}</FormControl.ErrorMessage>
-        </FormControl>
-
-        {renderErrorContent()}
-
-        <Button isLoadingText="Sending..." onPress={handleSubmit} isLoading={isLoadingSendResetPasswordEmail}>
-          Send Email
-        </Button>
-      </VStack>
-    </>
+      <Button
+        bgColor="gray.900"
+        borderColor="gray.900"
+        borderWidth={2}
+        isLoadingText="Sending..."
+        onPress={handleSubmit}
+        isLoading={isLoadingSendResetPasswordEmail}
+      >
+        Send Reset Password Email
+      </Button>
+    </VStack>
   );
 
   const renderSuccessDialog = () => (
-    <VStack mt={4} mx={4} space={4}>
+    <VStack mt={4} px={CommonLayout.containerX} space={4}>
       <Alert
         p={4}
         borderRadius={10}
@@ -104,10 +104,23 @@ const ForgetPasswordScreen = (props: ForgetPasswordScreenProps) => {
   );
 
   return (
-    <Box safeArea bg="white" position="relative" h="100%" w="100%">
-      {successSentEmail && renderSuccessDialog()}
-      {!successSentEmail && renderSendEmailForm()}
-    </Box>
+    <VStack bg="white" safeArea>
+      <HStack py={4} px={CommonLayout.containerX} justifyContent="flex-start" alignItems="center">
+        <Icon mr={4} as={Ionicons} color="gray.900" name="chevron-back-circle-outline" onPress={() => {}} />
+        <Text fontSize="xl" color="gray.900" fontWeight={800} my={2}>
+          Forget Password
+        </Text>
+      </HStack>
+
+      <Heading mx={4} mb={4} size="sm" fontWeight={300}>
+        We will send a password reset email to your inbox. Please insert your registered email address
+      </Heading>
+
+      <VStack position="relative" h="100%" w="100%">
+        {successSentEmail && renderSuccessDialog()}
+        {!successSentEmail && renderSendEmailForm()}
+      </VStack>
+    </VStack>
   );
 };
 

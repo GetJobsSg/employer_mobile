@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Alert, Box, Button, FormControl, Heading, Input, VStack } from 'native-base';
+import { Alert, Box, Button, FormControl, Heading, Input, Text, VStack } from 'native-base';
 import { useIsFocused } from '@react-navigation/native';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
@@ -56,14 +56,17 @@ const LoginScreen = (props: LoginScreenProps) => {
   return (
     <Box pt={8} safeArea bg="white" position="relative" h="100%" w="100%">
       <VStack space={6} mx={4}>
-        <Heading color="primary.600" size="lg">
+        <Heading color="gray.900" size="lg">
           GetJobs Business
         </Heading>
 
         <FormControl isInvalid={touched[FieldName.email] && Boolean(errors[FieldName.email])}>
           <Input
+            fontWeight="600"
             autoCapitalize="none"
             autoCorrect={false}
+            borderWidth={2}
+            borderColor="gray.900"
             onChangeText={handleChange(FieldName.email)}
             placeholder="Email"
             value={values[FieldName.email]}
@@ -73,7 +76,10 @@ const LoginScreen = (props: LoginScreenProps) => {
 
         <FormControl isInvalid={touched[FieldName.password] && Boolean(errors[FieldName.password])}>
           <Input
+            fontWeight="600"
             autoCapitalize="none"
+            borderWidth={2}
+            borderColor="gray.900"
             onChangeText={handleChange(FieldName.password)}
             secureTextEntry
             placeholder="Password"
@@ -84,13 +90,34 @@ const LoginScreen = (props: LoginScreenProps) => {
 
         {renderLoginErrorContent()}
 
-        <Button isLoadingText="Logging in..." onPress={handleSubmit} isLoading={isLoadingLogin}>
-          Login
-        </Button>
+        <VStack space={2}>
+          <Button
+            variant="outline"
+            bgColor="gray.900"
+            borderColor="gray.900"
+            borderWidth={2}
+            isLoadingText="Logging in..."
+            onPress={handleSubmit}
+            isLoading={isLoadingLogin}
+          >
+            <Text fontWeight="500" color="white">
+              Login
+            </Text>
+          </Button>
 
-        <Button variant="ghost" onPress={() => navigation.push(RouteName.AUTH_FORGET_PASSWORD)}>
-          Forget Password
-        </Button>
+          <Button
+            variant="outline"
+            borderColor="gray.900"
+            bgColor="white"
+            borderWidth={2}
+            isLoadingText="Logging in..."
+            onPress={() => navigation.push(RouteName.AUTH_FORGET_PASSWORD)}
+          >
+            <Text fontWeight="500" color="gray.900">
+              Forget Password
+            </Text>
+          </Button>
+        </VStack>
       </VStack>
     </Box>
   );
