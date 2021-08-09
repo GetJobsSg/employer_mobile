@@ -86,7 +86,7 @@ const JobDetailScreen = () => {
     }
   };
 
-  const handleExit = () => {
+  const handleClose = () => {
     if (dirty) {
       return Alert.alert('Exit?', 'All the information you have insert will be lost.', [
         { text: 'Cancel' },
@@ -121,8 +121,8 @@ const JobDetailScreen = () => {
       <Header
         title="Create Job"
         labelRight={
-          <Text color="gray.900" underline fontWeight="600" onPress={handleExit}>
-            Exit
+          <Text color="gray.900" underline fontWeight="600" onPress={handleClose}>
+            Close
           </Text>
         }
       />

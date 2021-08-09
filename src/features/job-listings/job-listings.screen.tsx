@@ -27,17 +27,22 @@ const JobListingScreen = () => {
   return (
     <VStack bg="white" flex={1}>
       <Header>
-        <HStack mb={2} justifyContent="space-between" alignItems="center">
-          <Heading size="md" color="black">
-            Listing
-          </Heading>
-          <HStack space={4}>
-            <Icon onPress={() => navigation.navigate(RouteName.JOB_DETAILS)} as={Ionicons} name="add-circle-outline" />
-            <Icon onPress={() => navigation.navigate(RouteName.PROFILE)} as={Ionicons} name="person-circle-outline" />
+        <VStack px={4} py={2}>
+          <HStack mb={2} justifyContent="space-between" alignItems="center">
+            <Heading size="md" color="black">
+              Listing
+            </Heading>
+            <HStack space={4}>
+              <Icon
+                onPress={() => navigation.navigate(RouteName.JOB_DETAILS)}
+                as={Ionicons}
+                name="add-circle-outline"
+              />
+              <Icon onPress={() => navigation.navigate(RouteName.PROFILE)} as={Ionicons} name="person-circle-outline" />
+            </HStack>
           </HStack>
-        </HStack>
-
-        <Tab selected={activeTab} options={TabOptionList} onSelect={(option) => setActiveTab(option)} />
+          <Tab selected={activeTab} options={TabOptionList} onSelect={(option) => setActiveTab(option)} />
+        </VStack>
       </Header>
 
       <VStack flex={1}>

@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, ListRenderItem } from 'react-native';
-import { Box, Heading, Text, HStack, VStack, Stack } from 'native-base';
-import { Scaffold, Tab } from 'src/components';
+import { Box, Heading, Text, HStack, VStack, Stack, Icon } from 'native-base';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Header, Tab } from 'src/components';
 import { useAppDispatch } from 'src/hooks';
 import { JobApplicationStatus } from 'src/constants/status';
+import { useNavigation } from '@react-navigation/native';
+import { CommonLayout } from 'src/constants/layout';
 import ParticipantCard from './components/participants-card';
 import { participantListingActions } from './slice';
 
@@ -29,6 +32,7 @@ const dummyData = [
 const ParticipantListingScreen = () => {
   const [selectedTab, setSelectedTab] = useState(tabOptions[0]);
   const dispatch = useAppDispatch();
+  const navigation = useNavigation();
 
   useEffect(() => {
     switch (selectedTab.id) {
@@ -59,47 +63,57 @@ const ParticipantListingScreen = () => {
     </Stack>
   );
 
-  console.log(selectedTab);
-
   return (
-    <Scaffold>
-      <VStack px={4}>
-        <Heading size="sm">McDonald Delivery</Heading>
-        <Heading size="sm" color="pink.600">
-          $S12.00 / hour
-        </Heading>
-      </VStack>
+    <>
+      <Header
+        title="Participants"
+        iconLeft={
+          <Icon as={Ionicons} name="chevron-back-outline" color="gray.600" onPress={() => navigation.goBack()} />
+        }
+      />
 
-      <VStack px={4} mt={4}>
-        <HStack>
-          <Text>0</Text>
-          <Text>14 April 2021</Text>
+      <VStack bg="white">
+        <HStack px={CommonLayout.containerX} py={2} justifyContent="space-between" alignItems="center">
+          <VStack>
+            <Heading size="sm">McDonald Delivery</Heading>
+            <Heading size="sm" color="pink.600">
+              $S12.00 / hour
+            </Heading>
+          </VStack>
+          <Icon as={Ionicons} name="chevron-forward-circle-outline" size="sm" />
         </HStack>
 
-        <HStack alignItems="center">
-          <Text fontSize="sm" fontWeight="600" mr={2}>
-            00
-          </Text>
-          <Text fontSize="sm" fontWeight="600">
-            14 April 2021
-          </Text>
-        </HStack>
-      </VStack>
+        <VStack space={1} px={CommonLayout.containerX} py={2}>
+          <HStack alignItems="center">
+            <Icon mr={2} as={Ionicons} name="calendar-outline" size="sm" />
+            <Text fontSize="sm" fontWeight="600">
+              14 April 2021
+            </Text>
+          </HStack>
 
-      <VStack h="100%">
-        <Stack px={3} py={4}>
-          <Tab selected={selectedTab} options={tabOptions} onSelect={(option) => setSelectedTab(option)} />
-        </Stack>
+          <HStack alignItems="center">
+            <Icon mr={2} as={Ionicons} name="time-outline" size="sm" />
+            <Text fontSize="sm" fontWeight="600">
+              08:00am - 10:00pm
+            </Text>
+          </HStack>
+        </VStack>
 
-        <FlatList
-          data={dummyData}
-          keyExtractor={(item) => String(item.id)}
-          renderItem={renderItem}
-          ListFooterComponent={<Box pb={100} />}
-          //   refreshControl={<RefreshControl refreshing={false} onRefresh={() => {}} />}
-        />
+        <VStack h="100%">
+          <Stack px={CommonLayout.containerX - 1} py={2} pb={3}>
+            <Tab selected={selectedTab} options={tabOptions} onSelect={(option) => setSelectedTab(option)} />
+          </Stack>
+
+          <FlatList
+            data={dummyData}
+            keyExtractor={(item) => String(item.id)}
+            renderItem={renderItem}
+            ListFooterComponent={<Box pb={100} />}
+            //   refreshControl={<RefreshControl refreshing={false} onRefresh={() => {}} />}
+          />
+        </VStack>
       </VStack>
-    </Scaffold>
+    </>
   );
 };
 
