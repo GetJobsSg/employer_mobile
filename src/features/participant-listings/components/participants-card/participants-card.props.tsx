@@ -1,9 +1,9 @@
 export interface ParticipantsCardProps {
   avatarUrl: string;
   name: string;
-  age: number;
-  gender: 'Male' | 'Female';
-  ratings: number;
+  age: string;
+  gender: string;
+  ratings: string;
   onSendOffer?: (userId: number) => void;
   onReject?: (userId: number) => void;
   onPhoneCall?: (phoneNumber: number) => void;

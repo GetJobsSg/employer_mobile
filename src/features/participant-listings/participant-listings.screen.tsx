@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, ListRenderItem } from 'react-native';
-import { Box, Heading, Text, HStack, VStack, Stack, Icon } from 'native-base';
+import { Heading, Text, HStack, VStack, Stack, Icon, FlatList, Box, Spinner } from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Header, Tab } from 'src/components';
-import { useAppDispatch } from 'src/hooks';
+import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { JobApplicationStatus } from 'src/constants/status';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { CommonLayout } from 'src/constants/layout';
+import { constructJobDate } from 'src/utils/dateTime';
+import { DD_MMM_YYYY } from 'src/constants/dateTime';
+import { ListRenderItem } from 'react-native';
 import ParticipantCard from './components/participants-card';
 import { participantListingActions } from './slice';
+import { IJobCommon } from '../job-listings/slice/types';
+import { IParticipant } from './slice/types';
 
 const tabOptions = [
   { id: JobApplicationStatus.PENDING, label: 'Applicants' },
@@ -17,51 +21,114 @@ const tabOptions = [
   { id: JobApplicationStatus.REJECTED, label: 'Rejected' },
 ];
 
-const dummyData = [
-  { id: 1, name: 'benson' },
-  { id: 2, name: 'benson' },
-  { id: 3, name: 'benson' },
-  { id: 4, name: 'benson' },
-  { id: 5, name: 'benson' },
-  { id: 6, name: 'benson' },
-  { id: 7, name: 'benson' },
-  { id: 8, name: 'benson' },
-  { id: 9, name: 'benson' },
-];
-
 const ParticipantListingScreen = () => {
   const [selectedTab, setSelectedTab] = useState(tabOptions[0]);
+
+  const {
+    isLoadingGetAllPendingParticipant,
+    pendingParticipants,
+
+    isLoadingGetAllOfferSentPartcipant,
+    offerSentParticipants,
+
+    isLoadingGetAllRejectedPartcipant,
+    rejectedParticipants,
+
+    isLoadingGetAllAcceptedPartcipant,
+    acceptedParticipants,
+  } = useAppSelector((state) => state.participantListings);
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
+
+  const { params } = useRoute();
+  const { id, title, hourlyRate, startDate, endDate, startTime, endTime } = params as IJobCommon;
+  const jobId = id as number;
 
   useEffect(() => {
     switch (selectedTab.id) {
       case JobApplicationStatus.PENDING:
-        dispatch(participantListingActions.getAllPendingParticipantRequest({ jobId: 17 }));
+        dispatch(participantListingActions.getAllPendingParticipantRequest({ jobId }));
         break;
 
       case JobApplicationStatus.OFFERED:
-        dispatch(participantListingActions.getAllOfferSentParticipantRequest({ jobId: 17 }));
+        dispatch(participantListingActions.getAllOfferSentParticipantRequest({ jobId }));
         break;
 
       case JobApplicationStatus.REJECTED:
-        dispatch(participantListingActions.getAllRejectedParticipantRequest({ jobId: 17 }));
+        dispatch(participantListingActions.getAllRejectedParticipantRequest({ jobId }));
         break;
 
       case JobApplicationStatus.ACCEPTED:
-        dispatch(participantListingActions.getAllAcceptedParticipantRequest({ jobId: 17 }));
+        dispatch(participantListingActions.getAllAcceptedParticipantRequest({ jobId }));
         break;
 
       default:
         break;
     }
-  }, [dispatch, selectedTab]);
+  }, [dispatch, jobId, selectedTab]);
 
-  const renderItem: ListRenderItem<{ id: number; name: string }> = () => (
-    <Stack px={3} mb={4}>
-      <ParticipantCard avatarUrl="" age={27} name="Benson Toh" gender="Male" ratings={4.6} />
-    </Stack>
-  );
+  const getListData = () => {
+    switch (selectedTab.id) {
+      case JobApplicationStatus.PENDING:
+        return pendingParticipants;
+
+      case JobApplicationStatus.OFFERED:
+        return offerSentParticipants;
+
+      case JobApplicationStatus.REJECTED:
+        return rejectedParticipants;
+
+      case JobApplicationStatus.ACCEPTED:
+        return acceptedParticipants;
+
+      default:
+        return [];
+    }
+  };
+
+  const renderItem: ListRenderItem<IParticipant> = ({ item }) => {
+    const { age, name, gender, profileImage, ratings } = item;
+    return (
+      <Stack px={3} mb={4}>
+        <ParticipantCard avatarUrl={profileImage} age={age} name={name} gender={gender} ratings={ratings} />
+      </Stack>
+    );
+  };
+
+  const renderContent = () => {
+    if (
+      isLoadingGetAllAcceptedPartcipant ||
+      isLoadingGetAllOfferSentPartcipant ||
+      isLoadingGetAllPendingParticipant ||
+      isLoadingGetAllRejectedPartcipant
+    ) {
+      return (
+        <Box flex={1}>
+          <Spinner />
+        </Box>
+      );
+    }
+
+    if (!getListData().length) {
+      return (
+        <VStack px={4} py={4}>
+          <Text textAlign="center" fontSize="lg" fontWeight="500" color="gray.400">
+            No Result
+          </Text>
+        </VStack>
+      );
+    }
+
+    return (
+      <FlatList
+        data={getListData()}
+        extraData={selectedTab} // re-render list when tab changed
+        keyExtractor={(item) => String(item.id)}
+        renderItem={renderItem}
+        ListFooterComponent={<Box pb={400} />}
+      />
+    );
+  };
 
   return (
     <>
@@ -75,9 +142,12 @@ const ParticipantListingScreen = () => {
       <VStack bg="white">
         <HStack px={CommonLayout.containerX} py={2} justifyContent="space-between" alignItems="center">
           <VStack>
-            <Heading size="sm">McDonald Delivery</Heading>
+            <Text fontSize="xs" color="gray.500">
+              {`# ${id}`}
+            </Text>
+            <Heading size="sm">{title}</Heading>
             <Heading size="sm" color="pink.600">
-              $S12.00 / hour
+              {`$${hourlyRate.toFixed(2)} / hour`}
             </Heading>
           </VStack>
           <Icon as={Ionicons} name="chevron-forward-circle-outline" size="sm" />
@@ -87,14 +157,14 @@ const ParticipantListingScreen = () => {
           <HStack alignItems="center">
             <Icon mr={2} as={Ionicons} name="calendar-outline" size="sm" />
             <Text fontSize="sm" fontWeight="600">
-              14 April 2021
+              {constructJobDate(startDate, endDate, DD_MMM_YYYY)}
             </Text>
           </HStack>
 
           <HStack alignItems="center">
             <Icon mr={2} as={Ionicons} name="time-outline" size="sm" />
             <Text fontSize="sm" fontWeight="600">
-              08:00am - 10:00pm
+              {`${startTime} - ${endTime}`}
             </Text>
           </HStack>
         </VStack>
@@ -103,14 +173,7 @@ const ParticipantListingScreen = () => {
           <Stack px={CommonLayout.containerX - 1} py={2} pb={3}>
             <Tab selected={selectedTab} options={tabOptions} onSelect={(option) => setSelectedTab(option)} />
           </Stack>
-
-          <FlatList
-            data={dummyData}
-            keyExtractor={(item) => String(item.id)}
-            renderItem={renderItem}
-            ListFooterComponent={<Box pb={100} />}
-            //   refreshControl={<RefreshControl refreshing={false} onRefresh={() => {}} />}
-          />
+          {renderContent()}
         </VStack>
       </VStack>
     </>

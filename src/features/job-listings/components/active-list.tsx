@@ -23,7 +23,7 @@ const ActiveList = () => {
 
   const renderItem: ListRenderItem<IJobActive> = ({ item }) => (
     <Pressable
-      onPress={() => navigation.navigate(RouteName.PARTICIPANTS_LISTING)}
+      onPress={() => navigation.navigate(RouteName.PARTICIPANTS_LISTING, item)}
       bg="gray.50"
       borderRadius={5}
       my={1}

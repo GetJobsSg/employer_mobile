@@ -3,11 +3,11 @@ import { Box, Button, Text, HStack, VStack, Avatar, Divider } from 'native-base'
 import { ParticipantsCardProps } from './participants-card.props';
 
 const ParticipantCard = (props: ParticipantsCardProps) => {
-  const { name, gender, ratings } = props;
+  const { name, gender, ratings, avatarUrl } = props;
   return (
     <Box>
       <HStack>
-        <Avatar mr={4} size={16} />
+        <Avatar mr={4} size={16} source={{ uri: avatarUrl }} />
         <VStack>
           <Text fontSize="md" color="black" fontWeight="bold" noOfLines={2}>
             {name}

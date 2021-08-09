@@ -7,6 +7,7 @@ export const participantsTransformer = {
     if (!data) return [];
     return data.map((p) => ({
       id: String(p.id),
+      profileImage: p.employee.profile_img,
       name: `${p.employee.first_name} ${p.employee.last_name}` || '',
       gender: p.employee.gender || '',
       age: `${getAge(p.employee.dob)} yrs old`,

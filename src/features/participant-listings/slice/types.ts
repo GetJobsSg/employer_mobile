@@ -4,6 +4,7 @@ export interface IParticipant {
   gender: string;
   age: string;
   ratings: string;
+  profileImage: string;
 }
 
 export interface IParticipantsListingInitialState {
