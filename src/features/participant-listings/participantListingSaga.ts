@@ -1,10 +1,10 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { call, fork, put, takeLatest } from 'redux-saga/effects';
+import { call, fork, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import { JobApplicationStatus } from 'src/constants/status';
-import { getAllParticipants } from './apis';
+import { getAllParticipants, sendParticipantOffer, rejectParticipant } from './apis';
 import { IParticipantListResponse } from './apis/types';
 import { participantListingActions } from './slice';
-import { IParticipant } from './slice/types';
+import { IOfferJobPayload, IParticipant, IRejectPayload } from './slice/types';
 import { participantsTransformer } from './transformer';
 
 function* getAllPendingParticipantSaga(action: PayloadAction<{ jobId: number }>) {
@@ -51,11 +51,34 @@ function* getAllRejectedParticipantSaga(action: PayloadAction<{ jobId: number }>
   }
 }
 
+function* sendParticipantOfferSaga(action: PayloadAction<IOfferJobPayload>) {
+  const { jobseekerId, jobId } = action.payload;
+  try {
+    yield call(sendParticipantOffer, { jobId, jobseekerId });
+    yield put(participantListingActions.sendOfferParticipantResponse({ jobseekerId, error: null }));
+  } catch (e) {
+    yield put(participantListingActions.sendOfferParticipantResponse({ jobseekerId, error: e }));
+  }
+}
+
+function* rejectParticipantSaga(action: PayloadAction<IRejectPayload>) {
+  const { jobseekerId, jobId } = action.payload;
+  try {
+    yield call(rejectParticipant, { jobseekerId, jobId });
+    yield put(participantListingActions.rejectOfferParticipantResponse());
+  } catch (e) {
+    yield put(participantListingActions.rejectOfferParticipantResponse());
+  }
+}
+
 function* watchParticipantListingSaga() {
   yield takeLatest(participantListingActions.getAllPendingParticipantRequest, getAllPendingParticipantSaga);
   yield takeLatest(participantListingActions.getAllOfferSentParticipantRequest, getAllOfferSentParticipantSaga);
   yield takeLatest(participantListingActions.getAllAcceptedParticipantRequest, getAllAcceptedParticipantSaga);
   yield takeLatest(participantListingActions.getAllRejectedParticipantRequest, getAllRejectedParticipantSaga);
+
+  yield takeEvery(participantListingActions.sendOfferParticipantRequest, sendParticipantOfferSaga);
+  yield takeEvery(participantListingActions.rejectOfferParticipantRequest, rejectParticipantSaga);
 }
 
 const participantListingSaga = [fork(watchParticipantListingSaga)];

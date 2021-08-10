@@ -87,10 +87,23 @@ const ParticipantListingScreen = () => {
   };
 
   const renderItem: ListRenderItem<IParticipant> = ({ item }) => {
-    const { age, name, gender, profileImage, ratings } = item;
+    const { age, name, gender, profileImage, ratings, isSendingOffer } = item;
     return (
-      <Stack px={3} mb={4}>
-        <ParticipantCard avatarUrl={profileImage} age={age} name={name} gender={gender} ratings={ratings} />
+      <Stack px={CommonLayout.containerX} mb={4}>
+        <ParticipantCard
+          avatarUrl={profileImage}
+          age={age}
+          name={name}
+          gender={gender}
+          ratings={ratings}
+          // send offer
+          isSendingOffer={isSendingOffer}
+          onSendOffer={() => {
+            dispatch(participantListingActions.sendOfferParticipantRequest({ jobId: id, jobseekerId: item.id }));
+          }}
+          // reject applicants
+          onReject={() => {}}
+        />
       </Stack>
     );
   };

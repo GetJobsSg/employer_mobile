@@ -2,7 +2,7 @@ import moment from 'moment';
 import { DD_MMM } from 'src/constants/dateTime';
 
 export const getAge = (birthDate: string) => {
-  if (!birthDate) return '';
+  if (!birthDate) return 0;
   const mBirthDate = moment(birthDate);
   return moment().diff(mBirthDate, 'years');
 };

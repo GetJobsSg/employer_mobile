@@ -1,10 +1,13 @@
 export interface IParticipant {
-  id: string;
+  id: number;
   name: string;
   gender: string;
-  age: string;
+  age: number;
   ratings: string;
   profileImage: string;
+
+  isSendingOffer?: boolean;
+  isRejecting?: boolean;
 }
 
 export interface IParticipantsListingInitialState {
@@ -28,4 +31,14 @@ export interface IParticipantsListingInitialState {
 export interface IParticipantsPayload {
   list: IParticipant[];
   error: null | any;
+}
+
+export interface IOfferJobPayload {
+  jobId: number;
+  jobseekerId: number;
+}
+
+export interface IRejectPayload {
+  jobId: number;
+  jobseekerId: number;
 }
