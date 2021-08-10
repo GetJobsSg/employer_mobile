@@ -113,7 +113,7 @@ const ForgetPasswordScreen = (props: ForgetPasswordScreenProps) => {
           name="chevron-back-circle-outline"
           onPress={() => navigation.goBack()}
         />
-        <Text fontSize="xl" color="gray.900" fontWeight={800} my={2}>
+        <Text flex={1} noOfLines={1} fontSize="xl" color="gray.900" fontWeight={700} my={2}>
           Forget Password
         </Text>
       </HStack>

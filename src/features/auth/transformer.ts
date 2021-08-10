@@ -8,13 +8,13 @@ export const authTransformer = {
       firstName: user.data.first_name || '',
       lastName: user.data.last_name || '',
       company: {
-        id: String(user.data.company.id) || '',
+        id: user.data.company.id || '',
         name: user.data.company.name || '',
         primaryContact: user.data.company.primary_contact || '',
         logoImage: user.data.company.logo_img || null,
       },
       accessLevel: {
-        id: String(user.data.access_level.id) || '',
+        id: user.data.access_level.id || '',
         name: user.data.access_level.name || '',
       },
     };

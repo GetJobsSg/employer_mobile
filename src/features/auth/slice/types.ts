@@ -3,13 +3,13 @@ export interface ICurrentUserInfo {
   firstName: string;
   lastName: string;
   company: {
-    id: string;
+    id: number | '';
     name: string;
     primaryContact: string;
     logoImage: string | null;
   };
   accessLevel: {
-    id: string;
+    id: number | '';
     name: string;
   };
 }

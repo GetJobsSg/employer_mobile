@@ -96,7 +96,6 @@ const LoginScreen = (props: LoginScreenProps) => {
             bgColor="gray.900"
             borderColor="gray.900"
             borderWidth={2}
-            isLoadingText="Logging in..."
             onPress={handleSubmit}
             isLoading={isLoadingLogin}
           >
