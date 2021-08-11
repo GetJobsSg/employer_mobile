@@ -7,7 +7,9 @@ export interface ParticipantsCardProps {
 
   isSendingOffer?: boolean;
   onSendOffer?: () => void;
-  onReject?: (userId: number) => void;
+
+  isRejecting?: boolean;
+  onReject?: () => void;
   onPhoneCall?: (phoneNumber: number) => void;
   onWhatsapp?: (phoneNumber: number) => void;
 }

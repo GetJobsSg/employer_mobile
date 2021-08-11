@@ -61,16 +61,33 @@ const participantsListingSlice = createSlice({
         return;
       }
 
-      // has error - reset isSedingOffer to false and keep the other state
+      // has error - reset isSendingOffer to false
       state.pendingParticipants = state.pendingParticipants.map((p) => {
-        if (p.id === jobseekerId && !error) if (p.id === jobseekerId) return { ...p, isSendingOffer: false };
+        if (p.id === jobseekerId && error) return { ...p, isSendingOffer: false };
         return p;
       });
-    }, // do nothing
+    },
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    rejectOfferParticipantRequest(state, action: PayloadAction<IRejectPayload>) {},
-    rejectOfferParticipantResponse() {},
+    rejectOfferParticipantRequest(state, action: PayloadAction<IRejectPayload>) {
+      const { jobseekerId } = action.payload;
+      state.pendingParticipants = state.pendingParticipants.map((p) => {
+        if (p.id === jobseekerId) return { ...p, isRejecting: true };
+        return p;
+      });
+    },
+
+    rejectOfferParticipantResponse(state, action: PayloadAction<{ jobseekerId: number; error: null | any }>) {
+      const { jobseekerId, error } = action.payload;
+      // no error - successfully reject participant, remove the participats from the list
+      if (!error) {
+        state.pendingParticipants = state.pendingParticipants.filter((p) => p.id !== jobseekerId);
+      }
+      // has error = set isRejecting to false
+      state.pendingParticipants = state.pendingParticipants.map((p) => {
+        if (p.id === jobseekerId && error) return { ...p, isRejecting: false };
+        return p;
+      });
+    },
   },
 });
 

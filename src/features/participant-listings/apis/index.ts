@@ -10,14 +10,7 @@ export const getAllParticipants = (
   get(`/web/job/${jobId}/participants/${applicationStatus}`).then((res) => res.data);
 
 export const sendParticipantOffer = (data: IOfferJobPayload) =>
-  put(`/web/job/offer`, { jobId: data.jobId, employee_id: data.jobseekerId }).then((res) => res.data);
-
-// export const sendParticipantOffer = (data: IOfferJobPayload) =>
-//   new Promise((resolve) => {
-//     setTimeout(() => {
-//       resolve(true);
-//     }, 3000);
-//   });
+  put(`/web/job/offer`, { job_id: data.jobId, employee_id: data.jobseekerId }).then((res) => res.data);
 
 export const rejectParticipant = (data: IRejectPayload) =>
   put(`/web/job/cancel/${data.jobId}/employee/${data.jobseekerId}`).then((res) => res.data);

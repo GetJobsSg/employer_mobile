@@ -87,7 +87,7 @@ const ParticipantListingScreen = () => {
   };
 
   const renderItem: ListRenderItem<IParticipant> = ({ item }) => {
-    const { age, name, gender, profileImage, ratings, isSendingOffer } = item;
+    const { age, name, gender, profileImage, ratings, isSendingOffer, isRejecting } = item;
     return (
       <Stack px={CommonLayout.containerX} mb={4}>
         <ParticipantCard
@@ -96,13 +96,16 @@ const ParticipantListingScreen = () => {
           name={name}
           gender={gender}
           ratings={ratings}
-          // send offer
+          // sending offer
           isSendingOffer={isSendingOffer}
           onSendOffer={() => {
             dispatch(participantListingActions.sendOfferParticipantRequest({ jobId: id, jobseekerId: item.id }));
           }}
-          // reject applicants
-          onReject={() => {}}
+          // rejecting applicant
+          isRejecting={isRejecting}
+          onReject={() => {
+            dispatch(participantListingActions.rejectOfferParticipantRequest({ jobId: id, jobseekerId: item.id }));
+          }}
         />
       </Stack>
     );

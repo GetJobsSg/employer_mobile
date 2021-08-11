@@ -3,7 +3,8 @@ import { Box, Button, Text, HStack, VStack, Avatar } from 'native-base';
 import { ParticipantsCardProps } from './participants-card.props';
 
 const ParticipantCard = (props: ParticipantsCardProps) => {
-  const { age, name, gender, ratings, avatarUrl, onSendOffer, isSendingOffer, onReject, onPhoneCall } = props;
+  const { age, name, gender, ratings, avatarUrl, onSendOffer, isSendingOffer, isRejecting, onReject, onPhoneCall } =
+    props;
 
   return (
     <Box>
@@ -14,7 +15,7 @@ const ParticipantCard = (props: ParticipantsCardProps) => {
             {name}
           </Text>
 
-          <HStack mt={1}>
+          <HStack>
             {!!gender && (
               <>
                 <Text fontSize="sm" color="gray.500">
@@ -29,8 +30,8 @@ const ParticipantCard = (props: ParticipantsCardProps) => {
             </Text>
           </HStack>
 
-          <HStack>
-            <Text fontSize="sm" color="primary.500" mr={2}>
+          <HStack mt={1}>
+            <Text fontSize="sm" color="primary.500" mr={1}>
               &#9733;
             </Text>
             <Text fontSize="sm" color="gray.500">
@@ -54,10 +55,24 @@ const ParticipantCard = (props: ParticipantsCardProps) => {
             )}
 
             {onReject && (
-              <Button variant="unstyled" bg="pink.100" px={4} mt={2}>
-                <Text fontSize="xs" color="pink.600">
-                  Reject
-                </Text>
+              <Button
+                disabled={isRejecting}
+                width={100}
+                variant="unstyled"
+                onPress={onReject}
+                bg="pink.100"
+                px={4}
+                mt={2}
+              >
+                {isRejecting ? (
+                  <Text fontSize="xs" color="pink.600">
+                    Rejecting
+                  </Text>
+                ) : (
+                  <Text fontSize="xs" color="pink.600">
+                    Reject
+                  </Text>
+                )}
               </Button>
             )}
 

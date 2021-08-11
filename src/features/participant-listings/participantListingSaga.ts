@@ -65,9 +65,9 @@ function* rejectParticipantSaga(action: PayloadAction<IRejectPayload>) {
   const { jobseekerId, jobId } = action.payload;
   try {
     yield call(rejectParticipant, { jobseekerId, jobId });
-    yield put(participantListingActions.rejectOfferParticipantResponse());
+    yield put(participantListingActions.rejectOfferParticipantResponse({ jobseekerId, error: null }));
   } catch (e) {
-    yield put(participantListingActions.rejectOfferParticipantResponse());
+    yield put(participantListingActions.rejectOfferParticipantResponse({ jobseekerId, error: e }));
   }
 }
 
