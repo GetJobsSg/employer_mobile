@@ -5,6 +5,7 @@ export interface IParticipant {
   age: number;
   ratings: string;
   profileImage: string;
+  mobile: string;
 
   isSendingOffer?: boolean;
   isRejecting?: boolean;

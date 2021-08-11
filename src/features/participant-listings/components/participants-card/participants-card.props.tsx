@@ -10,6 +10,6 @@ export interface ParticipantsCardProps {
 
   isRejecting?: boolean;
   onReject?: () => void;
-  onPhoneCall?: (phoneNumber: number) => void;
-  onWhatsapp?: (phoneNumber: number) => void;
+  onPhoneCall?: () => void;
+  onWhatsapp?: () => void;
 }

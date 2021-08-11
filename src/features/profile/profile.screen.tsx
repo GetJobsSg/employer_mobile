@@ -39,7 +39,7 @@ const ProfileScreen = () => {
       />
       <VStack px={CommonLayout.containerX} py={CommonLayout.containerX}>
         <Heading size="lg">{`${firstName} ${lastName}`}</Heading>
-        <Heading size="sm" fontWeight="400" color="gray.500">
+        <Heading size="xs" fontWeight="400" color="gray.500">
           {email}
         </Heading>
 

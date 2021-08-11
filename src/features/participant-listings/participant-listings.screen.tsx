@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Alert, ListRenderItem, Linking } from 'react-native';
 import { Heading, Text, HStack, VStack, Stack, Icon, FlatList, Box, Spinner } from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Header, Tab } from 'src/components';
@@ -8,7 +9,8 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { CommonLayout } from 'src/constants/layout';
 import { constructJobDate } from 'src/utils/dateTime';
 import { DD_MMM_YYYY } from 'src/constants/dateTime';
-import { ListRenderItem } from 'react-native';
+import { isAndroid } from 'src/utils/platform';
+
 import ParticipantCard from './components/participants-card';
 import { participantListingActions } from './slice';
 import { IJobCommon } from '../job-listings/slice/types';
@@ -86,29 +88,75 @@ const ParticipantListingScreen = () => {
     }
   };
 
+  const handleSendOffer = (_jobId: number, _jobseekerId: number) => () => {
+    dispatch(participantListingActions.sendOfferParticipantRequest({ jobId: _jobId, jobseekerId: _jobseekerId }));
+  };
+
+  const handleReject = (_jobId: number, _jobseekerId: number) => () => {
+    Alert.alert('Reject Applicant', 'Would you like to reject this applicant?', [
+      { text: 'Cancel' },
+      {
+        text: 'Reject',
+        onPress: () => {
+          dispatch(
+            participantListingActions.rejectOfferParticipantRequest({ jobId: _jobId, jobseekerId: _jobseekerId }),
+          );
+        },
+      },
+    ]);
+  };
+
+  const handlePhoneCall = (phoneNumber: string) => () => {
+    if (!phoneNumber) return;
+    if (isAndroid) Linking.openURL(`tel:${phoneNumber}`);
+    else Linking.openURL(`telprompt:${phoneNumber}`);
+  };
+
+  const handleWhatsapp = (phoneNumber: string) => () => {
+    if (!phoneNumber) return;
+    const url = `whatsapp://send?phone=65${phoneNumber}`;
+    Linking.openURL(url)
+      .then(() => console.log('whatsapp opened'))
+      .catch(() => Alert.alert('Whatsapp is not installed on your device.'));
+  };
+
   const renderItem: ListRenderItem<IParticipant> = ({ item }) => {
     const { age, name, gender, profileImage, ratings, isSendingOffer, isRejecting } = item;
-    return (
-      <Stack px={CommonLayout.containerX} mb={4}>
+
+    // Applicant Tab - allow send offer and reject participant
+    if (selectedTab.id === JobApplicationStatus.PENDING) {
+      return (
         <ParticipantCard
           avatarUrl={profileImage}
           age={age}
           name={name}
           gender={gender}
           ratings={ratings}
-          // sending offer
           isSendingOffer={isSendingOffer}
-          onSendOffer={() => {
-            dispatch(participantListingActions.sendOfferParticipantRequest({ jobId: id, jobseekerId: item.id }));
-          }}
-          // rejecting applicant
+          onSendOffer={handleSendOffer(id, item.id)}
           isRejecting={isRejecting}
-          onReject={() => {
-            dispatch(participantListingActions.rejectOfferParticipantRequest({ jobId: id, jobseekerId: item.id }));
-          }}
+          onReject={handleReject(id, item.id)}
         />
-      </Stack>
-    );
+      );
+    }
+
+    // Accepted Tab - allow allow call or message participant
+    if (selectedTab.id === JobApplicationStatus.ACCEPTED) {
+      return (
+        <ParticipantCard
+          avatarUrl={profileImage}
+          age={age}
+          name={name}
+          gender={gender}
+          ratings={ratings}
+          onPhoneCall={handlePhoneCall(item.mobile)}
+          onWhatsapp={handleWhatsapp(item.mobile)}
+        />
+      );
+    }
+
+    // Default - render participant card without any CTA button
+    return <ParticipantCard avatarUrl={profileImage} age={age} name={name} gender={gender} ratings={ratings} />;
   };
 
   const renderContent = () => {
@@ -137,6 +185,7 @@ const ParticipantListingScreen = () => {
 
     return (
       <FlatList
+        contentContainerStyle={{ paddingTop: 10 }}
         data={getListData()}
         extraData={selectedTab} // re-render list when tab changed
         keyExtractor={(item) => String(item.id)}

@@ -5,25 +5,10 @@ import logger from 'redux-logger';
 import rootReducer from 'src/rootReducer';
 import rootSaga from 'src/rootSaga';
 
-import { authActions } from 'src/features/auth/slice';
-import { jobDetailsActions } from './features/job-details/slice';
-
 const sagaMiddleware = createSagaMiddleware();
 
-const options = {
-  serializableCheck: {
-    // Following actions will pass non-serializable value
-    // Skip the serializable check as exception
-    ignoredActions: [
-      authActions.loginError.type,
-      authActions.sendResetPasswordEmailError.type,
-      authActions.logoutError.type,
-      authActions.setCurrentUser.type,
-      authActions.setCurrentUserError.type,
-      jobDetailsActions.createJobRequest.type,
-    ],
-  },
-};
+// turn off serializableCheck
+const options = { serializableCheck: false };
 
 export const store = configureStore({
   reducer: rootReducer,

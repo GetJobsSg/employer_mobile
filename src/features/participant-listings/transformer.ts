@@ -11,6 +11,7 @@ export const participantsTransformer = {
       name: `${p.employee.first_name} ${p.employee.last_name}` || '',
       gender: p.employee.gender || '',
       age: getAge(p.employee.dob) || 0,
+      mobile: p.employee.mobile || '',
       ratings: p.rating ? String(p.rating.toFixed(2)) : '',
     }));
   },
