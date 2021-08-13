@@ -12,6 +12,7 @@ import { DD_MMM_YYYY } from 'src/constants/dateTime';
 import { isAndroid } from 'src/utils/platform';
 
 import ParticipantCard from './components/participants-card';
+import QRModal from './components/qr-modal';
 import { participantListingActions } from './slice';
 import { IJobCommon } from '../job-listings/slice/types';
 import { IParticipant } from './slice/types';
@@ -25,6 +26,7 @@ const tabOptions = [
 
 const ParticipantListingScreen = () => {
   const [selectedTab, setSelectedTab] = useState(tabOptions[0]);
+  const [showQRModal, setShowQRModal] = useState(false);
 
   const {
     isLoadingGetAllPendingParticipant,
@@ -202,6 +204,15 @@ const ParticipantListingScreen = () => {
         iconLeft={
           <Icon as={Ionicons} name="chevron-back-outline" color="gray.600" onPress={() => navigation.goBack()} />
         }
+        iconRight={[
+          <Icon
+            as={Ionicons}
+            mr={2}
+            name="information-circle-outline"
+            size="sm"
+            onPress={() => console.log('Navigate to job details screen...')}
+          />,
+        ]}
       />
 
       <VStack bg="white">
@@ -215,7 +226,9 @@ const ParticipantListingScreen = () => {
               {`$${hourlyRate.toFixed(2)} / hour`}
             </Heading>
           </VStack>
-          <Icon as={Ionicons} name="chevron-forward-circle-outline" size="sm" />
+          <HStack space={4}>
+            <Icon as={Ionicons} name="qr-code-outline" size="md" onPress={() => setShowQRModal(true)} />
+          </HStack>
         </HStack>
 
         <VStack space={1} px={CommonLayout.containerX} py={2}>
@@ -241,6 +254,8 @@ const ParticipantListingScreen = () => {
           {renderContent()}
         </VStack>
       </VStack>
+
+      <QRModal visible={showQRModal} onCancel={() => setShowQRModal(false)} />
     </>
   );
 };
