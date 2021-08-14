@@ -6,6 +6,8 @@ export interface IJobCommon {
   formattedDate: string;
   startTime: string;
   endTime: string;
+  startCode: string | null;
+  endCode: string | null;
   hourlyRate: number;
   company: {
     id: number | undefined;

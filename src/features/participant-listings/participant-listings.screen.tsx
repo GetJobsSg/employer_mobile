@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, ListRenderItem, Linking } from 'react-native';
-import { Heading, Text, HStack, VStack, Stack, Icon, FlatList, Box, Spinner } from 'native-base';
+import { Heading, Text, HStack, VStack, Stack, Icon, FlatList, Box, Spinner, Pressable } from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Header, Tab } from 'src/components';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
@@ -45,7 +45,7 @@ const ParticipantListingScreen = () => {
   const navigation = useNavigation();
 
   const { params } = useRoute();
-  const { id, title, hourlyRate, startDate, endDate, startTime, endTime } = params as IJobCommon;
+  const { id, title, hourlyRate, startDate, endDate, startTime, endTime, startCode, endCode } = params as IJobCommon;
   const jobId = id as number;
 
   useEffect(() => {
@@ -216,19 +216,19 @@ const ParticipantListingScreen = () => {
       />
 
       <VStack bg="white">
-        <HStack px={CommonLayout.containerX} py={2} justifyContent="space-between" alignItems="center">
-          <VStack>
+        <HStack px={CommonLayout.containerX} py={2} alignItems="flex-start">
+          <VStack flex={1} justifyContent="flex-start">
             <Text fontSize="xs" color="gray.500">
               {`# ${id}`}
             </Text>
             <Heading size="sm">{title}</Heading>
-            <Heading size="sm" color="pink.600">
+            <Heading size="sm" color="pink.600" mt={2}>
               {`$${hourlyRate.toFixed(2)} / hour`}
             </Heading>
           </VStack>
-          <HStack space={4}>
+          <Pressable bg="white" border={1} borderRadius="xl" borderColor="gray.100" p={2} mt={2}>
             <Icon as={Ionicons} name="qr-code-outline" size="md" onPress={() => setShowQRModal(true)} />
-          </HStack>
+          </Pressable>
         </HStack>
 
         <VStack space={1} px={CommonLayout.containerX} py={2}>
@@ -255,7 +255,12 @@ const ParticipantListingScreen = () => {
         </VStack>
       </VStack>
 
-      <QRModal visible={showQRModal} onCancel={() => setShowQRModal(false)} />
+      <QRModal
+        qrClockInValue={startCode}
+        qrClockOutValue={endCode}
+        visible={showQRModal}
+        onCancel={() => setShowQRModal(false)}
+      />
     </>
   );
 };

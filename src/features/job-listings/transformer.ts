@@ -15,6 +15,8 @@ export const jobListingTransformer = {
         formattedDate: constructJobDate(job.start_date, job.end_date) || '',
         startTime: convertTimeToAmPm(job.start_time) || '',
         endTime: convertTimeToAmPm(job.end_time) || '',
+        startCode: job.start_code || null,
+        endCode: job.end_code || null,
         hourlyRate: job.hourly_rate || 0,
         company: {
           id: job.company.id,
