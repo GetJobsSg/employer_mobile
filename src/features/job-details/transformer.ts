@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { generateSpecialISOString } from 'src/utils/dateTime';
 import { ICreateJobRequestPayload } from './slice/types';
 
 export const createJobTransformer = {
@@ -11,8 +12,8 @@ export const createJobTransformer = {
       responsibilities: jobData.responsibilities,
       start_date: moment(jobData.startDate).toISOString(),
       end_date: moment(jobData.endDate).toISOString(), // we only need to cater single day, start_date and end_date will be the same
-      start_time: moment(jobData.startTime).toISOString(),
-      end_time: moment(jobData.endTime).toISOString(),
+      start_time: generateSpecialISOString(moment(jobData.startTime).toISOString()),
+      end_time: generateSpecialISOString(moment(jobData.endTime).toISOString()),
       hourly_rate: Number(jobData.hourlyRate),
       hourly_bill_rate: Number(jobData.hourlyRate), // TODO: need to remove when backend make this optional
       job_location: [

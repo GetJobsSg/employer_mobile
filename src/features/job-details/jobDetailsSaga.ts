@@ -11,6 +11,8 @@ function* createJobSaga(action: PayloadAction<any>) {
   const jobData = action.payload;
   const transformedJobData = createJobTransformer.toApi(jobData);
 
+  console.log({ transformedJobData });
+
   try {
     yield call(createJob, transformedJobData);
     yield put(jobDetailsActions.createJobResponse({ error: null }));

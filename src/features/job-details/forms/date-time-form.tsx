@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { FormControl, VStack } from 'native-base';
+import { FormControl, Text, VStack } from 'native-base';
 import moment from 'moment';
 
 import { DatePicker } from 'src/components';
@@ -19,21 +19,6 @@ const DateTimeForm = (props: DateTimeFormProps) => {
   const startDate = formValues[FieldName.startDate];
   useEffect(() => {}, [startDate]);
 
-  const handleOnChangeTime = (targetField: FieldName.startTime | FieldName.endTime) => (selectedTime: Date) => {
-    // date is not selected yet, do not need to proceed add hours / add minutes operation
-    const selectedDate = formValues[FieldName.startDate];
-    if (!selectedDate) {
-      setFormFieldValue(targetField, selectedTime);
-      return;
-    }
-
-    const hours = moment(selectedTime).hours();
-    const mins = moment(selectedTime).minutes();
-    const finalSelectedTime = moment(selectedDate).add(hours, 'hours').add(mins, 'minutes').toDate();
-    setFormFieldValue(targetField, finalSelectedTime);
-    console.info(`selected time ${targetField}: ${moment(finalSelectedTime).format('lll')}`);
-  };
-
   return (
     <VStack py={4}>
       <FormControl isInvalid mb={2}>
@@ -44,12 +29,11 @@ const DateTimeForm = (props: DateTimeFormProps) => {
           format={DD_MMM_YYYY}
           mode="date"
           onChange={(_startDate) => {
-            const targetStartDate = moment(_startDate).startOf('day').toDate();
-            console.info('selected date: ', moment(targetStartDate).format('ll'));
-            setFormFieldValue(FieldName.startDate, targetStartDate);
-            setFormFieldValue(FieldName.endDate, targetStartDate); // only need to cater single date for now, both startDate and endDate will be the same
+            setFormFieldValue(FieldName.startDate, _startDate);
+            setFormFieldValue(FieldName.endDate, _startDate); // only need to cater single date for now, both startDate and endDate will be the same
           }}
         />
+
         <FormControl.ErrorMessage>{formErrors[FieldName.startDate]}</FormControl.ErrorMessage>
       </FormControl>
       <FormControl isInvalid mb={2}>
@@ -59,8 +43,9 @@ const DateTimeForm = (props: DateTimeFormProps) => {
           selectedDate={formValues[FieldName.startTime]}
           format={HH_MM_A}
           mode="time"
-          onChange={handleOnChangeTime(FieldName.startTime)}
+          onChange={(_startTime) => setFormFieldValue(FieldName.startTime, _startTime)}
         />
+        <Text>{moment(formValues[FieldName.startTime]).toISOString()}</Text>
         <FormControl.ErrorMessage>{formErrors[FieldName.startTime]}</FormControl.ErrorMessage>
       </FormControl>
       <FormControl isInvalid mb={2}>
@@ -70,8 +55,9 @@ const DateTimeForm = (props: DateTimeFormProps) => {
           selectedDate={formValues[FieldName.endTime]}
           format={HH_MM_A}
           mode="time"
-          onChange={handleOnChangeTime(FieldName.endTime)}
+          onChange={(_endTime) => setFormFieldValue(FieldName.endTime, _endTime)}
         />
+        <Text>{moment(formValues[FieldName.endTime]).toISOString()}</Text>
         <FormControl.ErrorMessage>{formErrors[FieldName.endTime]}</FormControl.ErrorMessage>
       </FormControl>
     </VStack>

@@ -31,6 +31,21 @@ export const convertTimeToAmPm = (time: string) => {
   return `${hh}:${mm}pm`;
 };
 
+// eg: special handler - convert 2021-08-16T02:00:00.000Z (10am SG time) to 2021-08-16T10:00:00.000Z
+// backend will grab whatever value in between 'T' and '.000Z',
+export const generateSpecialISOString = (isoDateTime: string) => {
+  const hours = moment(isoDateTime).hours();
+  const mins = moment(isoDateTime).minutes();
+
+  const formatHours = () => (hours < 10 ? `0${hours}` : hours);
+  const formatMins = () => (mins < 10 ? `0${mins}` : mins);
+
+  const timeContent = `${formatHours()}:${formatMins()}:00`;
+  const dateContent = isoDateTime.split('T')[0];
+
+  return `${dateContent}T${timeContent}.000Z`;
+};
+
 export const constructJobDate = (startDate: string, endDate: string, format = DD_MMM) => {
   const formattedStartDate = moment(startDate).format(format);
   const formattedEndDate = moment(endDate).format(format);

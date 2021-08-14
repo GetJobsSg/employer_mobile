@@ -10,16 +10,16 @@ export const formValidationSchema = [
       .required('Please select a date')
       .test('startDate', 'Please select a future date', (startDate) => {
         const mStartDate = moment(startDate);
-        const mNow = moment(new Date());
-        return moment(mStartDate).isSameOrAfter(mNow);
+        const mToday = moment(new Date()).startOf('days');
+        return moment(mStartDate).isSameOrAfter(mToday);
       }),
     [FieldName.endDate]: yup
       .date()
       .required('Please select a date')
       .test('endDate', 'Please select a future date', (endDate) => {
         const mEndDate = moment(endDate);
-        const mNow = moment(new Date());
-        return moment(mEndDate).isSameOrAfter(mNow);
+        const mToday = moment(new Date()).startOf('days');
+        return moment(mEndDate).isSameOrAfter(mToday);
       }),
     [FieldName.startTime]: yup.date().required('Please select start time'),
     [FieldName.endTime]: yup.date().when(FieldName.startTime, (startTime: Date) =>
