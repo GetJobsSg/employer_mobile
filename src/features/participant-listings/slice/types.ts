@@ -1,5 +1,6 @@
 export interface IParticipant {
   id: number;
+  jobseekerId: number;
   name: string;
   gender: string;
   age: number;

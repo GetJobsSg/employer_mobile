@@ -135,9 +135,9 @@ const ParticipantListingScreen = () => {
           gender={gender}
           ratings={ratings}
           isSendingOffer={isSendingOffer}
-          onSendOffer={handleSendOffer(id, item.id)}
+          onSendOffer={handleSendOffer(jobId, item.jobseekerId)}
           isRejecting={isRejecting}
-          onReject={handleReject(id, item.id)}
+          onReject={handleReject(jobId, item.jobseekerId)}
         />
       );
     }
@@ -192,6 +192,7 @@ const ParticipantListingScreen = () => {
         extraData={selectedTab} // re-render list when tab changed
         keyExtractor={(item) => String(item.id)}
         renderItem={renderItem}
+        ItemSeparatorComponent={() => <Box my={3} />}
         ListFooterComponent={<Box pb={400} />}
       />
     );

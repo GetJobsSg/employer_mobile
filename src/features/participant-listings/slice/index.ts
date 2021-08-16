@@ -49,7 +49,7 @@ const participantsListingSlice = createSlice({
     sendOfferParticipantRequest(state, action: PayloadAction<IOfferJobPayload>) {
       const { jobseekerId } = action.payload;
       state.pendingParticipants = state.pendingParticipants.map((p) => {
-        if (p.id === jobseekerId) return { ...p, isSendingOffer: true };
+        if (p.jobseekerId === jobseekerId) return { ...p, isSendingOffer: true };
         return p;
       });
     },
@@ -57,13 +57,13 @@ const participantsListingSlice = createSlice({
       const { jobseekerId, error } = action.payload;
       // no error - successfully sent offer, remove the participants from the list
       if (!error) {
-        state.pendingParticipants = state.pendingParticipants.filter((p) => p.id !== jobseekerId);
+        state.pendingParticipants = state.pendingParticipants.filter((p) => p.jobseekerId !== jobseekerId);
         return;
       }
 
       // has error - reset isSendingOffer to false
       state.pendingParticipants = state.pendingParticipants.map((p) => {
-        if (p.id === jobseekerId && error) return { ...p, isSendingOffer: false };
+        if (p.jobseekerId === jobseekerId && error) return { ...p, isSendingOffer: false };
         return p;
       });
     },
@@ -71,7 +71,7 @@ const participantsListingSlice = createSlice({
     rejectOfferParticipantRequest(state, action: PayloadAction<IRejectPayload>) {
       const { jobseekerId } = action.payload;
       state.pendingParticipants = state.pendingParticipants.map((p) => {
-        if (p.id === jobseekerId) return { ...p, isRejecting: true };
+        if (p.jobseekerId === jobseekerId) return { ...p, isRejecting: true };
         return p;
       });
     },
@@ -80,11 +80,11 @@ const participantsListingSlice = createSlice({
       const { jobseekerId, error } = action.payload;
       // no error - successfully reject participant, remove the participats from the list
       if (!error) {
-        state.pendingParticipants = state.pendingParticipants.filter((p) => p.id !== jobseekerId);
+        state.pendingParticipants = state.pendingParticipants.filter((p) => p.jobseekerId !== jobseekerId);
       }
       // has error = set isRejecting to false
       state.pendingParticipants = state.pendingParticipants.map((p) => {
-        if (p.id === jobseekerId && error) return { ...p, isRejecting: false };
+        if (p.jobseekerId === jobseekerId && error) return { ...p, isRejecting: false };
         return p;
       });
     },

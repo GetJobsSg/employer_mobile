@@ -7,6 +7,7 @@ export const participantsTransformer = {
     if (!data) return [];
     return data.map((p) => ({
       id: p.id,
+      jobseekerId: p.employee.id,
       profileImage: p.employee.profile_img,
       name: `${p.employee.first_name} ${p.employee.last_name}` || '',
       gender: p.employee.gender || '',
