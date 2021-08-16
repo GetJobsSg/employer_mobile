@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import { FormControl, Text, VStack } from 'native-base';
-import moment from 'moment';
+import { FormControl, VStack } from 'native-base';
 
 import { DatePicker } from 'src/components';
 import { DD_MMM_YYYY, HH_MM_A } from 'src/constants/dateTime';
@@ -36,6 +35,7 @@ const DateTimeForm = (props: DateTimeFormProps) => {
 
         <FormControl.ErrorMessage>{formErrors[FieldName.startDate]}</FormControl.ErrorMessage>
       </FormControl>
+
       <FormControl isInvalid mb={2}>
         <DatePicker
           label="Start Time"
@@ -45,9 +45,10 @@ const DateTimeForm = (props: DateTimeFormProps) => {
           mode="time"
           onChange={(_startTime) => setFormFieldValue(FieldName.startTime, _startTime)}
         />
-        <Text>{moment(formValues[FieldName.startTime]).toISOString()}</Text>
+
         <FormControl.ErrorMessage>{formErrors[FieldName.startTime]}</FormControl.ErrorMessage>
       </FormControl>
+
       <FormControl isInvalid mb={2}>
         <DatePicker
           label="End Time"
@@ -57,7 +58,6 @@ const DateTimeForm = (props: DateTimeFormProps) => {
           mode="time"
           onChange={(_endTime) => setFormFieldValue(FieldName.endTime, _endTime)}
         />
-        <Text>{moment(formValues[FieldName.endTime]).toISOString()}</Text>
         <FormControl.ErrorMessage>{formErrors[FieldName.endTime]}</FormControl.ErrorMessage>
       </FormControl>
     </VStack>
