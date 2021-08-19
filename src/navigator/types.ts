@@ -7,6 +7,7 @@ export type RootStackParams = {
 
   [RouteName.PARTICIPANTS_LISTING]: { jobData: IJobActive };
   [RouteName.JOB_LISTING]: undefined;
+  [RouteName.WORKER_LISTING]: undefined;
   [RouteName.JOB_DETAILS]: { mode: 'create' | 'edit' | 'preview' };
 
   [RouteName.PROFILE]: undefined;

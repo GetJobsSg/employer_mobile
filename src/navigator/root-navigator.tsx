@@ -6,6 +6,7 @@ import { ForgetPasswordScreen, LoginScreen } from 'src/features/auth';
 import { ParticipantListingScreen } from 'src/features/participant-listings';
 import { JobDetailScreen } from 'src/features/job-details';
 import { JobListingScreen } from 'src/features/job-listings';
+import { WorkerListingScreen } from 'src/features/worker-listings';
 import { ProfileScreen } from 'src/features/profile';
 import { CollectCardDetailScreen, PaymenMethodScreen } from 'src/features/stripe';
 
@@ -31,6 +32,7 @@ const RootNavigator = () => {
           </>
         ) : (
           <>
+            <RootStack.Screen name={RouteName.WORKER_LISTING} component={WorkerListingScreen} />
             <RootStack.Screen name={RouteName.JOB_LISTING} component={JobListingScreen} />
             <RootStack.Screen
               name={RouteName.JOB_DETAILS}
