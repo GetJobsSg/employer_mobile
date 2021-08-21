@@ -1,4 +1,4 @@
-import { IJobActive } from 'src/features/job-listings/slice/types';
+import { IJobActive, IJobOngoing } from 'src/features/job-listings/slice/types';
 import { RouteName } from './route';
 
 export type RootStackParams = {
@@ -7,7 +7,7 @@ export type RootStackParams = {
 
   [RouteName.PARTICIPANTS_LISTING]: { jobData: IJobActive };
   [RouteName.JOB_LISTING]: undefined;
-  [RouteName.WORKER_LISTING]: undefined;
+  [RouteName.WORKER_LISTING]: { jobData: IJobOngoing };
   [RouteName.JOB_DETAILS]: { mode: 'create' | 'edit' | 'preview' };
 
   [RouteName.PROFILE]: undefined;

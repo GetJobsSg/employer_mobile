@@ -6,7 +6,7 @@ import { JobStatus } from 'src/constants/status';
 import { useNavigation } from '@react-navigation/native';
 import { RouteName } from 'src/navigator/route';
 import { jobListingActions } from '../slice';
-import { IJobActive } from '../slice/types';
+import { IJobOngoing } from '../slice/types';
 
 const OngoingList = () => {
   const dispatch = useAppDispatch();
@@ -17,9 +17,9 @@ const OngoingList = () => {
     dispatch(jobListingActions.getOngoingJobListRequest(JobStatus.ONGOING));
   }, [dispatch]);
 
-  const renderItem: ListRenderItem<IJobActive> = ({ item }) => (
+  const renderItem: ListRenderItem<IJobOngoing> = ({ item }) => (
     <Pressable
-      onPress={() => navigation.navigate(RouteName.WORKER_LISTING)}
+      onPress={() => navigation.navigate(RouteName.WORKER_LISTING, item)}
       bg="gray.50"
       borderRadius={5}
       my={1}
