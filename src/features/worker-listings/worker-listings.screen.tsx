@@ -1,21 +1,26 @@
-import React, { useEffect } from 'react';
-import { FlatList, RefreshControl } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { FlatList, RefreshControl, ListRenderItem } from 'react-native';
 import { Box, Icon, VStack } from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Header } from 'src/components';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { useAppDispatch } from 'src/hooks';
+import { useAppDispatch, useAppSelector } from 'src/hooks';
 import WorkerCard from './components/worker-card';
+import TimeClockModal from './components/timeclock-modal';
 import { workerListingActions } from './slice';
 import { IJobOngoing } from '../job-listings/slice/types';
 
+import { IWorker } from './slice/types';
+
 const WorkerListingScreen = () => {
   const dispatch = useAppDispatch();
-  // const {} = useAppSelector((state) => state.workerListings);
+  const { allWorkers } = useAppSelector((state) => state.workerListings);
 
   const navigation = useNavigation();
   const { params } = useRoute();
   const { id } = params as IJobOngoing;
+
+  const [isModalOpen, setIsModalOpen] = useState(true);
 
   console.log('params>>>', params);
 
@@ -23,15 +28,15 @@ const WorkerListingScreen = () => {
     dispatch(workerListingActions.getAllWorkerRequest({ jobId: id }));
   }, [dispatch, id]);
 
-  const renderItem = () => (
+  const renderItem: ListRenderItem<IWorker> = ({ item }) => (
     <WorkerCard
-      avatar={undefined}
-      name="Benson Toh"
+      avatar={item.profileImage}
+      name={item.name}
       onCardClick={() => {}}
-      clockInTime="08:23"
-      clockOutTime={null}
-      age={23}
-      ratings={3.4}
+      clockInTime={item.clockInTime}
+      clockOutTime={item.clockOutTime}
+      age={item.age}
+      ratings={item.ratings}
     />
   );
 
@@ -42,13 +47,14 @@ const WorkerListingScreen = () => {
         iconLeft={<Icon as={Ionicons} name="chevron-back-outline" onPress={() => navigation.goBack()} />}
       />
       <FlatList
-        data={[1, 2, 3]}
-        keyExtractor={(item) => String(item)}
+        data={allWorkers}
+        keyExtractor={(item) => String(item.id)}
         ListFooterComponent={<Box pb={100} />}
         ItemSeparatorComponent={() => <Box py={2} />}
         renderItem={renderItem}
         refreshControl={<RefreshControl refreshing={false} onRefresh={() => {}} />}
       />
+      <TimeClockModal visible={isModalOpen} onCancel={() => setIsModalOpen(false)} />
     </VStack>
   );
 };

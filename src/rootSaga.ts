@@ -4,6 +4,7 @@ import stripeSaga from './features/stripe/stripeSaga';
 import jobListingSaga from './features/job-listings/jobListingSaga';
 import participantListingSaga from './features/participant-listings/participantListingSaga';
 import jobDetailSaga from './features/job-details/jobDetailsSaga';
+import workerListingSaga from './features/worker-listings/workerListingSaga';
 
 export default function* rootSaga() {
   yield all([...authSaga]);
@@ -11,4 +12,5 @@ export default function* rootSaga() {
   yield all([...jobListingSaga]);
   yield all([...participantListingSaga]);
   yield all([...jobDetailSaga]);
+  yield all([...workerListingSaga]);
 }

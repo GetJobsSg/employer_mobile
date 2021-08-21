@@ -4,11 +4,11 @@ export interface IWorker {
   name: string;
   gender: string;
   age: number;
-  ratings: string;
+  ratings: number;
   profileImage: string;
   mobile: string;
-  clockInTime: string;
-  clockOutTime: string;
+  clockInTime: string | null;
+  clockOutTime: string | null;
 }
 
 export interface IWorkerListingInitialState {
