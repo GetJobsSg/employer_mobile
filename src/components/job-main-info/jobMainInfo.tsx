@@ -21,7 +21,7 @@ const JobMainInfo = (props: JobMainInfoProps) => {
   return (
     <VStack>
       <HStack px={CommonLayout.containerX} py={2} alignItems="flex-start">
-        <Pressable flex={1} justifyContent="flex-start" bg="gray.100" onPress={showAllDetails}>
+        <Pressable flex={1} justifyContent="flex-start" onPress={showAllDetails}>
           <VStack>
             <Text fontSize="xs" color="gray.500">
               {`# ${id}`}
