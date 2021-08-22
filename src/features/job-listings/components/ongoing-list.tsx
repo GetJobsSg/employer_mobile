@@ -42,6 +42,16 @@ const OngoingList = () => {
     );
   }
 
+  if (onGoingJobs.length === 0) {
+    return (
+      <Box px={4} py={2}>
+        <Text fontWeight="bold" color="gray.400">
+          You have no on-going jobs
+        </Text>
+      </Box>
+    );
+  }
+
   return (
     <FlatList
       data={onGoingJobs}

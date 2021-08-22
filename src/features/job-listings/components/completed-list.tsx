@@ -1,27 +1,38 @@
 import React, { useEffect } from 'react';
 import { ListRenderItem, FlatList, RefreshControl } from 'react-native';
-import { Box, Spinner, Text } from 'native-base';
+import { Box, Spinner, Text, Pressable } from 'native-base';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { JobStatus } from 'src/constants/status';
+import { RouteName } from 'src/navigator/route';
+import { useNavigation } from '@react-navigation/native';
 import { jobListingActions } from '../slice';
-import { IJobActive } from '../slice/types';
+import { IJobCompleted } from '../slice/types';
 
 const CompletedList = () => {
   const dispatch = useAppDispatch();
   const { isLoadingCompletedJobs, completedJobs } = useAppSelector((state) => state.jobListings);
 
+  const navigation = useNavigation();
+
   useEffect(() => {
     dispatch(jobListingActions.getCompletedJobListRequest(JobStatus.COMPLETED));
   }, [dispatch]);
 
-  const renderItem: ListRenderItem<IJobActive> = ({ item }) => (
-    <Box bg="gray.50" borderRadius={5} my={1} mx={4} p={4}>
+  const renderItem: ListRenderItem<IJobCompleted> = ({ item }) => (
+    <Pressable
+      onPress={() => navigation.navigate(RouteName.WORKER_LISTING, item)}
+      bg="gray.50"
+      borderRadius={5}
+      my={1}
+      mx={4}
+      p={4}
+    >
       <Text fontSize="sm" fontWeight="bold">
         {item.title}
       </Text>
-      <Text fontSize="sm">14 June 2021 (Sat)</Text>
-      <Text fontSize="sm">07:00am - 10:00am</Text>
-    </Box>
+      <Text fontSize="sm">{item.formattedDate}</Text>
+      <Text fontSize="sm">{`${item.startTime} - ${item.endTime}`}</Text>
+    </Pressable>
   );
 
   if (isLoadingCompletedJobs) {

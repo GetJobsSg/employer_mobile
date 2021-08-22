@@ -17,7 +17,7 @@ const JobMainInfo = (props: JobMainInfoProps) => {
             {`# ${id}`}
           </Text>
           <Heading size="sm">{title}</Heading>
-          <Heading size="sm" color="pink.600" mt={2}>
+          <Heading size="sm" color="pink.600">
             {`$${hourlyRate.toFixed(2)} / hour`}
           </Heading>
         </VStack>
@@ -26,7 +26,7 @@ const JobMainInfo = (props: JobMainInfoProps) => {
         </Pressable>
       </HStack>
 
-      <VStack space={1} px={CommonLayout.containerX} py={2}>
+      <VStack space={1} px={CommonLayout.containerX} pb={4}>
         <HStack alignItems="center">
           <Icon mr={2} as={Ionicons} name="calendar-outline" size="sm" />
           <Text fontSize="sm" fontWeight="600">
