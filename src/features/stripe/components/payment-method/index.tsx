@@ -1,7 +1,10 @@
 import React, { useEffect } from 'react';
-import { Box, Button, Center, Heading, Spinner, Text, VStack } from 'native-base';
+import { Button, Center, Heading, Icon, Spinner, Text, VStack } from 'native-base';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { RouteName } from 'src/navigator/route';
+import { Header } from 'src/components';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { CommonLayout } from 'src/constants/layout';
 import { stripeActions } from '../../slice';
 import { PaymentMethodScreenProps } from './types';
 
@@ -25,12 +28,13 @@ const PaymenMethodScreen = (props: PaymentMethodScreenProps) => {
   }
 
   return (
-    <Box safeArea bg="white" position="relative" h="100%" w="100%">
-      <Heading px={4} py={4} size="md">
-        Payment Method
-      </Heading>
+    <VStack bg="white" flex={1}>
+      <Header
+        title="Payment Method"
+        iconLeft={<Icon as={Ionicons} name="chevron-back-outline" onPress={() => navigation.goBack()} />}
+      />
 
-      <VStack px={4}>
+      <VStack px={CommonLayout.containerX} py={CommonLayout.containerY}>
         <VStack>
           {!hasDefaultMethod ? (
             <Heading size="sm" color="gray.400">
@@ -45,12 +49,20 @@ const PaymenMethodScreen = (props: PaymentMethodScreenProps) => {
             </VStack>
           )}
 
-          <Button onPress={() => navigation.push(RouteName.COLLECT_CARD_DETAILS)} mt={4}>
-            {hasDefaultMethod ? 'Change Payment Method' : 'Add Payment Method'}
+          <Button bgColor="gray.900" onPress={() => navigation.push(RouteName.COLLECT_CARD_DETAILS)} mt={4}>
+            {hasDefaultMethod ? (
+              <Text fontWeight="500" color="white">
+                Change Payment Method
+              </Text>
+            ) : (
+              <Text fontWeight="500" color="white">
+                Add Payment Method
+              </Text>
+            )}
           </Button>
         </VStack>
       </VStack>
-    </Box>
+    </VStack>
   );
 };
 

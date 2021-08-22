@@ -8,6 +8,7 @@ import { Header } from 'src/components';
 import { CommonLayout } from 'src/constants/layout';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { RoleLevel } from 'src/constants/role';
+import { RouteName } from 'src/navigator/route';
 import { authActions } from '../auth/slice';
 
 const ProfileScreen = () => {
@@ -63,14 +64,21 @@ const ProfileScreen = () => {
       <Divider />
 
       <VStack mt={4} px={CommonLayout.containerX}>
-        <HStack my={2} alignItems="center">
-          <Icon as={Ionicons} name="lock-closed-outline" size="md" mr={4} />
+        <HStack my={4} alignItems="center">
+          <Icon as={Ionicons} name="lock-closed-outline" size="sm" mr={4} />
           <Text>Change Password (TODO)</Text>
         </HStack>
 
+        <Pressable onPress={() => navigation.navigate(RouteName.PAYMENT_METHODS)}>
+          <HStack my={4} alignItems="center">
+            <Icon as={Ionicons} name="card-outline" size="sm" mr={4} />
+            <Text>Payment Method</Text>
+          </HStack>
+        </Pressable>
+
         <Pressable onPress={handleLogout}>
-          <HStack my={2} alignItems="center">
-            <Icon as={Ionicons} name="log-out-outline" size="md" mr={4} pl={0.5} />
+          <HStack my={4} alignItems="center">
+            <Icon as={Ionicons} name="log-out-outline" size="sm" mr={4} pl={0.5} />
             <Text>Logout</Text>
           </HStack>
         </Pressable>
