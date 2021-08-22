@@ -2,16 +2,15 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { call, fork, put, takeLatest } from 'redux-saga/effects';
 import { JobStatus } from 'src/constants/status';
 import { jobDetailsActions } from './slice';
-import { createJobTransformer } from './transformer';
-import { createJob, getAllCategories } from './apis';
-import { IGetAllCategoriesResponse } from './slice/types';
+import { createJobTransformer, jobDetailsTransformer } from './transformer';
+import { createJob, getAllCategories, getJobDetails } from './apis';
+import { IGetAllCategoriesResponse, IJobDetailsPayload } from './slice/types';
 import { jobListingActions } from '../job-listings/slice';
+import { IJobDetailsResponse } from './apis/types';
 
 function* createJobSaga(action: PayloadAction<any>) {
   const jobData = action.payload;
   const transformedJobData = createJobTransformer.toApi(jobData);
-
-  console.log({ transformedJobData });
 
   try {
     yield call(createJob, transformedJobData);
@@ -22,8 +21,15 @@ function* createJobSaga(action: PayloadAction<any>) {
   }
 }
 
-function* getJobDetailSaga() {
-  yield 'get job details';
+function* getJobDetailSaga(action: PayloadAction<{ jobId: number }>) {
+  try {
+    const { jobId } = action.payload;
+    const res: IJobDetailsResponse = yield call(getJobDetails, jobId);
+    const transformed: IJobDetailsPayload = jobDetailsTransformer.toState(res);
+    yield put(jobDetailsActions.getJobDetailsResponse({ data: transformed, error: null }));
+  } catch (e) {
+    yield put(jobDetailsActions.getJobDetailsResponse({ data: {}, error: e }));
+  }
 }
 
 function* getAllCategoriesSaga() {
@@ -38,7 +44,7 @@ function* getAllCategoriesSaga() {
 
 function* watchJobDetailSaga() {
   yield takeLatest(jobDetailsActions.createJobRequest, createJobSaga);
-  yield takeLatest(jobDetailsActions.getJobRequest, getJobDetailSaga);
+  yield takeLatest(jobDetailsActions.getJobDetailsRequest, getJobDetailSaga);
   yield takeLatest(jobDetailsActions.getAllCategoriesRequest, getAllCategoriesSaga);
 }
 

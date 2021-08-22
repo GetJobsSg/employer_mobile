@@ -1,6 +1,7 @@
 import moment from 'moment';
 import { generateSpecialISOString } from 'src/utils/dateTime';
-import { ICreateJobRequestPayload } from './slice/types';
+import { IJobDetailsResponse } from './apis/types';
+import { ICreateJobRequestPayload, IJobDetailsPayload } from './slice/types';
 
 export const createJobTransformer = {
   toApi(jobData: any): ICreateJobRequestPayload {
@@ -24,6 +25,34 @@ export const createJobTransformer = {
           unit_no: jobData.unitNo,
         },
       ],
+    };
+  },
+};
+
+export const jobDetailsTransformer = {
+  toState(apisData: IJobDetailsResponse): IJobDetailsPayload {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    const { job, job_locations } = apisData.data;
+    return {
+      id: job.id,
+      // datetime related
+      startDate: job.start_date,
+      endDate: job.end_date,
+      startTime: job.start_time,
+      endTime: job.end_time,
+      // basic info related
+      jobTitle: job.title,
+      jobDescription: job.desc,
+      hourlyRate: job.hourly_rate,
+      category: job.job_category.id,
+      // long text info
+      requirements: job.requirements,
+      responsiblities: job.responsibilities,
+      // location related
+      address: job_locations[0].address,
+      postalCode: job_locations[0].postal_code,
+      blockNo: job_locations[0].block_no,
+      unitNo: job_locations[0].unit_no,
     };
   },
 };

@@ -8,7 +8,7 @@ export type RootStackParams = {
   [RouteName.PARTICIPANTS_LISTING]: { jobData: IJobActive };
   [RouteName.JOB_LISTING]: undefined;
   [RouteName.WORKER_LISTING]: { jobData: IJobOngoing };
-  [RouteName.JOB_DETAILS]: { mode: 'create' | 'edit' | 'preview' };
+  [RouteName.JOB_DETAILS]: { mode: 'create' | 'edit' | 'preview'; jobId?: number };
 
   [RouteName.PROFILE]: undefined;
 

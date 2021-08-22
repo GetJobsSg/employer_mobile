@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ICategory, ICreateJobResponsePayload } from './types';
+import { ICategory, ICreateJobResponsePayload, IJobDetailsResponsePayload } from './types';
 import { jobDetailInitialState } from './defaultState';
 
 const jobDetailSlice = createSlice({
@@ -18,11 +18,14 @@ const jobDetailSlice = createSlice({
     },
 
     // get job details
-    getJobRequest(state) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    getJobDetailsRequest(state, action: PayloadAction<{ jobId: number }>) {
       state.isLoadingGetJobDetails = true;
     },
-    getJobResponse(state) {
+    getJobDetailsResponse(state, action: PayloadAction<IJobDetailsResponsePayload>) {
       state.isLoadingGetJobDetails = false;
+      state.jobDetails = action.payload.error ? state.jobDetails : action.payload.data;
+      state.errorJobDetails = action.payload.error ? action.payload.error : null;
     },
 
     // get all job categories

@@ -34,7 +34,7 @@ const JobListingScreen = () => {
             </Heading>
             <HStack space={4}>
               <Icon
-                onPress={() => navigation.navigate(RouteName.JOB_DETAILS)}
+                onPress={() => navigation.navigate(RouteName.JOB_DETAILS, { mode: 'create' })}
                 as={Ionicons}
                 name="add-circle-outline"
               />

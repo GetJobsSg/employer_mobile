@@ -8,6 +8,8 @@ export interface IJobDetailInitialState {
 
   // get job details
   isLoadingGetJobDetails: boolean;
+  jobDetails: IJobDetailsPayload | {};
+  errorJobDetails: null;
 
   // getAll categories
   isLoadingGetAllCategories: boolean;
@@ -46,7 +48,6 @@ export interface ICreateJobResponsePayload {
 /**
  * GET ALL CATEGORIES
  */
-
 export interface ICategory {
   id: number;
   name: string;
@@ -55,4 +56,27 @@ export interface ICategory {
 }
 export interface IGetAllCategoriesResponse {
   data: ICategory[];
+}
+
+export interface IJobDetailsPayload {
+  id: number;
+  startDate: string;
+  endDate: string;
+  startTime: string;
+  endTime: string;
+  jobTitle: string;
+  jobDescription: string;
+  hourlyRate: number;
+  category: number;
+  requirements: string;
+  responsiblities: string;
+  address: string;
+  postalCode: string;
+  blockNo: string;
+  unitNo: string;
+}
+
+export interface IJobDetailsResponsePayload {
+  data: IJobDetailsPayload | {};
+  error: null | any;
 }

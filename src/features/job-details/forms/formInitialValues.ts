@@ -24,37 +24,49 @@ export enum FieldName {
   unitNo = 'unitNo',
 }
 
-export const formInitialValues = [
-  // Stage 1
-  {
-    [FieldName.startDate]: undefined,
-    [FieldName.endDate]: undefined,
-    [FieldName.startTime]: undefined,
-    [FieldName.endTime]: undefined,
-  },
+// export const formInitialValues = [
+// // Stage 1
+// {
+//   [FieldName.startDate]: undefined,
+//   [FieldName.endDate]: undefined,
+//   [FieldName.startTime]: undefined,
+//   [FieldName.endTime]: undefined,
+// },
+// // Stage 2
+// {
+//   [FieldName.jobTitle]: '',
+//   [FieldName.jobDescription]: '',
+//   [FieldName.hourlyRate]: '',
+// },
+// // Stage 3
+// {
+//   [FieldName.requirement]: '',
+// },
+// // Stage 4
+// {
+//   [FieldName.responsiblities]: '',
+// },
+// // Stage 5
+// {
+//   [FieldName.address]: '',
+//   [FieldName.postalCode]: '',
+//   [FieldName.blockNo]: '',
+//   [FieldName.unitNo]: '',
+// },
+// ];
 
-  // Stage 2
-  {
-    [FieldName.jobTitle]: '',
-    [FieldName.jobDescription]: '',
-    [FieldName.hourlyRate]: '',
-  },
-
-  // Stage 3
-  {
-    [FieldName.requirement]: '',
-  },
-
-  // Stage 4
-  {
-    [FieldName.responsiblities]: '',
-  },
-
-  // Stage 5
-  {
-    [FieldName.address]: '',
-    [FieldName.postalCode]: '',
-    [FieldName.blockNo]: '',
-    [FieldName.unitNo]: '',
-  },
-];
+export const formInitialValues = {
+  [FieldName.startDate]: undefined,
+  [FieldName.endDate]: undefined,
+  [FieldName.startTime]: undefined,
+  [FieldName.endTime]: undefined,
+  [FieldName.jobTitle]: '',
+  [FieldName.jobDescription]: '',
+  [FieldName.hourlyRate]: '',
+  [FieldName.requirement]: '',
+  [FieldName.responsiblities]: '',
+  [FieldName.address]: '',
+  [FieldName.postalCode]: '',
+  [FieldName.blockNo]: '',
+  [FieldName.unitNo]: '',
+};

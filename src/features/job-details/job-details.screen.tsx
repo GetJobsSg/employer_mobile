@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
 import { Alert, Platform } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { KeyboardAvoidingView, ScrollView, HStack, VStack, Text, Button } from 'native-base';
 
 import { CommonLayout } from 'src/constants/layout';
 import { Footer, Header } from 'src/components';
 
 import { useAppSelector, useCheckSuccess } from 'src/hooks';
+import { RootStackParams } from 'src/navigator/types';
+import { RouteName } from 'src/navigator/route';
 import { formInitialValues } from './forms/formInitialValues';
 import { formValidationSchema } from './forms/formValidationSchema';
 
@@ -33,11 +35,21 @@ enum Step {
 const JobDetailScreen = () => {
   const dispatch = useDispatch();
   const { isLoadingCreateJob, errorCreateJob } = useAppSelector((state) => state.jobDetails);
+
   const navigation = useNavigation();
-  const [currStep, setCurrStep] = useState(0);
+  const { params } = useRoute<RouteProp<RootStackParams, RouteName.JOB_DETAILS>>();
+  const { mode, jobId } = params;
+
+  useEffect(() => {
+    if (mode === 'preview' && jobId) {
+      dispatch(jobDetailsActions.getJobDetailsRequest({ jobId }));
+    }
+  }, [dispatch, mode, jobId]);
+
+  const [currStep, setCurrStep] = useState(mode === 'create' ? Step.BASIC_INFO : Step.PREVIEW);
 
   const { values, dirty, errors, handleSubmit, setFieldValue } = useFormik({
-    initialValues: formInitialValues[currStep],
+    initialValues: formInitialValues, // edit mode ? initialize all value
     validationSchema: formValidationSchema[currStep],
     validateOnChange: false,
     onSubmit: (_values) => {

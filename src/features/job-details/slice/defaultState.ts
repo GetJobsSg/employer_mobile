@@ -7,6 +7,24 @@ export const jobDetailInitialState: IJobDetailInitialState = {
 
   // get job details
   isLoadingGetJobDetails: false,
+  jobDetails: {
+    id: 0,
+    startDate: '',
+    endDate: '',
+    startTime: '',
+    endTime: '',
+    jobTitle: '',
+    jobDescription: '',
+    hourlyRate: 0,
+    category: 0,
+    requirements: '',
+    responsiblities: '',
+    address: '',
+    postalCode: '',
+    blockNo: '',
+    unitNo: '',
+  },
+  errorJobDetails: null,
 
   // getAll categories
   isLoadingGetAllCategories: false,
