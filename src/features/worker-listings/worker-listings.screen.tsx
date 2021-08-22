@@ -20,7 +20,7 @@ const WorkerListingScreen = () => {
   const { params } = useRoute();
   const { id } = params as IJobOngoing;
 
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   console.log('params>>>', params);
 

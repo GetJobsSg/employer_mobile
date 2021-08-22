@@ -46,6 +46,16 @@ const ActiveList = () => {
     );
   }
 
+  if (activeJobs.length === 0) {
+    return (
+      <Box px={4} py={2}>
+        <Text fontWeight="bold" color="gray.400">
+          You have no active jobs
+        </Text>
+      </Box>
+    );
+  }
+
   return (
     <FlatList
       data={activeJobs}

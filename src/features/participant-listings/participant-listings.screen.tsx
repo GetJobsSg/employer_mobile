@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, ListRenderItem, Linking } from 'react-native';
-import { Heading, Text, HStack, VStack, Stack, Icon, FlatList, Box, Spinner, Pressable } from 'native-base';
+import { Text, VStack, Stack, Icon, FlatList, Box, Spinner } from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Header, Tab } from 'src/components';
+import { Header, Tab, JobMainInfo } from 'src/components';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { JobApplicationStatus } from 'src/constants/status';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -12,7 +12,6 @@ import { DD_MMM_YYYY } from 'src/constants/dateTime';
 import { isAndroid } from 'src/utils/platform';
 
 import ParticipantCard from './components/participants-card';
-import QRModal from './components/qr-modal';
 import { participantListingActions } from './slice';
 import { IJobCommon } from '../job-listings/slice/types';
 import { IParticipant } from './slice/types';
@@ -26,7 +25,6 @@ const tabOptions = [
 
 const ParticipantListingScreen = () => {
   const [selectedTab, setSelectedTab] = useState(tabOptions[0]);
-  const [showQRModal, setShowQRModal] = useState(false);
 
   const {
     isLoadingGetAllPendingParticipant,
@@ -205,48 +203,18 @@ const ParticipantListingScreen = () => {
         iconLeft={
           <Icon as={Ionicons} name="chevron-back-outline" color="gray.600" onPress={() => navigation.goBack()} />
         }
-        iconRight={[
-          <Icon
-            as={Ionicons}
-            mr={2}
-            name="information-circle-outline"
-            size="sm"
-            onPress={() => console.log('Navigate to job details screen...')}
-          />,
-        ]}
       />
 
       <VStack bg="white">
-        <HStack px={CommonLayout.containerX} py={2} alignItems="flex-start">
-          <VStack flex={1} justifyContent="flex-start">
-            <Text fontSize="xs" color="gray.500">
-              {`# ${id}`}
-            </Text>
-            <Heading size="sm">{title}</Heading>
-            <Heading size="sm" color="pink.600" mt={2}>
-              {`$${hourlyRate.toFixed(2)} / hour`}
-            </Heading>
-          </VStack>
-          <Pressable bg="white" border={1} borderRadius="xl" borderColor="gray.100" p={2} mt={2}>
-            <Icon as={Ionicons} name="qr-code-outline" size="md" onPress={() => setShowQRModal(true)} />
-          </Pressable>
-        </HStack>
-
-        <VStack space={1} px={CommonLayout.containerX} py={2}>
-          <HStack alignItems="center">
-            <Icon mr={2} as={Ionicons} name="calendar-outline" size="sm" />
-            <Text fontSize="sm" fontWeight="600">
-              {constructJobDate(startDate, endDate, DD_MMM_YYYY)}
-            </Text>
-          </HStack>
-
-          <HStack alignItems="center">
-            <Icon mr={2} as={Ionicons} name="time-outline" size="sm" />
-            <Text fontSize="sm" fontWeight="600">
-              {`${startTime} - ${endTime}`}
-            </Text>
-          </HStack>
-        </VStack>
+        <JobMainInfo
+          id={id}
+          title={title}
+          hourlyRate={hourlyRate}
+          date={constructJobDate(startDate, endDate, DD_MMM_YYYY)}
+          time={`${startTime} - ${endTime}`}
+          startCode={startCode}
+          endCode={endCode}
+        />
 
         <VStack h="100%">
           <Stack px={CommonLayout.containerX - 1} py={2} pb={3}>
@@ -255,13 +223,6 @@ const ParticipantListingScreen = () => {
           {renderContent()}
         </VStack>
       </VStack>
-
-      <QRModal
-        qrClockInValue={startCode}
-        qrClockOutValue={endCode}
-        visible={showQRModal}
-        onCancel={() => setShowQRModal(false)}
-      />
     </>
   );
 };
