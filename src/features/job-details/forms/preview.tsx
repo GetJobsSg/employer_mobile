@@ -1,22 +1,53 @@
 import moment from 'moment';
-import { VStack, Text, Divider } from 'native-base';
+import { VStack, Text, HStack } from 'native-base';
 import React from 'react';
 import { DD_MMM_YYYY, HH_MM_A } from 'src/constants/dateTime';
 import { getCalendarDay } from 'src/utils/dateTime';
-import { FieldName } from './formInitialValues';
+import { FieldName, FormStep } from './formInitialValues';
 
-interface IPreviewItem {
+interface ISectionProps {
+  children: React.ReactElement | React.ReactElement[];
+  title: string;
+  onEdit: () => void;
+}
+
+const Section = (props: ISectionProps) => {
+  const { children, title, onEdit } = props;
+  return (
+    <VStack borderWidth={1} borderColor="gray.100" borderRadius={10} mb={6}>
+      <HStack
+        flex={1}
+        alignItems="center"
+        borderBottomWidth={1}
+        borderBottomColor="gray.100"
+        justifyContent="space-between"
+      >
+        <Text pl={4} fontWeight="600" fontSize="sm">
+          {title}
+        </Text>
+        <Text onPress={onEdit} fontSize="sm" color="blue.400" px={6} py={3}>
+          Edit
+        </Text>
+      </HStack>
+      <VStack px={4} pt={4}>
+        {children}
+      </VStack>
+    </VStack>
+  );
+};
+
+interface IPreviewItemProps {
   label: string;
   value: string;
 }
-const PreviewItem = (props: IPreviewItem) => {
+const PreviewItem = (props: IPreviewItemProps) => {
   const { label, value } = props;
   return (
     <VStack mb={4}>
-      <Text fontSize="sm" mb={1} color="gray.500">
+      <Text fontSize="xs" mb={1} color="gray.500">
         {label}
       </Text>
-      <Text fontSize="md" fontWeight="500" mb={1} color="gray.900">
+      <Text fontSize="md" fontWeight="500" mb={1}>
         {value}
       </Text>
     </VStack>
@@ -25,42 +56,47 @@ const PreviewItem = (props: IPreviewItem) => {
 
 interface IPreviewProps {
   formValues: any;
+  handleSectionEdit: (step: number) => void;
 }
 
 const Preview = (props: IPreviewProps) => {
-  const { formValues } = props;
+  const { formValues, handleSectionEdit } = props;
+
+  const getJobDate = () =>
+    `${moment(formValues[FieldName.startDate]).format(DD_MMM_YYYY)} (${getCalendarDay(
+      formValues[FieldName.startDate],
+    )})`;
+
+  const onSectionEdit = (stepId: FormStep) => handleSectionEdit(stepId);
 
   return (
     <VStack bg="white" pt={4}>
-      <PreviewItem
-        label="Date"
-        value={`${moment(formValues[FieldName.startDate]).format(DD_MMM_YYYY)} (${getCalendarDay(
-          formValues[FieldName.startDate],
-        )})`}
-      />
-      <PreviewItem label="Start Time" value={moment(formValues[FieldName.startTime]).format(HH_MM_A)} />
-      <PreviewItem label="End Time" value={moment(formValues[FieldName.endTime]).format(HH_MM_A)} />
+      <Section title="Datetime" onEdit={() => onSectionEdit(FormStep.DATETIME_INFO)}>
+        <PreviewItem label="Date" value={getJobDate()} />
+        <PreviewItem label="Start Time" value={moment(formValues[FieldName.startTime]).format(HH_MM_A)} />
+        <PreviewItem label="End Time" value={moment(formValues[FieldName.endTime]).format(HH_MM_A)} />
+      </Section>
 
-      <Divider orientation="horizontal" my={4} />
+      <Section title="Basic Info" onEdit={() => onSectionEdit(FormStep.BASIC_INFO)}>
+        <PreviewItem label="Job Title" value={formValues[FieldName.jobTitle]} />
+        <PreviewItem label="Job Description" value={formValues[FieldName.jobDescription]} />
+        <PreviewItem label="Hourly Rate" value={`$${formValues[FieldName.hourlyRate]} / hour`} />
+      </Section>
 
-      <PreviewItem label="Job Title" value={formValues[FieldName.jobTitle]} />
-      <PreviewItem label="Job Description" value={formValues[FieldName.jobDescription]} />
-      <PreviewItem label="Hourly Rate" value={`$${formValues[FieldName.hourlyRate]} / hour`} />
+      <Section title="Requirement" onEdit={() => onSectionEdit(FormStep.REQUIREMENT_INFO)}>
+        <PreviewItem label="Requirement" value={formValues[FieldName.requirement]} />
+      </Section>
 
-      <Divider orientation="horizontal" my={4} />
+      <Section title="Responsibilities" onEdit={() => onSectionEdit(FormStep.RESPONSIBLITY_INFO)}>
+        <PreviewItem label="Responsibilities" value={formValues[FieldName.responsiblities]} />
+      </Section>
 
-      <PreviewItem label="Requirement" value={formValues[FieldName.requirement]} />
-
-      <Divider orientation="horizontal" my={4} />
-
-      <PreviewItem label="Responsibilities" value={formValues[FieldName.responsiblities]} />
-
-      <Divider orientation="horizontal" my={4} />
-
-      <PreviewItem label="Address" value={formValues[FieldName.address]} />
-      <PreviewItem label="Block No" value={formValues[FieldName.blockNo]} />
-      <PreviewItem label="Unit No" value={formValues[FieldName.unitNo]} />
-      <PreviewItem label="Postal Code" value={formValues[FieldName.postalCode]} />
+      <Section title="Location" onEdit={() => onSectionEdit(FormStep.LOCATION_INFO)}>
+        <PreviewItem label="Address" value={formValues[FieldName.address]} />
+        <PreviewItem label="Block No" value={formValues[FieldName.blockNo]} />
+        <PreviewItem label="Unit No" value={formValues[FieldName.unitNo]} />
+        <PreviewItem label="Postal Code" value={formValues[FieldName.postalCode]} />
+      </Section>
     </VStack>
   );
 };

@@ -20,6 +20,7 @@ const ResponsibilitiesForm = (props: ResponsibilityFormProps) => {
           textAlignVertical="top"
           returnKeyType="next"
           value={formValues[FieldName.responsiblities]}
+          multiline
           height={200}
           onChangeText={(resp) => setFormFieldValue(FieldName.responsiblities, resp)}
         />

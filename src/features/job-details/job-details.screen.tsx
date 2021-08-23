@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import { Alert, Platform } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
-import { KeyboardAvoidingView, ScrollView, HStack, VStack, Text, Button } from 'native-base';
+import { KeyboardAvoidingView, ScrollView, HStack, VStack, Text, Button, Icon } from 'native-base';
 
 import { CommonLayout } from 'src/constants/layout';
 import { Footer, Header } from 'src/components';
@@ -11,7 +11,8 @@ import { Footer, Header } from 'src/components';
 import { useAppSelector, useCheckSuccess } from 'src/hooks';
 import { RootStackParams } from 'src/navigator/types';
 import { RouteName } from 'src/navigator/route';
-import { formInitialValues } from './forms/formInitialValues';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { formInitialValues, FormStep } from './forms/formInitialValues';
 import { formValidationSchema } from './forms/formValidationSchema';
 
 import DateTimeForm from './forms/date-time-form';
@@ -22,15 +23,6 @@ import LocationForm from './forms/location-form';
 import Preview from './forms/preview';
 
 import { jobDetailsActions } from './slice';
-
-enum Step {
-  DATETIME_INFO,
-  BASIC_INFO,
-  REQUIREMENT_INFO,
-  RESPONSIBLITY_INFO,
-  LOCATION_INFO,
-  PREVIEW,
-}
 
 const JobDetailScreen = () => {
   const dispatch = useDispatch();
@@ -46,7 +38,7 @@ const JobDetailScreen = () => {
     }
   }, [dispatch, mode, jobId]);
 
-  const [currStep, setCurrStep] = useState(mode === 'create' ? Step.BASIC_INFO : Step.PREVIEW);
+  const [currStep, setCurrStep] = useState(mode === 'create' ? FormStep.DATETIME_INFO : FormStep.PREVIEW);
 
   const { values, dirty, errors, handleSubmit, setFieldValue } = useFormik({
     initialValues: formInitialValues, // edit mode ? initialize all value
@@ -75,23 +67,23 @@ const JobDetailScreen = () => {
 
   const renderFormContent = () => {
     switch (currStep) {
-      case Step.DATETIME_INFO:
+      case FormStep.DATETIME_INFO:
         return <DateTimeForm formValues={values} formErrors={errors} setFormFieldValue={setFieldValue} />;
 
-      case Step.BASIC_INFO:
+      case FormStep.BASIC_INFO:
         return <BasicInfoForm formValues={values} formErrors={errors} setFormFieldValue={setFieldValue} />;
 
-      case Step.REQUIREMENT_INFO:
+      case FormStep.REQUIREMENT_INFO:
         return <RequirementForm formValues={values} formErrors={errors} setFormFieldValue={setFieldValue} />;
 
-      case Step.RESPONSIBLITY_INFO:
+      case FormStep.RESPONSIBLITY_INFO:
         return <ResponsibilitiesForm formValues={values} formErrors={errors} setFormFieldValue={setFieldValue} />;
 
-      case Step.LOCATION_INFO:
+      case FormStep.LOCATION_INFO:
         return <LocationForm formValues={values} formErrors={errors} setFormFieldValue={setFieldValue} />;
 
-      case Step.PREVIEW:
-        return <Preview formValues={values} />;
+      case FormStep.PREVIEW:
+        return <Preview formValues={values} handleSectionEdit={(stepId) => setCurrStep(stepId)} />;
 
       default:
         return <Text>Form Not Found</Text>;
@@ -100,7 +92,7 @@ const JobDetailScreen = () => {
 
   const handleClose = () => {
     if (dirty) {
-      return Alert.alert('Exit?', 'All the information you have insert will be lost.', [
+      return Alert.alert('Exit Job Creation', 'All the information you have insert will be discarded.', [
         { text: 'Cancel' },
         { text: 'OK', onPress: () => navigation.goBack() },
       ]);
@@ -114,10 +106,10 @@ const JobDetailScreen = () => {
 
   const renderButtonLabel = () => {
     let label = 'Next';
-    if (currStep === Step.PREVIEW) {
+    if (currStep === FormStep.PREVIEW) {
       label = 'Create';
     }
-    if (currStep === Step.LOCATION_INFO) {
+    if (currStep === FormStep.LOCATION_INFO) {
       label = 'Preview';
     }
 
@@ -130,14 +122,7 @@ const JobDetailScreen = () => {
 
   return (
     <VStack flex={1}>
-      <Header
-        title="Create Job"
-        labelRight={
-          <Text color="gray.900" underline fontWeight="600" onPress={handleClose}>
-            Close
-          </Text>
-        }
-      />
+      <Header title="Create Job" iconLeft={<Icon as={Ionicons} name="close-outline" onPress={handleClose} />} />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} flex={1}>
         <ScrollView px={CommonLayout.containerX} bg="white">
           {renderFormContent()}
@@ -146,7 +131,7 @@ const JobDetailScreen = () => {
 
       <Footer>
         <HStack space={1} alignItems="center">
-          {currStep !== Step.DATETIME_INFO && (
+          {currStep !== FormStep.DATETIME_INFO && (
             <Button variant="outline" bgColor="white" borderColor="gray.900" borderWidth={2} onPress={handlePrevStage}>
               <Text fontWeight="500" color="black">
                 Previous
@@ -161,7 +146,7 @@ const JobDetailScreen = () => {
             borderWidth={2}
             flex={1}
             isLoading={isLoadingCreateJob}
-            onPress={currStep === Step.PREVIEW ? handleCreate : handleSubmit}
+            onPress={currStep === FormStep.PREVIEW ? handleCreate : handleSubmit}
           >
             {renderButtonLabel()}
           </Button>
