@@ -1,11 +1,8 @@
-import { JobApplicationStatus } from 'src/constants/status';
 import { get, put } from 'src/utils/network';
 import { IWorkerListResponse } from './types';
 
-// only worker accepted the offer able to clockIn clockOut
-// this endpoint is similar to getAllParticipants endpoint
 export const getAllWorkers = (jobId: number): Promise<IWorkerListResponse> =>
-  get(`/web/job/${jobId}/participants/${JobApplicationStatus.ACCEPTED}`).then((res) => res.data);
+  get(`/web/job/attendance/participant/${jobId}`).then((res) => res.data);
 
 export const updateWorkerDutyInfo = (
   jobId: number,

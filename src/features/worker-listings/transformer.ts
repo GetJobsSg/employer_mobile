@@ -6,14 +6,14 @@ export const workerTransformer = {
   toState: (res: IWorkerListResponse): IWorker[] =>
     res.data.map((worker) => ({
       id: worker.id,
-      jobseekerId: worker.employee.id,
-      name: `${worker.employee.first_name} ${worker.employee.last_name}`,
-      gender: worker.employee.gender || '',
-      age: getAge(worker.employee.dob) || 0,
-      ratings: worker.rating || 0,
-      profileImage: worker.employee.profile_img || '',
-      mobile: worker.employee.mobile || '',
-      clockInTime: null, // TODO: pending backend
-      clockOutTime: null, // TODO: pending backend
+      jobseekerId: worker.job_participant_id,
+      name: `${worker.job_participant.employee.first_name} ${worker.job_participant.employee.last_name}`,
+      gender: worker.job_participant.employee.gender || '',
+      age: getAge(worker.job_participant.employee.dob) || 0,
+      ratings: worker.job_participant.rating || 0,
+      profileImage: worker.job_participant.employee.profile_img || '',
+      mobile: worker.job_participant.employee.mobile || '',
+      clockInTime: worker.clock_in_time || null,
+      clockOutTime: worker.clock_out_time || null,
     })),
 };
