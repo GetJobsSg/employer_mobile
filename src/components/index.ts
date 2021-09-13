@@ -6,3 +6,4 @@ export { default as DatePicker } from './date-picker';
 export { default as Picker } from './picker';
 export { default as JobMainInfo } from './job-main-info';
 export { default as QRModal } from './qr-modal';
+export { default as WorkerCard } from './worker-card';

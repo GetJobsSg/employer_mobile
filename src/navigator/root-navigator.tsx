@@ -7,6 +7,7 @@ import { ParticipantListingScreen } from 'src/features/participant-listings';
 import { JobDetailScreen } from 'src/features/job-details';
 import { JobListingScreen } from 'src/features/job-listings';
 import { WorkerListingScreen } from 'src/features/worker-listings';
+import { AttendanceRecordScreen } from 'src/features/attendance-record';
 import { ProfileScreen } from 'src/features/profile';
 import { CollectCardDetailScreen, PaymenMethodScreen } from 'src/features/stripe';
 
@@ -22,16 +23,17 @@ const RootNavigator = () => {
   return (
     <NavigationContainer>
       <RootStack.Navigator
-        initialRouteName={isAuthenticated ? RouteName.JOB_LISTING : RouteName.AUTH_LOGIN}
+        initialRouteName={isAuthenticated ? RouteName.ATTENDANCE_RECORD : RouteName.AUTH_LOGIN}
         headerMode="none"
       >
         {!isAuthenticated ? (
           <>
-            <RootStack.Screen name={RouteName.AUTH_LOGIN} component={LoginScreen} />
+            <RootStack.Screen name={RouteName.ATTENDANCE_RECORD} component={LoginScreen} />
             <RootStack.Screen name={RouteName.AUTH_FORGET_PASSWORD} component={ForgetPasswordScreen} />
           </>
         ) : (
           <>
+            <RootStack.Screen name={RouteName.ATTENDANCE_RECORD} component={AttendanceRecordScreen} />
             <RootStack.Screen name={RouteName.WORKER_LISTING} component={WorkerListingScreen} />
             <RootStack.Screen name={RouteName.JOB_LISTING} component={JobListingScreen} />
             <RootStack.Screen
