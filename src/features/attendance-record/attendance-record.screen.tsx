@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heading, Text, Icon, VStack, FlatList } from 'native-base';
+import { Heading, Text, Icon, VStack, FlatList, HStack } from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Header, WorkerCard } from 'src/components';
 import { ListRenderItem } from 'react-native';
@@ -13,21 +13,25 @@ const AttendanceRecordScreen = () => {
         # 1
       </Text>
       <Heading size="sm">Mc Delivery</Heading>
-      <VStack mt={1} space={1}>
-        <Text fontSize="sm" fontWeight="500">
+      <HStack mt={1} space={1}>
+        <Text color="orange.800" fontSize="sm" fontWeight="500">
           {constructJobDate('2021-09-12', '2021-09-12', DD_MMM_YYYY)}
         </Text>
-        <Text fontSize="sm" fontWeight="500">
+        <Text color="orange.800">&bull;</Text>
+        <Text color="orange.800" fontSize="sm" fontWeight="500">
           08:00am - 14:00pm
         </Text>
-      </VStack>
+      </HStack>
+      <Text fontSize="sm" mt={2} color="gray.500">
+        Tap on the worker below and start to give rating or amend their number of hours worked.
+      </Text>
     </VStack>
   );
 
   const renderItem: ListRenderItem<{ id: string }> = () => (
     <WorkerCard
       avatar=""
-      name="Benson Toh Ban Soon bin tejjs mms"
+      name="Toh Ban Soon"
       onCardClick={() => {}}
       clockInTime="12:00am"
       clockOutTime="08:30pm"
