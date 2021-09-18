@@ -1,6 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { call, fork, put, takeLatest } from 'redux-saga/effects';
 import { JobStatus } from 'src/constants/status';
+import { CommonTypes } from 'src/shared';
 import { jobDetailsActions } from './slice';
 import { createJobTransformer, jobDetailsTransformer } from './transformer';
 import { createJob, getAllCategories, getJobDetails } from './apis';
@@ -21,7 +22,7 @@ function* createJobSaga(action: PayloadAction<any>) {
   }
 }
 
-function* getJobDetailSaga(action: PayloadAction<{ jobId: number }>) {
+function* getJobDetailSaga(action: PayloadAction<CommonTypes.ICommonJobRequest>) {
   try {
     const { jobId } = action.payload;
     const res: IJobDetailsResponse = yield call(getJobDetails, jobId);

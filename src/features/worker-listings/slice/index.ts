@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { CommonTypes } from 'src/shared';
 import { workerListingInitialState } from './defaultState';
 import { IWorkerListPayload } from './types';
 
@@ -7,7 +8,7 @@ const workerListingSlice = createSlice({
   initialState: workerListingInitialState,
   reducers: {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    getAllWorkerRequest(state, action: PayloadAction<{ jobId: number }>) {
+    getAllWorkerRequest(state, action: PayloadAction<CommonTypes.ICommonJobRequest>) {
       state.isLoadingAllWorkers = true;
     },
     getAllWorkerResponse(state, action: PayloadAction<IWorkerListPayload>) {

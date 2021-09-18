@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { CommonTypes } from 'src/shared';
 import { ICategory, ICreateJobResponsePayload, IJobDetailsResponsePayload } from './types';
 import { jobDetailInitialState } from './defaultState';
 
@@ -11,7 +12,6 @@ const jobDetailSlice = createSlice({
     createJobRequest(state, action: PayloadAction<any>) {
       state.isLoadingCreateJob = true;
     },
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     createJobResponse(state, action: PayloadAction<ICreateJobResponsePayload>) {
       state.isLoadingCreateJob = false;
       state.errorCreateJob = action.payload.error ? action.payload.error : null;
@@ -19,7 +19,7 @@ const jobDetailSlice = createSlice({
 
     // get job details
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    getJobDetailsRequest(state, action: PayloadAction<{ jobId: number }>) {
+    getJobDetailsRequest(state, action: PayloadAction<CommonTypes.ICommonJobRequest>) {
       state.isLoadingGetJobDetails = true;
     },
     getJobDetailsResponse(state, action: PayloadAction<IJobDetailsResponsePayload>) {

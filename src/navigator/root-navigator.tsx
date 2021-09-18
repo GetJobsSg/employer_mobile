@@ -17,13 +17,15 @@ import { RootStackParams } from './types';
 
 const RootStack = createStackNavigator<RootStackParams>();
 
+const animationOption = { gestureEnabled: false };
+
 const RootNavigator = () => {
   const { isAuthenticated } = useAppSelector((state) => state.auth);
 
   return (
     <NavigationContainer>
       <RootStack.Navigator
-        initialRouteName={isAuthenticated ? RouteName.ATTENDANCE_RECORD : RouteName.AUTH_LOGIN}
+        initialRouteName={isAuthenticated ? RouteName.JOB_LISTING : RouteName.AUTH_LOGIN}
         headerMode="none"
       >
         {!isAuthenticated ? (
@@ -33,18 +35,12 @@ const RootNavigator = () => {
           </>
         ) : (
           <>
-            <RootStack.Screen name={RouteName.ATTENDANCE_RECORD} component={AttendanceRecordScreen} />
-            <RootStack.Screen name={RouteName.WORKER_LISTING} component={WorkerListingScreen} />
             <RootStack.Screen name={RouteName.JOB_LISTING} component={JobListingScreen} />
-            <RootStack.Screen
-              name={RouteName.JOB_DETAILS}
-              options={{ gestureEnabled: false }}
-              component={JobDetailScreen}
-            />
+            <RootStack.Screen name={RouteName.JOB_DETAILS} options={animationOption} component={JobDetailScreen} />
             <RootStack.Screen name={RouteName.PARTICIPANTS_LISTING} component={ParticipantListingScreen} />
-
+            <RootStack.Screen name={RouteName.WORKER_LISTING} component={WorkerListingScreen} />
+            <RootStack.Screen name={RouteName.ATTENDANCE_RECORD} component={AttendanceRecordScreen} />
             <RootStack.Screen name={RouteName.PROFILE} component={ProfileScreen} />
-
             <RootStack.Screen name={RouteName.PAYMENT_METHODS} component={PaymenMethodScreen} />
             <RootStack.Screen name={RouteName.COLLECT_CARD_DETAILS} component={CollectCardDetailScreen} />
           </>

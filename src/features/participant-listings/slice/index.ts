@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { CommonTypes } from 'src/shared';
 import { participantsListingInitialState } from './defaultState';
 import { IOfferJobPayload, IParticipantsPayload, IRejectPayload } from './types';
 
@@ -7,7 +8,7 @@ const participantsListingSlice = createSlice({
   initialState: participantsListingInitialState,
   reducers: {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    getAllPendingParticipantRequest(state, action: PayloadAction<{ jobId: number }>) {
+    getAllPendingParticipantRequest(state, action: PayloadAction<CommonTypes.ICommonJobRequest>) {
       state.isLoadingGetAllPendingParticipant = true;
     },
     getAllPendingParticipantResponse(state, action: PayloadAction<IParticipantsPayload>) {
@@ -17,7 +18,7 @@ const participantsListingSlice = createSlice({
     },
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    getAllOfferSentParticipantRequest(state, action: PayloadAction<{ jobId: number }>) {
+    getAllOfferSentParticipantRequest(state, action: PayloadAction<CommonTypes.ICommonJobRequest>) {
       state.isLoadingGetAllOfferSentPartcipant = true;
     },
     getAllOfferSentParticipantResponse(state, action: PayloadAction<IParticipantsPayload>) {
@@ -27,7 +28,7 @@ const participantsListingSlice = createSlice({
     },
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    getAllAcceptedParticipantRequest(state, action: PayloadAction<{ jobId: number }>) {
+    getAllAcceptedParticipantRequest(state, action: PayloadAction<CommonTypes.ICommonJobRequest>) {
       state.isLoadingGetAllAcceptedPartcipant = true;
     },
     getAllAcceptedParticipantResponse(state, action: PayloadAction<IParticipantsPayload>) {
@@ -37,7 +38,7 @@ const participantsListingSlice = createSlice({
     },
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    getAllRejectedParticipantRequest(state, action: PayloadAction<{ jobId: number }>) {
+    getAllRejectedParticipantRequest(state, action: PayloadAction<CommonTypes.ICommonJobRequest>) {
       state.isLoadingGetAllRejectedPartcipant = true;
     },
     getAllRejectedParticipantResponse(state, action: PayloadAction<IParticipantsPayload>) {

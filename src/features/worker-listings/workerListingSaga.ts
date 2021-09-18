@@ -1,12 +1,13 @@
 import { call, fork, put, takeLatest } from 'redux-saga/effects';
 import { PayloadAction } from '@reduxjs/toolkit';
+import { CommonTypes } from 'src/shared';
 import { workerListingActions } from './slice';
 import { getAllWorkers } from './apis';
 import { IWorkerListResponse } from './apis/types';
 import { workerTransformer } from './transformer';
 import { IWorker } from './slice/types';
 
-function* getAllWorkerSaga(action: PayloadAction<{ jobId: number }>) {
+function* getAllWorkerSaga(action: PayloadAction<CommonTypes.ICommonJobRequest>) {
   try {
     const { jobId } = action.payload;
     const res: IWorkerListResponse = yield call(getAllWorkers, jobId);

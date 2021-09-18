@@ -1,13 +1,14 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { call, fork, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import { JobApplicationStatus } from 'src/constants/status';
+import { CommonTypes } from 'src/shared';
 import { getAllParticipants, sendParticipantOffer, rejectParticipant } from './apis';
 import { IParticipantListResponse } from './apis/types';
 import { participantListingActions } from './slice';
 import { IOfferJobPayload, IParticipant, IRejectPayload } from './slice/types';
 import { participantsTransformer } from './transformer';
 
-function* getAllPendingParticipantSaga(action: PayloadAction<{ jobId: number }>) {
+function* getAllPendingParticipantSaga(action: PayloadAction<CommonTypes.ICommonJobRequest>) {
   try {
     const { jobId } = action.payload;
     const res: IParticipantListResponse = yield call(getAllParticipants, jobId, JobApplicationStatus.PENDING);
@@ -18,7 +19,7 @@ function* getAllPendingParticipantSaga(action: PayloadAction<{ jobId: number }>)
   }
 }
 
-function* getAllOfferSentParticipantSaga(action: PayloadAction<{ jobId: number }>) {
+function* getAllOfferSentParticipantSaga(action: PayloadAction<CommonTypes.ICommonJobRequest>) {
   try {
     const { jobId } = action.payload;
     const res: IParticipantListResponse = yield call(getAllParticipants, jobId, JobApplicationStatus.OFFERED);
@@ -29,7 +30,7 @@ function* getAllOfferSentParticipantSaga(action: PayloadAction<{ jobId: number }
   }
 }
 
-function* getAllAcceptedParticipantSaga(action: PayloadAction<{ jobId: number }>) {
+function* getAllAcceptedParticipantSaga(action: PayloadAction<CommonTypes.ICommonJobRequest>) {
   try {
     const { jobId } = action.payload;
     const res: IParticipantListResponse = yield call(getAllParticipants, jobId, JobApplicationStatus.ACCEPTED);
@@ -40,7 +41,7 @@ function* getAllAcceptedParticipantSaga(action: PayloadAction<{ jobId: number }>
   }
 }
 
-function* getAllRejectedParticipantSaga(action: PayloadAction<{ jobId: number }>) {
+function* getAllRejectedParticipantSaga(action: PayloadAction<CommonTypes.ICommonJobRequest>) {
   try {
     const { jobId } = action.payload;
     const res: IParticipantListResponse = yield call(getAllParticipants, jobId, JobApplicationStatus.REJECTED);
