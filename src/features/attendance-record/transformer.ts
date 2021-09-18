@@ -5,7 +5,10 @@ import { IAttendanceRecord } from './slice/types';
 
 export const attendanceRecordTransformer = {
   toState(res: IAttendanceAllRes): IAttendanceRecord[] {
-    return res.data.map((attendee) => {
+    if (!res.data) return [];
+
+    // since we only target single day job, always grab from index 0
+    return res.data[0].map((attendee) => {
       const {
         job_participant,
         job_participant: { employee },

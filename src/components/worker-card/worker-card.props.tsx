@@ -6,4 +6,6 @@ export interface WorkerCardProps {
   clockInTime: string | null;
   clockOutTime: string | null;
   onCardClick: () => void;
+  normalHoursWorked?: number;
+  otHoursWorked?: number;
 }
