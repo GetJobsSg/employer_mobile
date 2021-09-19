@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { Heading, Text, Icon, VStack, FlatList } from 'native-base';
-import { useRoute } from '@react-navigation/native';
+import { Heading, Text, Icon, VStack, FlatList, Spinner } from 'native-base';
+import { useRoute, useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Header, WorkerCard } from 'src/components';
 import { ListRenderItem } from 'react-native';
@@ -13,8 +13,9 @@ import { IAttendanceRecord } from './slice/types';
 
 const AttendanceRecordScreen = () => {
   const dispatch = useAppDispatch();
-  const { attendanceRecords } = useAppSelector((state) => state.jobAttendaceRecord);
+  const { isLoadingAttendanceRecords, attendanceRecords } = useAppSelector((state) => state.jobAttendaceRecord);
 
+  const navigation = useNavigation();
   const { params } = useRoute();
   const { id, startDate, endDate, startTime, endTime, title } = params as IJobCompleted;
 
@@ -32,7 +33,6 @@ const AttendanceRecordScreen = () => {
         <Text color="orange.800" fontSize="sm" fontWeight="500">
           {constructJobDate(startDate, endDate, DD_MMM_YYYY)}
         </Text>
-        {/* <Text color="orange.800">&bull;</Text> */}
         <Text color="orange.800" fontSize="sm" fontWeight="500">
           {`${startTime} - ${endTime}`}
         </Text>
@@ -43,8 +43,6 @@ const AttendanceRecordScreen = () => {
     </VStack>
   );
 
-  // const renderListLoader = () => <Box mx={4} borderRadius={12} bgColor="gray.100" height={16} my={2} />;
-
   const renderList: ListRenderItem<IAttendanceRecord> = ({ item }) => (
     <WorkerCard
       avatar={item.profileImage}
@@ -54,23 +52,39 @@ const AttendanceRecordScreen = () => {
       clockOutTime={item.clockOutTime}
       age={item.age}
       ratings={item.ratings.toFixed(2)}
+      showWorkHours
       normalHoursWorked={item.normalHoursWorked}
       otHoursWorked={item.otHoursWorked}
     />
   );
 
-  return (
-    <VStack bg="white" flex={1}>
-      <Header
-        title="Attendance Record"
-        iconLeft={<Icon as={Ionicons} name="chevron-back-outline" onPress={() => {}} />}
-      />
+  const renderContent = () => {
+    if (isLoadingAttendanceRecords) {
+      return (
+        <>
+          {renderHeader()}
+          <Spinner size="sm" />
+        </>
+      );
+    }
+
+    return (
       <FlatList
         data={attendanceRecords}
         renderItem={renderList}
         keyExtractor={(item) => item.id}
         ListHeaderComponent={renderHeader}
       />
+    );
+  };
+
+  return (
+    <VStack bg="white" flex={1}>
+      <Header
+        title="Attendance Record"
+        iconLeft={<Icon as={Ionicons} name="chevron-back-outline" onPress={() => navigation.goBack()} />}
+      />
+      {renderContent()}
     </VStack>
   );
 };
