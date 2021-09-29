@@ -12,6 +12,7 @@ import { stripeTransformer } from './transformer';
 function* getPaymentMethods() {
   try {
     const res: IPaymentMethodResponse = yield call(getPaymentMethodsApi);
+    console.log(res);
     const transformed = stripeTransformer.toState(res);
     yield put(stripeActions.getPaymentMethodResponse(transformed));
   } catch (e) {
