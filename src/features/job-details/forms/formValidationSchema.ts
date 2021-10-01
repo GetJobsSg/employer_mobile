@@ -9,7 +9,7 @@ export const formValidationSchema = [
       .date()
       .required('Please select a date')
       .test('startDate', 'Please select a future date', (startDate) => {
-        const mStartDate = moment(startDate);
+        const mStartDate = moment(startDate).startOf('days');
         const mToday = moment(new Date()).startOf('days');
         return moment(mStartDate).isSameOrAfter(mToday);
       }),

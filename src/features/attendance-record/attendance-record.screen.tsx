@@ -47,7 +47,7 @@ const AttendanceRecordScreen = () => {
     <WorkerCard
       avatar={item.profileImage}
       name={item.name}
-      onCardClick={() => {}}
+      onCardClick={() => console.log(item.jobseekerId)}
       clockInTime={item.clockInTime}
       clockOutTime={item.clockOutTime}
       age={item.age}

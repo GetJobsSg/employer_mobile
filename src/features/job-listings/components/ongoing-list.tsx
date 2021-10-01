@@ -19,7 +19,7 @@ const OngoingList = () => {
 
   const renderItem: ListRenderItem<IJobOngoing> = ({ item }) => (
     <Pressable
-      onPress={() => navigation.navigate(RouteName.WORKER_LISTING, item)}
+      onPress={() => navigation.navigate(RouteName.ATTENDANCE_RECORD, item)}
       bg="gray.50"
       borderRadius={5}
       my={1}
