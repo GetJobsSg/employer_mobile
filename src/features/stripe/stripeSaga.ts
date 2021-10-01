@@ -12,7 +12,6 @@ import { stripeTransformer } from './transformer';
 function* getPaymentMethods() {
   try {
     const res: IPaymentMethodResponse = yield call(getPaymentMethodsApi);
-    console.log(res);
     const transformed = stripeTransformer.toState(res);
     yield put(stripeActions.getPaymentMethodResponse(transformed));
   } catch (e) {
@@ -40,7 +39,7 @@ function* addPaymentMethod() {
     yield put(stripeActions.addPaymentMethodResponse({}));
     yield put(stripeActions.getPaymentMethodRequest());
   } catch (e) {
-    yield put(stripeActions.addPaymentMethodResponse(e));
+    yield put(stripeActions.addPaymentMethodResponse({ error: e }));
   }
 }
 
