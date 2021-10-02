@@ -3,8 +3,45 @@ import { Box, HStack, VStack, Avatar, Text, Pressable } from 'native-base';
 import { WorkerCardProps } from './worker-card.props';
 
 const WorkerCard = (props: WorkerCardProps) => {
-  const { avatar, name, age, ratings, clockInTime, clockOutTime, onCardClick } = props;
+  const {
+    avatar,
+    name,
+    age,
+    ratings,
+    clockInTime,
+    clockOutTime,
+    onCardClick,
+    showWorkHours = false,
+    normalHoursWorked,
+    otHoursWorked,
+  } = props;
   const [focusColor, setFocusColor] = useState<'gray.100' | 'white'>('white');
+
+  const renderHoursWork = () => {
+    if (!showWorkHours) return null;
+
+    // render work hour only if user have clocked-in and clock-out
+    if (!clockInTime || !clockOutTime) return null;
+
+    return (
+      <VStack>
+        <Text fontSize={10} color="gray.500">
+          Work Hours / OT Hours
+        </Text>
+        <HStack mt={1} space={1} justifyContent="flex-start">
+          <Text fontSize="sm" fontWeight="600">
+            {`${normalHoursWorked} hrs`}
+          </Text>
+
+          {!!otHoursWorked && otHoursWorked > 0 && (
+            <Text color="green.500" fontSize={10} fontWeight="600">
+              {`+ ${otHoursWorked} hrs`}
+            </Text>
+          )}
+        </HStack>
+      </VStack>
+    );
+  };
 
   return (
     <Pressable
@@ -55,20 +92,7 @@ const WorkerCard = (props: WorkerCardProps) => {
               </VStack>
             </HStack>
 
-            <VStack>
-              <Text fontSize={10} color="gray.500">
-                Work Hours / OT Hours
-              </Text>
-              <HStack mt={1} space={1} justifyContent="flex-start">
-                <Text fontSize="sm" fontWeight="600">
-                  8.5 hrs
-                </Text>
-
-                <Text color="green.500" fontSize={10} fontWeight="600">
-                  +1.5 hrs
-                </Text>
-              </HStack>
-            </VStack>
+            {renderHoursWork()}
           </VStack>
         </HStack>
       </Box>

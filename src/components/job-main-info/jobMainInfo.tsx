@@ -33,12 +33,13 @@ const JobMainInfo = (props: JobMainInfoProps) => {
               {`$${hourlyRate.toFixed(2)} / hour`}
             </Heading>
 
-            <HStack alignItems="center">
+            {/* TODO - allow user to edit */}
+            {/* <HStack alignItems="center">
               <Text underline fontSize="sm" my={2} fontWeight="400">
                 View Details
               </Text>
               <Icon as={Ionicons} name="chevron-forward-circle-outline" size="xs" ml={2} />
-            </HStack>
+            </HStack> */}
           </VStack>
         </Pressable>
 

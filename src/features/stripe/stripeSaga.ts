@@ -39,7 +39,7 @@ function* addPaymentMethod() {
     yield put(stripeActions.addPaymentMethodResponse({}));
     yield put(stripeActions.getPaymentMethodRequest());
   } catch (e) {
-    yield put(stripeActions.addPaymentMethodResponse(e));
+    yield put(stripeActions.addPaymentMethodResponse({ error: e }));
   }
 }
 

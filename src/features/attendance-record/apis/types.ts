@@ -41,5 +41,5 @@ export interface IAttendanceRes {
 }
 
 export interface IAttendanceAllRes {
-  data: IAttendanceRes[];
+  data: [IAttendanceRes[]];
 }

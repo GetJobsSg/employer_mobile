@@ -5,6 +5,7 @@ import jobListingSaga from './features/job-listings/jobListingSaga';
 import participantListingSaga from './features/participant-listings/participantListingSaga';
 import jobDetailSaga from './features/job-details/jobDetailsSaga';
 import workerListingSaga from './features/worker-listings/workerListingSaga';
+import attendanceRecordSaga from './features/attendance-record/attendanceRecordSaga';
 
 export default function* rootSaga() {
   yield all([...authSaga]);
@@ -13,4 +14,5 @@ export default function* rootSaga() {
   yield all([...participantListingSaga]);
   yield all([...jobDetailSaga]);
   yield all([...workerListingSaga]);
+  yield all([...attendanceRecordSaga]);
 }

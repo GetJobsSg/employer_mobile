@@ -5,7 +5,10 @@ import { IAttendanceRecord } from './slice/types';
 
 export const attendanceRecordTransformer = {
   toState(res: IAttendanceAllRes): IAttendanceRecord[] {
-    return res.data.map((attendee) => {
+    if (!res.data) return [];
+
+    // since we only target single day job, always grab from index 0
+    return res.data[0].map((attendee) => {
       const {
         job_participant,
         job_participant: { employee },
@@ -23,6 +26,7 @@ export const attendanceRecordTransformer = {
         clockOutTime: attendee.clock_out_time,
         normalHoursWorked: job_participant.normal_hours_worked,
         otHoursWorked: job_participant.ot_hours_worked,
+        comment: job_participant.comments,
       };
     });
   },
