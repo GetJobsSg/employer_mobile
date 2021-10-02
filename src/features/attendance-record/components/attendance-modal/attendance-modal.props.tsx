@@ -1,8 +1,9 @@
-import { IAttendanceRecord } from '../../slice/types';
+import { IAttendanceRecord, IWorkingDataRequestPayload } from '../../slice/types';
 
 export interface IAttendanceModalProps {
   attendanceData: IAttendanceRecord;
   visible: boolean;
-  onClose?: () => void;
-  onOK?: () => void;
+  isLoadingUpdate?: boolean;
+  onClose: () => void;
+  onOK: (data: IWorkingDataRequestPayload) => void;
 }

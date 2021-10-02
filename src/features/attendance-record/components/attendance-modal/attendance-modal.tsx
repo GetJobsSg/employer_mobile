@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { Keyboard } from 'react-native';
 import { Button, VStack, HStack, Modal, Text, Icon, TextArea } from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { IAttendanceModalProps } from './attendance-modal.props';
+import { IWorkingDataRequestPayload } from '../../slice/types';
 
 const step = 0.5;
 const noop = () => {};
@@ -48,12 +50,13 @@ const Adjustment = (props: IAdjustmentProps) => {
 };
 
 const AttendanceModal = (props: IAttendanceModalProps) => {
-  const { attendanceData, visible, onClose } = props;
-  const { name, normalHoursWorked, otHoursWorked, ratings } = attendanceData;
+  const { attendanceData, isLoadingUpdate = false, visible, onClose, onOK } = props;
+  const { comment, name, normalHoursWorked, otHoursWorked, ratings, jobseekerId } = attendanceData;
 
   const [normalWorkHours, setNormalWorkHours] = useState(normalHoursWorked);
   const [otHours, setOTHours] = useState(otHoursWorked);
   const [rating, setRating] = useState(ratings);
+  const [employerComment, setEmployerComment] = useState(comment);
 
   const handleIncrement = (target: Target) => () => {
     if (target === Target.NORMAL_WORK_HOURS) {
@@ -79,13 +82,33 @@ const AttendanceModal = (props: IAttendanceModalProps) => {
     }
   };
 
+  const isDirty = () => {
+    if (normalHoursWorked !== normalWorkHours) return true;
+    if (otHoursWorked !== otHours) return true;
+    if (ratings !== rating) return true;
+    if (comment !== employerComment) return true;
+    return false;
+  };
+
+  const handleSubmit = () => {
+    Keyboard.dismiss();
+    const data: IWorkingDataRequestPayload = {
+      employee_id: jobseekerId,
+      normal_hours_worked: normalWorkHours,
+      ot_hours_worked: otHours,
+      rating,
+      comments: employerComment,
+    };
+    onOK(data);
+  };
+
   return (
     <Modal avoidKeyboard closeOnOverlayClick isOpen={visible} onClose={onClose}>
       <Modal.Content maxWidth="400px">
         <Modal.Header>{name}</Modal.Header>
+
         <Modal.Body>
           <VStack space={4}>
-            {/*  normal work hours */}
             <Adjustment
               title="Normal Work Hours"
               value={normalWorkHours}
@@ -113,12 +136,18 @@ const AttendanceModal = (props: IAttendanceModalProps) => {
               onDecrement={handleDecrement(Target.RATINGS)}
             />
 
-            <TextArea mt={4} placeholder="Write your comment about the worker if any ..." />
+            <TextArea
+              mt={4}
+              value={employerComment}
+              onChangeText={(text) => setEmployerComment(text)}
+              placeholder="Write your comment about the worker if any ..."
+            />
           </VStack>
         </Modal.Body>
+
         <Modal.Footer>
-          <Button variant="unstyled" onPress={onClose}>
-            Close
+          <Button isLoading={isLoadingUpdate} variant="unstyled" onPress={isDirty() ? handleSubmit : onClose}>
+            {isDirty() ? 'Submit' : 'Close'}
           </Button>
         </Modal.Footer>
       </Modal.Content>

@@ -26,6 +26,7 @@ export const attendanceRecordTransformer = {
         clockOutTime: attendee.clock_out_time,
         normalHoursWorked: job_participant.normal_hours_worked,
         otHoursWorked: job_participant.ot_hours_worked,
+        comment: job_participant.comments,
       };
     });
   },

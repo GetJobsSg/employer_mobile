@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { CommonTypes } from 'src/shared';
 import { attendanceRecordInitialState } from './defaultState';
-import { IAttendanceRecordPayload } from './types';
+import { IAttendanceRecordPayload, IWorkingDataRequestPayload, IWorkingDataResponsePayload } from './types';
 
 const attendanceRecordSlice = createSlice({
   name: 'attendanceRecord',
@@ -15,6 +15,15 @@ const attendanceRecordSlice = createSlice({
       state.isLoadingAttendanceRecords = false;
       state.attendanceRecords = action.payload.error ? state.attendanceRecords : action.payload.list;
       state.errorAttendanceRecords = action.payload.error ? action.payload.error : null;
+    },
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    adjustWorkingDataRequest(state, action: PayloadAction<CommonTypes.ICommonJobRequest & IWorkingDataRequestPayload>) {
+      state.isLoadingUpdateWorkingData = true;
+    },
+    adjustWorkingDataResponse(state, action: PayloadAction<IWorkingDataResponsePayload>) {
+      state.isLoadingUpdateWorkingData = false;
+      state.errorUpdateWorkingData = action.payload.error ? action.payload.error : null;
     },
   },
 });

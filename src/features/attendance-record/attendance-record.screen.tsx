@@ -14,7 +14,8 @@ import AttendanceModal from './components/attendance-modal';
 
 const AttendanceRecordScreen = () => {
   const dispatch = useAppDispatch();
-  const { isLoadingAttendanceRecords, attendanceRecords } = useAppSelector((state) => state.jobAttendaceRecord);
+  const { isLoadingAttendanceRecords, attendanceRecords, isLoadingUpdateWorkingData, errorUpdateWorkingData } =
+    useAppSelector((state) => state.jobAttendaceRecord);
 
   const navigation = useNavigation();
   const { params } = useRoute();
@@ -23,9 +24,17 @@ const AttendanceRecordScreen = () => {
   const [attendanceModalData, setAttendanceModalData] = useState<IAttendanceRecord>();
   const [attendanceModalOpen, setAttendanceModalOpen] = useState(false);
 
+  // fetch attendance record when screen mounted
   useEffect(() => {
     dispatch(attendanceRecordActions.getAttendanceRecordRequest({ jobId: id }));
   }, [dispatch, id]);
+
+  useEffect(() => {
+    if (!isLoadingUpdateWorkingData && !errorUpdateWorkingData) {
+      setAttendanceModalOpen(false);
+      setAttendanceModalData(undefined);
+    }
+  }, [isLoadingUpdateWorkingData, errorUpdateWorkingData]);
 
   const renderHeader = () => (
     <VStack px={4} py={4}>
@@ -97,7 +106,16 @@ const AttendanceRecordScreen = () => {
         <AttendanceModal
           attendanceData={attendanceModalData as IAttendanceRecord}
           visible={attendanceModalOpen}
+          isLoadingUpdate={isLoadingUpdateWorkingData}
           onClose={() => setAttendanceModalOpen(false)}
+          onOK={(data) => {
+            dispatch(
+              attendanceRecordActions.adjustWorkingDataRequest({
+                jobId: id,
+                ...data,
+              }),
+            );
+          }}
         />
       )}
     </VStack>
