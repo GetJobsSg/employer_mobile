@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Heading, Text, Icon, VStack, FlatList, Spinner } from 'native-base';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { IJobCompleted } from '../job-listings/slice/types';
 import { attendanceRecordActions } from './slice';
 import { IAttendanceRecord } from './slice/types';
+import AttendanceModal from './components/attendance-modal';
 
 const AttendanceRecordScreen = () => {
   const dispatch = useAppDispatch();
@@ -18,6 +19,9 @@ const AttendanceRecordScreen = () => {
   const navigation = useNavigation();
   const { params } = useRoute();
   const { id, startDate, endDate, startTime, endTime, title } = params as IJobCompleted;
+
+  const [attendanceModalData, setAttendanceModalData] = useState<IAttendanceRecord>();
+  const [attendanceModalOpen, setAttendanceModalOpen] = useState(false);
 
   useEffect(() => {
     dispatch(attendanceRecordActions.getAttendanceRecordRequest({ jobId: id }));
@@ -38,7 +42,7 @@ const AttendanceRecordScreen = () => {
         </Text>
       </VStack>
       <Text fontSize="sm" mt={2} color="gray.500">
-        Tap on the worker below and start to give rating or amend their number of hours worked.
+        Tap on the worker to give rating and amend their number of hours worked.
       </Text>
     </VStack>
   );
@@ -47,7 +51,10 @@ const AttendanceRecordScreen = () => {
     <WorkerCard
       avatar={item.profileImage}
       name={item.name}
-      onCardClick={() => console.log(item.jobseekerId)}
+      onCardClick={() => {
+        setAttendanceModalData(item);
+        setAttendanceModalOpen(true);
+      }}
       clockInTime={item.clockInTime}
       clockOutTime={item.clockOutTime}
       age={item.age}
@@ -85,6 +92,14 @@ const AttendanceRecordScreen = () => {
         iconLeft={<Icon as={Ionicons} name="chevron-back-outline" onPress={() => navigation.goBack()} />}
       />
       {renderContent()}
+
+      {attendanceModalData && attendanceModalOpen && (
+        <AttendanceModal
+          attendanceData={attendanceModalData as IAttendanceRecord}
+          visible={attendanceModalOpen}
+          onClose={() => setAttendanceModalOpen(false)}
+        />
+      )}
     </VStack>
   );
 };
