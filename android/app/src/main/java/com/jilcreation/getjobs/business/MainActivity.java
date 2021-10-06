@@ -1,4 +1,4 @@
-package com.getjobs.business;
+package com.jilcreation.getjobs.business;
 
 import com.facebook.react.ReactActivity;
 

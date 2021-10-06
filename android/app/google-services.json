@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:267035541733:android:c5f0108b805a1e2919d40c",
+        "mobilesdk_app_id": "1:267035541733:android:14c8bd5e484f154519d40c",
         "android_client_info": {
-          "package_name": "com.getjobs.business"
+          "package_name": "com.jilcreation.getjobs.business"
         }
       },
       "oauth_client": [
