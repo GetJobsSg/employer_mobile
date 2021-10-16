@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>267035541733-a06ah5nbik5qfcude7ae0vpjjlo6e49r.apps.googleusercontent.com</string>
+	<string>267035541733-teegvlfcfd8ns9fftprmsm2uc9mivj93.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.267035541733-a06ah5nbik5qfcude7ae0vpjjlo6e49r</string>
+	<string>com.googleusercontent.apps.267035541733-teegvlfcfd8ns9fftprmsm2uc9mivj93</string>
 	<key>API_KEY</key>
 	<string>AIzaSyBrrr3DfqeRt3p3XxSF2P5as6lN9uGi9jI</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.getjobs.business</string>
+	<string>com.jilcreation.getjobs.business</string>
 	<key>PROJECT_ID</key>
 	<string>getjobs-business-dev</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:267035541733:ios:faf103f8077138b219d40c</string>
+	<string>1:267035541733:ios:dcaa5256a9a7e4cd19d40c</string>
 </dict>
 </plist>
