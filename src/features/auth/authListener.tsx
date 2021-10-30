@@ -30,7 +30,7 @@ const AuthListener: React.FC = (props) => {
   if (initializing || isLoadingSetCurrentUser) {
     return (
       <Center w="100%" h="100%">
-        <Spinner />
+        <Spinner size="sm" />
       </Center>
     );
   }

@@ -41,7 +41,7 @@ const ActiveList = () => {
   if (isLoadingActiveJobs) {
     return (
       <Box my={4}>
-        <Spinner />
+        <Spinner size="sm" />
       </Box>
     );
   }

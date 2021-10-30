@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { getAge } from 'src/utils/dateTime';
-import { IAttendanceAllRes } from './apis/types';
-import { IAttendanceRecord } from './slice/types';
+import { IAttendanceAllRes, IBillingInfoRes } from './apis/types';
+import { IAttendanceRecord, IBillingInfo } from './slice/types';
 
 export const attendanceRecordTransformer = {
   toState(res: IAttendanceAllRes): IAttendanceRecord[] {
@@ -29,5 +29,19 @@ export const attendanceRecordTransformer = {
         comment: job_participant.comments,
       };
     });
+  },
+};
+
+export const billingInfoTransformer = {
+  toState(res: IBillingInfoRes): IBillingInfo {
+    return {
+      id: res.data.id,
+      jobId: res.data.job_id,
+      companyId: res.data.company_id,
+      amount: res.data.amount,
+      billAmount: res.data.bill_amount,
+      billingModeId: res.data.billing_mode_id,
+      paid: res.data.paid,
+    };
   },
 };

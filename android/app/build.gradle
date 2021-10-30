@@ -135,7 +135,7 @@ android {
         applicationId "com.jilcreation.getjobs.business"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 2
+        versionCode 4
         versionName "1.0.0"
     }
     splits {

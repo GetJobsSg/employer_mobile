@@ -43,7 +43,7 @@ const WorkerListingScreen = () => {
     if (isLoadingAllWorkers) {
       return (
         <Box flex={1}>
-          <Spinner />
+          <Spinner size="sm" />
         </Box>
       );
     }

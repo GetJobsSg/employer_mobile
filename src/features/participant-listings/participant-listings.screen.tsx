@@ -167,7 +167,7 @@ const ParticipantListingScreen = () => {
     ) {
       return (
         <Box flex={1}>
-          <Spinner />
+          <Spinner size="sm" />
         </Box>
       );
     }

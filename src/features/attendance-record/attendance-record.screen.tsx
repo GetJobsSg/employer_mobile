@@ -24,8 +24,14 @@ const tabOptionCompleted = [
 
 const AttendanceRecordScreen = () => {
   const dispatch = useAppDispatch();
-  const { isLoadingAttendanceRecords, attendanceRecords, isLoadingUpdateWorkingData, errorUpdateWorkingData } =
-    useAppSelector((state) => state.jobAttendaceRecord);
+  const {
+    isLoadingAttendanceRecords,
+    isLoadingGetBillingInfo,
+    attendanceRecords,
+    billingInfo,
+    isLoadingUpdateWorkingData,
+    errorUpdateWorkingData,
+  } = useAppSelector((state) => state.jobAttendaceRecord);
 
   const navigation = useNavigation();
   const { params } = useRoute<RouteProp<RootStackParams, RouteName.ATTENDANCE_RECORD>>();
@@ -38,10 +44,17 @@ const AttendanceRecordScreen = () => {
   const [attendanceModalData, setAttendanceModalData] = useState<IAttendanceRecord>();
   const [attendanceModalOpen, setAttendanceModalOpen] = useState(false);
 
-  // fetch attendance record when screen mounted
+  // fetch attendance record
   useEffect(() => {
     dispatch(attendanceRecordActions.getAttendanceRecordRequest({ jobId: id }));
   }, [dispatch, id]);
+
+  // fetch billingInfo if it is completed job
+  useEffect(() => {
+    if (jobStatus === 'completed') {
+      dispatch(attendanceRecordActions.getBillingInfoRequest({ jobId: id }));
+    }
+  }, [dispatch, id, jobStatus]);
 
   useEffect(() => {
     if (!isLoadingUpdateWorkingData && !errorUpdateWorkingData) {
@@ -84,18 +97,18 @@ const AttendanceRecordScreen = () => {
   );
 
   const renderBillingInfo = () => {
-    if (isLoadingAttendanceRecords) return <Spinner size="sm" />;
+    if (isLoadingGetBillingInfo) return <Spinner size="sm" />;
     return (
       <Banner>
         <VStack space={3}>
           <HStack justifyContent="space-between">
             <Text fontSize="sm">Total Amount</Text>
-            <Text fontWeight="bold">$988.30</Text>
+            <Text fontWeight="bold">{`$ ${billingInfo?.billAmount?.toFixed(2)}`}</Text>
           </HStack>
 
           <HStack justifyContent="space-between">
             <Text fontSize="sm">Paid</Text>
-            <Text fontWeight="bold">Yes</Text>
+            <Text fontWeight="bold">{billingInfo?.paid ? 'Yes' : 'No'}</Text>
           </HStack>
         </VStack>
       </Banner>

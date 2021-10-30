@@ -14,11 +14,25 @@ export interface IAttendanceRecord {
   otHoursWorked: number;
 }
 
+export interface IBillingInfo {
+  id: number;
+  jobId: number;
+  companyId: number;
+  amount: number;
+  billAmount: number;
+  billingModeId: number;
+  paid: boolean;
+}
+
 export interface IAttendanceRecordInitialState {
   // get attendance records
   isLoadingAttendanceRecords: boolean;
   attendanceRecords: IAttendanceRecord[];
   errorAttendanceRecords: null | any;
+  // get billing Info
+  isLoadingGetBillingInfo: boolean;
+  billingInfo: IBillingInfo | null;
+  errorBillingInfo: null | any;
   // update working data
   isLoadingUpdateWorkingData: boolean;
   errorUpdateWorkingData: null | any;
@@ -26,6 +40,11 @@ export interface IAttendanceRecordInitialState {
 
 export interface IAttendanceRecordPayload {
   list: IAttendanceRecord[];
+  error: null | any;
+}
+
+export interface IBillingInfoPayload {
+  data: IBillingInfo | null;
   error: null | any;
 }
 

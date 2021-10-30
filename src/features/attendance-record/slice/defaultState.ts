@@ -6,6 +6,11 @@ export const attendanceRecordInitialState: IAttendanceRecordInitialState = {
   errorAttendanceRecords: null,
   attendanceRecords: [],
 
+  // get billing Info
+  isLoadingGetBillingInfo: false,
+  errorBillingInfo: null,
+  billingInfo: null,
+
   // update attendee working data
   isLoadingUpdateWorkingData: false,
   errorUpdateWorkingData: null,

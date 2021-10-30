@@ -43,3 +43,17 @@ export interface IAttendanceRes {
 export interface IAttendanceAllRes {
   data: [IAttendanceRes[]];
 }
+
+export interface IBillingInfoRes {
+  data: {
+    id: number;
+    job_id: number;
+    company_id: number;
+    amount: number;
+    bill_amount: number;
+    billing_mode_id: number;
+    paid: boolean;
+    date_updated: string;
+    date_created: string;
+  };
+}

@@ -2,10 +2,10 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { call, fork, put, takeLatest } from 'redux-saga/effects';
 import { CommonTypes } from 'src/shared';
 import { attendanceRecordActions } from './slice';
-import { adjustWorkingData, getAttendanceRecord } from './apis';
-import { IAttendanceAllRes } from './apis/types';
-import { attendanceRecordTransformer } from './transformer';
-import { IAttendanceRecord, IWorkingDataRequestPayload } from './slice/types';
+import { adjustWorkingData, getAttendanceRecord, getBillingInfo } from './apis';
+import { IAttendanceAllRes, IBillingInfoRes } from './apis/types';
+import { attendanceRecordTransformer, billingInfoTransformer } from './transformer';
+import { IAttendanceRecord, IBillingInfo, IWorkingDataRequestPayload } from './slice/types';
 
 function* getAttendanceRecordSaga(action: PayloadAction<CommonTypes.ICommonJobRequest>) {
   try {
@@ -15,6 +15,17 @@ function* getAttendanceRecordSaga(action: PayloadAction<CommonTypes.ICommonJobRe
     yield put(attendanceRecordActions.getAttendanceRecordResponse({ list: transformed, error: null }));
   } catch (err) {
     yield put(attendanceRecordActions.getAttendanceRecordResponse({ list: [], error: err }));
+  }
+}
+
+function* getBillingInfoSaga(action: PayloadAction<CommonTypes.ICommonJobRequest>) {
+  try {
+    const id = action.payload.jobId;
+    const res: IBillingInfoRes = yield call(getBillingInfo, id);
+    const transformed: IBillingInfo = billingInfoTransformer.toState(res);
+    yield put(attendanceRecordActions.getBillingInfoResponse({ data: transformed, error: null }));
+  } catch (e) {
+    yield put(attendanceRecordActions.getBillingInfoResponse({ data: null, error: e }));
   }
 }
 
@@ -36,6 +47,7 @@ function* adjustWorkingDataSaga(action: PayloadAction<CommonTypes.ICommonJobRequ
 
 function* watchAttendanceRecordSaga() {
   yield takeLatest(attendanceRecordActions.getAttendanceRecordRequest, getAttendanceRecordSaga);
+  yield takeLatest(attendanceRecordActions.getBillingInfoRequest, getBillingInfoSaga);
   yield takeLatest(attendanceRecordActions.adjustWorkingDataRequest, adjustWorkingDataSaga);
 }
 

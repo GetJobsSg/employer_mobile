@@ -22,7 +22,7 @@ const PaymenMethodScreen = (props: PaymentMethodScreenProps) => {
   if (isLoadingPaymentMethods) {
     return (
       <Center safeArea bg="white" position="relative" h="100%" w="100%">
-        <Spinner />
+        <Spinner size="sm" />
       </Center>
     );
   }
