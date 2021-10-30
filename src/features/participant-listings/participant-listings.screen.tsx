@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, ListRenderItem, Linking } from 'react-native';
-import { Text, VStack, Stack, Icon, FlatList, Box, Spinner } from 'native-base';
+import { VStack, Stack, Icon, FlatList, Box, Spinner } from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Header, Tab, JobMainInfo } from 'src/components';
+import { Banner, Header, Tab, JobMainInfo } from 'src/components';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { JobApplicationStatus } from 'src/constants/status';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -174,13 +174,7 @@ const ParticipantListingScreen = () => {
     }
 
     if (!getListData().length) {
-      return (
-        <VStack px={4} py={4}>
-          <Text textAlign="center" fontSize="lg" fontWeight="500" color="gray.400">
-            No Result
-          </Text>
-        </VStack>
-      );
+      return <Banner message="No result found" />;
     }
 
     return (

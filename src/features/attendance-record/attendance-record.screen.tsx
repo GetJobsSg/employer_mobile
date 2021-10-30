@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Heading, Text, Icon, VStack, FlatList, Spinner } from 'native-base';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Header, WorkerCard } from 'src/components';
+import { Banner, Header, WorkerCard } from 'src/components';
 import { ListRenderItem } from 'react-native';
 import { constructJobDate } from 'src/utils/dateTime';
 import { DD_MMM_YYYY } from 'src/constants/dateTime';
@@ -51,7 +51,7 @@ const AttendanceRecordScreen = () => {
         </Text>
       </VStack>
       <Text fontSize="sm" mt={2} color="gray.500">
-        Tap on the worker to give rating and amend their number of hours worked.
+        Tap on the worker to give rating or amend their work hours.
       </Text>
     </VStack>
   );
@@ -80,13 +80,7 @@ const AttendanceRecordScreen = () => {
     }
 
     if (attendanceRecords.length === 0) {
-      return (
-        <VStack px={4} py={4}>
-          <Text textAlign="center" fontSize="lg" fontWeight="500" color="gray.400">
-            No Result
-          </Text>
-        </VStack>
-      );
+      return <Banner message="You do not have any workers" />;
     }
 
     return <FlatList data={attendanceRecords} renderItem={renderList} keyExtractor={(item) => item.id} />;
