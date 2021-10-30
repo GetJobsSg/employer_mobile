@@ -114,7 +114,7 @@ const ParticipantListingScreen = () => {
 
   const handleWhatsapp = (phoneNumber: string) => () => {
     if (!phoneNumber) return;
-    const url = `whatsapp://send?phone=65${phoneNumber}`;
+    const url = `whatsapp://send?phone=${phoneNumber}`;
     Linking.openURL(url)
       .then(() => console.log('whatsapp opened'))
       .catch(() => Alert.alert('Whatsapp is not installed on your device.'));
