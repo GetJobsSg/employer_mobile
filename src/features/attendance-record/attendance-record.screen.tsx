@@ -76,22 +76,20 @@ const AttendanceRecordScreen = () => {
 
   const renderContent = () => {
     if (isLoadingAttendanceRecords) {
+      return <Spinner size="sm" />;
+    }
+
+    if (attendanceRecords.length === 0) {
       return (
-        <>
-          {renderHeader()}
-          <Spinner size="sm" />
-        </>
+        <VStack px={4} py={4}>
+          <Text textAlign="center" fontSize="lg" fontWeight="500" color="gray.400">
+            No Result
+          </Text>
+        </VStack>
       );
     }
 
-    return (
-      <FlatList
-        data={attendanceRecords}
-        renderItem={renderList}
-        keyExtractor={(item) => item.id}
-        ListHeaderComponent={renderHeader}
-      />
-    );
+    return <FlatList data={attendanceRecords} renderItem={renderList} keyExtractor={(item) => item.id} />;
   };
 
   return (
@@ -100,8 +98,8 @@ const AttendanceRecordScreen = () => {
         title="Attendance Record"
         iconLeft={<Icon as={Ionicons} name="chevron-back-outline" onPress={() => navigation.goBack()} />}
       />
+      {renderHeader()}
       {renderContent()}
-
       {attendanceModalData && attendanceModalOpen && (
         <AttendanceModal
           attendanceData={attendanceModalData as IAttendanceRecord}

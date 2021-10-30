@@ -59,11 +59,19 @@ const ParticipantCard = (props: ParticipantsCardProps) => {
                 disabled={isSendingOffer}
                 onPress={onSendOffer}
                 variant="unstyled"
-                bg="gray.100"
+                bg="green.500"
                 px={4}
                 mt={2}
               >
-                {isSendingOffer ? <Text fontSize="xs">Sending</Text> : <Text fontSize="xs">Send Offer</Text>}
+                {isSendingOffer ? (
+                  <Text fontSize="xs" fontWeight="bold" color="white">
+                    Sending
+                  </Text>
+                ) : (
+                  <Text fontSize="xs" fontWeight="bold" color="white">
+                    Send Offer
+                  </Text>
+                )}
               </Button>
             )}
 
@@ -73,16 +81,16 @@ const ParticipantCard = (props: ParticipantsCardProps) => {
                 width={100}
                 variant="unstyled"
                 onPress={onReject}
-                bg="pink.100"
+                bg="danger.500"
                 px={4}
                 mt={2}
               >
                 {isRejecting ? (
-                  <Text fontSize="xs" color="pink.600">
+                  <Text fontSize="xs" fontWeight="bold" color="white">
                     Rejecting
                   </Text>
                 ) : (
-                  <Text fontSize="xs" color="pink.600">
+                  <Text fontSize="xs" fontWeight="bold" color="white">
                     Reject
                   </Text>
                 )}
