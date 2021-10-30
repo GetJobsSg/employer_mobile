@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import moment from 'moment';
 import { Box, HStack, VStack, Avatar, Text, Pressable } from 'native-base';
+import { HH_MM_A } from 'src/constants/dateTime';
 import { WorkerCardProps } from './worker-card.props';
 
 const WorkerCard = (props: WorkerCardProps) => {
@@ -78,7 +80,7 @@ const WorkerCard = (props: WorkerCardProps) => {
                   Clock In
                 </Text>
                 <Text mt={1} fontSize="sm" fontWeight="600">
-                  {clockInTime || '--:--'}
+                  {clockInTime ? moment(clockInTime).format(HH_MM_A) : '--:--'}
                 </Text>
               </VStack>
 
@@ -87,7 +89,7 @@ const WorkerCard = (props: WorkerCardProps) => {
                   Clock Out
                 </Text>
                 <Text mt={1} fontSize="sm" fontWeight="600">
-                  {clockOutTime || '--:--'}
+                  {clockOutTime ? moment(clockOutTime).format(HH_MM_A) : '--:--'}
                 </Text>
               </VStack>
             </HStack>
