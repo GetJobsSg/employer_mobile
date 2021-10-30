@@ -9,7 +9,7 @@ export type RootStackParams = {
   [RouteName.JOB_LISTING]: undefined;
   [RouteName.WORKER_LISTING]: { jobData: IJobOngoing };
   [RouteName.JOB_DETAILS]: { mode: 'create' | 'edit' | 'preview'; jobId?: number };
-  [RouteName.ATTENDANCE_RECORD]: { jobData: IJobCompleted };
+  [RouteName.ATTENDANCE_RECORD]: { jobData: IJobCompleted; jobStatus: 'ongoing' | 'completed' };
 
   [RouteName.PROFILE]: undefined;
 

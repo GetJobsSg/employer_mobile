@@ -3,15 +3,16 @@ import { ListRenderItem, FlatList, RefreshControl } from 'react-native';
 import { Box, Spinner, Pressable, Text } from 'native-base';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { JobStatus } from 'src/constants/status';
-import { useNavigation } from '@react-navigation/native';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { RouteName } from 'src/navigator/route';
+import { RootStackParams } from 'src/navigator/types';
 import { jobListingActions } from '../slice';
 import { IJobOngoing } from '../slice/types';
 
 const OngoingList = () => {
   const dispatch = useAppDispatch();
   const { isLoadingOngoingJobs, onGoingJobs } = useAppSelector((state) => state.jobListings);
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp<RootStackParams, RouteName.ATTENDANCE_RECORD>>();
 
   useEffect(() => {
     dispatch(jobListingActions.getOngoingJobListRequest(JobStatus.ONGOING));
@@ -19,7 +20,7 @@ const OngoingList = () => {
 
   const renderItem: ListRenderItem<IJobOngoing> = ({ item }) => (
     <Pressable
-      onPress={() => navigation.navigate(RouteName.ATTENDANCE_RECORD, item)}
+      onPress={() => navigation.navigate(RouteName.ATTENDANCE_RECORD, { jobData: item, jobStatus: 'ongoing' })}
       bg="gray.50"
       borderRadius={5}
       my={1}

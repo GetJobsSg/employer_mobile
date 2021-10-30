@@ -1,16 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import { Icon, VStack, FlatList, Spinner, View } from 'native-base';
-import { useRoute, useNavigation } from '@react-navigation/native';
+import { Icon, VStack, FlatList, Spinner, Stack, Text, HStack } from 'native-base';
+import { RouteProp, useRoute, useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Banner, Header, WorkerCard, JobMainInfo } from 'src/components';
+import { Banner, Header, WorkerCard, JobMainInfo, Tab } from 'src/components';
 import { ListRenderItem } from 'react-native';
 import { constructJobDate } from 'src/utils/dateTime';
 import { DD_MMM_YYYY } from 'src/constants/dateTime';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
-import { IJobCompleted } from '../job-listings/slice/types';
+import { RootStackParams } from 'src/navigator/types';
+import { RouteName } from 'src/navigator/route';
 import { attendanceRecordActions } from './slice';
 import { IAttendanceRecord } from './slice/types';
 import AttendanceModal from './components/attendance-modal';
+
+// For OnGoing Job
+const tabOptionOngoing = [{ id: 1, label: 'Attendance Record' }];
+
+// For Completed Job
+const tabOptionCompleted = [
+  { id: 0, label: 'Billing Info' },
+  { id: 1, label: 'Attendance Record' },
+];
 
 const AttendanceRecordScreen = () => {
   const dispatch = useAppDispatch();
@@ -18,9 +28,13 @@ const AttendanceRecordScreen = () => {
     useAppSelector((state) => state.jobAttendaceRecord);
 
   const navigation = useNavigation();
-  const { params } = useRoute();
-  const { id, startDate, endDate, startTime, endTime, title, startCode, endCode, hourlyRate } = params as IJobCompleted;
+  const { params } = useRoute<RouteProp<RootStackParams, RouteName.ATTENDANCE_RECORD>>();
+  const { jobData, jobStatus } = params;
+  const { id, startDate, endDate, startTime, endTime, title, startCode, endCode, hourlyRate } = jobData;
 
+  const tabOptions = jobStatus === 'ongoing' ? tabOptionOngoing : tabOptionCompleted;
+
+  const [selectedTab, setSelectedTab] = useState(tabOptions[0]);
   const [attendanceModalData, setAttendanceModalData] = useState<IAttendanceRecord>();
   const [attendanceModalOpen, setAttendanceModalOpen] = useState(false);
 
@@ -36,7 +50,7 @@ const AttendanceRecordScreen = () => {
     }
   }, [isLoadingUpdateWorkingData, errorUpdateWorkingData]);
 
-  const renderHeader = () => (
+  const renderJobInfo = () => (
     <JobMainInfo
       id={id}
       title={title}
@@ -53,8 +67,11 @@ const AttendanceRecordScreen = () => {
       avatar={item.profileImage}
       name={item.name}
       onCardClick={() => {
-        setAttendanceModalData(item);
-        setAttendanceModalOpen(true);
+        // only ongoing job can ammend work hour record
+        if (jobStatus === 'ongoing') {
+          setAttendanceModalData(item);
+          setAttendanceModalOpen(true);
+        }
       }}
       clockInTime={item.clockInTime}
       clockOutTime={item.clockOutTime}
@@ -66,31 +83,40 @@ const AttendanceRecordScreen = () => {
     />
   );
 
-  const renderContent = () => {
-    if (isLoadingAttendanceRecords) {
-      return <Spinner size="sm" />;
-    }
+  const renderBillingInfo = () => {
+    if (isLoadingAttendanceRecords) return <Spinner size="sm" />;
+    return (
+      <Banner>
+        <VStack space={3}>
+          <HStack justifyContent="space-between">
+            <Text fontSize="sm">Total Amount</Text>
+            <Text fontWeight="bold">$988.30</Text>
+          </HStack>
 
-    if (attendanceRecords.length === 0) {
-      return (
-        <View mt={4}>
-          <Banner message="You do not have any workers" />
-        </View>
-      );
-    }
+          <HStack justifyContent="space-between">
+            <Text fontSize="sm">Paid</Text>
+            <Text fontWeight="bold">Yes</Text>
+          </HStack>
+        </VStack>
+      </Banner>
+    );
+  };
 
+  const renderAttendanceData = () => {
+    if (isLoadingAttendanceRecords) return <Spinner size="sm" />;
+    if (attendanceRecords.length === 0) return <Banner message="You do not have any workers" />;
     return <FlatList data={attendanceRecords} renderItem={renderList} keyExtractor={(item) => item.id} />;
   };
 
-  return (
-    <VStack bg="white" flex={1}>
-      <Header
-        title="Attendance Record"
-        iconLeft={<Icon as={Ionicons} name="chevron-back-outline" onPress={() => navigation.goBack()} />}
-      />
-      {renderHeader()}
-      {renderContent()}
-      {attendanceModalData && attendanceModalOpen && (
+  const renderTab = () => (
+    <Stack px={3} py={4}>
+      <Tab align="stick" selected={selectedTab} options={tabOptions} onSelect={(option) => setSelectedTab(option)} />
+    </Stack>
+  );
+
+  const renderModal = () => {
+    if (attendanceModalData && attendanceModalOpen) {
+      return (
         <AttendanceModal
           attendanceData={attendanceModalData as IAttendanceRecord}
           visible={attendanceModalOpen}
@@ -105,7 +131,26 @@ const AttendanceRecordScreen = () => {
             );
           }}
         />
-      )}
+      );
+    }
+    return null;
+  };
+
+  const renderHeader = () => (
+    <Header
+      title={jobStatus === 'ongoing' ? 'Attendance' : 'Completed Job'}
+      iconLeft={<Icon as={Ionicons} name="chevron-back-outline" onPress={() => navigation.goBack()} />}
+    />
+  );
+
+  return (
+    <VStack bg="white" flex={1}>
+      {renderHeader()}
+      {renderJobInfo()}
+      {jobStatus === 'completed' ? renderTab() : null}
+      {selectedTab.id === 0 && renderBillingInfo()}
+      {selectedTab.id === 1 && renderAttendanceData()}
+      {renderModal()}
     </VStack>
   );
 };

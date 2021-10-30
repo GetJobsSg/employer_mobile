@@ -6,7 +6,6 @@ import { Banner, Header, Tab, JobMainInfo } from 'src/components';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { JobApplicationStatus } from 'src/constants/status';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { CommonLayout } from 'src/constants/layout';
 import { constructJobDate } from 'src/utils/dateTime';
 import { DD_MMM_YYYY } from 'src/constants/dateTime';
 import { isAndroid } from 'src/utils/platform';
@@ -211,7 +210,7 @@ const ParticipantListingScreen = () => {
         />
 
         <VStack h="100%">
-          <Stack px={CommonLayout.containerX - 1} py={2} pb={3}>
+          <Stack px={3} py={4}>
             <Tab selected={selectedTab} options={tabOptions} onSelect={(option) => setSelectedTab(option)} />
           </Stack>
           {renderContent()}

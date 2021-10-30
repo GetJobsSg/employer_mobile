@@ -3,14 +3,14 @@ import { HStack, Button, Text } from 'native-base';
 import { TabProps, TabOption } from './tab.props';
 
 const Tab = (props: TabProps) => {
-  const { onSelect, options, selected } = props;
+  const { onSelect, options, selected, align = 'stretch' } = props;
 
   const handleSelect = (option: TabOption) => () => {
     onSelect(option);
   };
 
   return (
-    <HStack alignItems="center" justifyContent="space-between">
+    <HStack alignItems="center" justifyContent={align === 'stretch' ? 'space-between' : 'flex-start'}>
       {options.map((option) => (
         <Button
           key={option.id}

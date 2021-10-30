@@ -30,7 +30,7 @@ const RootNavigator = () => {
       >
         {!isAuthenticated ? (
           <>
-            <RootStack.Screen name={RouteName.ATTENDANCE_RECORD} component={LoginScreen} />
+            <RootStack.Screen name={RouteName.AUTH_LOGIN} component={LoginScreen} />
             <RootStack.Screen name={RouteName.AUTH_FORGET_PASSWORD} component={ForgetPasswordScreen} />
           </>
         ) : (

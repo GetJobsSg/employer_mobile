@@ -4,7 +4,8 @@ import { Box, Spinner, Text, Pressable } from 'native-base';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { JobStatus } from 'src/constants/status';
 import { RouteName } from 'src/navigator/route';
-import { useNavigation } from '@react-navigation/native';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { RootStackParams } from 'src/navigator/types';
 import { jobListingActions } from '../slice';
 import { IJobCompleted } from '../slice/types';
 
@@ -12,7 +13,7 @@ const CompletedList = () => {
   const dispatch = useAppDispatch();
   const { isLoadingCompletedJobs, completedJobs } = useAppSelector((state) => state.jobListings);
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp<RootStackParams, RouteName.ATTENDANCE_RECORD>>();
 
   useEffect(() => {
     dispatch(jobListingActions.getCompletedJobListRequest(JobStatus.COMPLETED));
@@ -20,7 +21,7 @@ const CompletedList = () => {
 
   const renderItem: ListRenderItem<IJobCompleted> = ({ item }) => (
     <Pressable
-      onPress={() => navigation.navigate(RouteName.ATTENDANCE_RECORD, item)}
+      onPress={() => navigation.navigate(RouteName.ATTENDANCE_RECORD, { jobData: item, jobStatus: 'completed' })}
       bg="gray.50"
       borderRadius={5}
       my={1}

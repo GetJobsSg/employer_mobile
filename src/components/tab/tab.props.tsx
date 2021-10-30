@@ -7,4 +7,5 @@ export interface TabProps {
   options: TabOption[];
   selected: TabOption;
   onSelect: (option: TabOption) => void;
+  align?: 'stretch' | 'stick';
 }
