@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Heading, Text, Icon, VStack, FlatList, Spinner } from 'native-base';
+import { Heading, Text, Icon, HStack, VStack, FlatList, Spinner, Pressable } from 'native-base';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Banner, Header, WorkerCard } from 'src/components';
+import { Banner, Header, QRModal, WorkerCard } from 'src/components';
 import { ListRenderItem } from 'react-native';
 import { constructJobDate } from 'src/utils/dateTime';
 import { DD_MMM_YYYY } from 'src/constants/dateTime';
@@ -19,10 +19,11 @@ const AttendanceRecordScreen = () => {
 
   const navigation = useNavigation();
   const { params } = useRoute();
-  const { id, startDate, endDate, startTime, endTime, title } = params as IJobCompleted;
+  const { id, startDate, endDate, startTime, endTime, title, startCode, endCode } = params as IJobCompleted;
 
   const [attendanceModalData, setAttendanceModalData] = useState<IAttendanceRecord>();
   const [attendanceModalOpen, setAttendanceModalOpen] = useState(false);
+  const [showQRModal, setShowQRModal] = useState(false);
 
   // fetch attendance record when screen mounted
   useEffect(() => {
@@ -38,21 +39,35 @@ const AttendanceRecordScreen = () => {
 
   const renderHeader = () => (
     <VStack px={4} py={4}>
-      <Text fontSize="xs" color="gray.500">
-        {`# ${id}`}
-      </Text>
-      <Heading size="sm">{title}</Heading>
-      <VStack mt={1} space={1}>
-        <Text color="orange.800" fontSize="sm" fontWeight="500">
-          {constructJobDate(startDate, endDate, DD_MMM_YYYY)}
-        </Text>
-        <Text color="orange.800" fontSize="sm" fontWeight="500">
-          {`${startTime} - ${endTime}`}
-        </Text>
-      </VStack>
+      <HStack justifyContent="space-between" alignItems="flex-start">
+        <VStack>
+          <Text fontSize="xs" color="gray.500">
+            {`# ${id}`}
+          </Text>
+          <Heading size="sm">{title}</Heading>
+
+          <VStack mt={1} space={1}>
+            <Text color="orange.800" fontSize="sm" fontWeight="500">
+              {constructJobDate(startDate, endDate, DD_MMM_YYYY)}
+            </Text>
+            <Text color="orange.800" fontSize="sm" fontWeight="500">
+              {`${startTime} - ${endTime}`}
+            </Text>
+          </VStack>
+        </VStack>
+        <Pressable bg="white" border={1} borderRadius="xl" borderColor="gray.100" p={2} mt={2}>
+          <Icon as={Ionicons} name="qr-code-outline" size="md" onPress={() => setShowQRModal(true)} />
+        </Pressable>
+      </HStack>
       <Text fontSize="sm" mt={2} color="gray.500">
         Tap on the worker to give rating or amend their work hours.
       </Text>
+      <QRModal
+        visible={showQRModal}
+        qrClockInValue={startCode}
+        qrClockOutValue={endCode}
+        onCancel={() => setShowQRModal(false)}
+      />
     </VStack>
   );
 
