@@ -14,4 +14,8 @@ export const attendanceRecordInitialState: IAttendanceRecordInitialState = {
   // update attendee working data
   isLoadingUpdateWorkingData: false,
   errorUpdateWorkingData: null,
+
+  // conclude job
+  isConcludingJob: false,
+  errorConcludeJob: null,
 };

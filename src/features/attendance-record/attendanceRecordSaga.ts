@@ -2,7 +2,7 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { call, fork, put, takeLatest } from 'redux-saga/effects';
 import { CommonTypes } from 'src/shared';
 import { attendanceRecordActions } from './slice';
-import { adjustWorkingData, getAttendanceRecord, getBillingInfo } from './apis';
+import { adjustWorkingData, concludeJob, getAttendanceRecord, getBillingInfo } from './apis';
 import { IAttendanceAllRes, IBillingInfoRes } from './apis/types';
 import { attendanceRecordTransformer, billingInfoTransformer } from './transformer';
 import { IAttendanceRecord, IBillingInfo, IWorkingDataRequestPayload } from './slice/types';
@@ -34,14 +34,22 @@ function* adjustWorkingDataSaga(action: PayloadAction<CommonTypes.ICommonJobRequ
     const { jobId, ...data } = action.payload;
     yield call(adjustWorkingData, jobId, data);
 
-    // do not put(attendanceRecordActions.getAttendanceRecordRequest)
     const res: IAttendanceAllRes = yield call(getAttendanceRecord, jobId);
     const transformed: IAttendanceRecord[] = attendanceRecordTransformer.toState(res);
     yield put(attendanceRecordActions.getAttendanceRecordResponse({ list: transformed, error: null }));
-
     yield put(attendanceRecordActions.adjustWorkingDataResponse({ error: null }));
   } catch (e) {
     yield put(attendanceRecordActions.adjustWorkingDataResponse({ error: e }));
+  }
+}
+
+function* concludeJobSaga(action: PayloadAction<CommonTypes.ICommonJobRequest>) {
+  try {
+    const { jobId } = action.payload;
+    yield call(concludeJob, jobId);
+    yield put(attendanceRecordActions.concludeJobResponse({ error: null }));
+  } catch (e) {
+    yield put(attendanceRecordActions.concludeJobResponse({ error: e }));
   }
 }
 
@@ -49,6 +57,7 @@ function* watchAttendanceRecordSaga() {
   yield takeLatest(attendanceRecordActions.getAttendanceRecordRequest, getAttendanceRecordSaga);
   yield takeLatest(attendanceRecordActions.getBillingInfoRequest, getBillingInfoSaga);
   yield takeLatest(attendanceRecordActions.adjustWorkingDataRequest, adjustWorkingDataSaga);
+  yield takeLatest(attendanceRecordActions.concludeJobRequest, concludeJobSaga);
 }
 
 const attendanceRecordSaga = [fork(watchAttendanceRecordSaga)];

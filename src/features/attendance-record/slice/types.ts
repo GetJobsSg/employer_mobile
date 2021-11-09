@@ -36,6 +36,9 @@ export interface IAttendanceRecordInitialState {
   // update working data
   isLoadingUpdateWorkingData: boolean;
   errorUpdateWorkingData: null | any;
+  // conclude job
+  isConcludingJob: boolean;
+  errorConcludeJob: null | any;
 }
 
 export interface IAttendanceRecordPayload {
@@ -56,6 +59,9 @@ export interface IWorkingDataRequestPayload {
   ot_hours_worked: number;
 }
 
-export interface IWorkingDataResponsePayload {
+export interface ICommonErrorPayload {
   error: null | any;
 }
+export interface IWorkingDataResponsePayload extends ICommonErrorPayload {}
+
+export interface IConcludeJobResponsePayload extends ICommonErrorPayload {}

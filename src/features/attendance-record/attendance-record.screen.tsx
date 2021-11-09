@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Icon, VStack, FlatList, Spinner, Stack, Text, HStack } from 'native-base';
+import { Alert, ListRenderItem } from 'react-native';
+import { Button, Icon, VStack, FlatList, Spinner, Stack, Text, HStack } from 'native-base';
 import { RouteProp, useRoute, useNavigation } from '@react-navigation/native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Banner, Header, WorkerCard, JobMainInfo, Tab } from 'src/components';
-import { ListRenderItem } from 'react-native';
+
 import { constructJobDate } from 'src/utils/dateTime';
 import { DD_MMM_YYYY } from 'src/constants/dateTime';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
@@ -44,6 +46,8 @@ const AttendanceRecordScreen = () => {
   const [attendanceModalData, setAttendanceModalData] = useState<IAttendanceRecord>();
   const [attendanceModalOpen, setAttendanceModalOpen] = useState(false);
 
+  const insets = useSafeAreaInsets();
+
   // fetch attendance record
   useEffect(() => {
     dispatch(attendanceRecordActions.getAttendanceRecordRequest({ jobId: id }));
@@ -62,6 +66,18 @@ const AttendanceRecordScreen = () => {
       setAttendanceModalData(undefined);
     }
   }, [isLoadingUpdateWorkingData, errorUpdateWorkingData]);
+
+  const handleConcludeJob = () => {
+    Alert.alert('Conclude Job', 'Would you like to conclude this job now and process wages to your worker?', [
+      { text: 'Cancel' },
+      {
+        text: 'OK',
+        onPress: () => {
+          dispatch(attendanceRecordActions.concludeJobRequest({ jobId: id }));
+        },
+      },
+    ]);
+  };
 
   const renderJobInfo = () => (
     <JobMainInfo
@@ -118,7 +134,25 @@ const AttendanceRecordScreen = () => {
   const renderAttendanceData = () => {
     if (isLoadingAttendanceRecords) return <Spinner size="sm" />;
     if (attendanceRecords.length === 0) return <Banner message="You do not have any workers" />;
-    return <FlatList data={attendanceRecords} renderItem={renderList} keyExtractor={(item) => item.id} />;
+    return (
+      <VStack style={{ flex: 1 }}>
+        <FlatList data={attendanceRecords} renderItem={renderList} keyExtractor={(item) => item.id} />
+
+        <Stack px={4} py={2} mb={insets.bottom}>
+          <Button
+            onPress={handleConcludeJob}
+            variant="outline"
+            bgColor="gray.900"
+            borderColor="gray.900"
+            borderWidth={2}
+          >
+            <Text fontWeight="500" color="white">
+              Conclude Job
+            </Text>
+          </Button>
+        </Stack>
+      </VStack>
+    );
   };
 
   const renderTab = () => (

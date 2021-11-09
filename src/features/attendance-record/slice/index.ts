@@ -4,6 +4,7 @@ import { attendanceRecordInitialState } from './defaultState';
 import {
   IAttendanceRecordPayload,
   IBillingInfoPayload,
+  IConcludeJobResponsePayload,
   IWorkingDataRequestPayload,
   IWorkingDataResponsePayload,
 } from './types';
@@ -39,6 +40,15 @@ const attendanceRecordSlice = createSlice({
     adjustWorkingDataResponse(state, action: PayloadAction<IWorkingDataResponsePayload>) {
       state.isLoadingUpdateWorkingData = false;
       state.errorUpdateWorkingData = action.payload.error ? action.payload.error : null;
+    },
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    concludeJobRequest(state, action: PayloadAction<CommonTypes.ICommonJobRequest>) {
+      state.isConcludingJob = true;
+    },
+    concludeJobResponse(state, action: PayloadAction<IConcludeJobResponsePayload>) {
+      state.isConcludingJob = false;
+      state.errorConcludeJob = action.payload.error ? action.payload.error : null;
     },
   },
 });

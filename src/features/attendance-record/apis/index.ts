@@ -1,4 +1,4 @@
-import { get, put } from 'src/utils/network';
+import { get, put, post } from 'src/utils/network';
 import { IWorkingDataRequestPayload } from '../slice/types';
 import { IAttendanceAllRes, IBillingInfoRes } from './types';
 
@@ -10,3 +10,5 @@ export const getBillingInfo = (jobId: number): Promise<IBillingInfoRes> =>
 
 export const adjustWorkingData = (jobId: number, data: IWorkingDataRequestPayload): Promise<{}> =>
   put(`/web/job/${jobId}/participant/adjust`, data).then((res) => res.data);
+
+export const concludeJob = (jobId: number): Promise<{}> => post(`/web/job/${jobId}/conclude`).then((res) => res.data);
