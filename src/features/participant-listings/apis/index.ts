@@ -13,4 +13,4 @@ export const sendParticipantOffer = (data: IOfferJobPayload) =>
   put(`/web/job/offer`, { job_id: data.jobId, employee_id: data.jobseekerId }).then((res) => res.data);
 
 export const rejectParticipant = (data: IRejectPayload) =>
-  put(`/web/job/cancel/${data.jobId}/employee/${data.jobseekerId}`).then((res) => res.data);
+  put(`/web/job/reject/${data.jobId}/employee/${data.jobseekerId}`).then((res) => res.data);
