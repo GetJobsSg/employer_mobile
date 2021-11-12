@@ -9,6 +9,7 @@ const stripeSlice = createSlice({
   reducers: {
     getPaymentMethodRequest(state) {
       state.isLoadingPaymentMethods = true;
+      state.error = null;
     },
     getPaymentMethodResponse(state, action: PayloadAction<PaymentMethodPayload>) {
       state.isLoadingPaymentMethods = false;

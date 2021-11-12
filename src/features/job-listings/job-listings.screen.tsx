@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
-import { Heading, HStack, VStack, Icon } from 'native-base';
+import React, { useEffect, useState } from 'react';
+import { Heading, HStack, VStack, Icon, Spinner } from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Header, Tab } from 'src/components';
 import { useNavigation } from '@react-navigation/native';
 import { RouteName } from 'src/navigator/route';
+import { useAppDispatch, useAppSelector } from 'src/hooks';
+import { stripeActions } from 'src/features/stripe/slice';
+import { Alert } from 'react-native';
 import { ActiveList, OngoingList, CompletedList, CancelledList } from './components';
 
 enum ListingTab {
@@ -24,6 +27,34 @@ const JobListingScreen = () => {
   const [activeTab, setActiveTab] = useState(TabOptionList[0]);
   const navigation = useNavigation();
 
+  const dispatch = useAppDispatch();
+  const { defaultMethod, isLoadingPaymentMethods, error } = useAppSelector((state) => state.stripePayment);
+
+  useEffect(() => {
+    dispatch(stripeActions.getPaymentMethodRequest());
+  }, [dispatch]);
+
+  const handleCreate = () => {
+    if (!defaultMethod.id) {
+      Alert.alert('No Payment Method', 'Please insert your credit card details and start to create job.', [
+        {
+          text: 'Add Payment',
+          onPress: () => navigation.navigate(RouteName.PAYMENT_METHODS),
+        },
+      ]);
+    } else {
+      navigation.navigate(RouteName.JOB_DETAILS, { mode: 'create' });
+    }
+  };
+
+  const renderCreateButton = () => {
+    if (isLoadingPaymentMethods) return <Spinner size="sm" />;
+    if (!isLoadingPaymentMethods && !error) {
+      return <Icon onPress={handleCreate} as={Ionicons} name="add-circle-outline" />;
+    }
+    return null;
+  };
+
   return (
     <VStack bg="white" flex={1}>
       <Header>
@@ -33,11 +64,7 @@ const JobListingScreen = () => {
               Listing
             </Heading>
             <HStack space={4}>
-              <Icon
-                onPress={() => navigation.navigate(RouteName.JOB_DETAILS, { mode: 'create' })}
-                as={Ionicons}
-                name="add-circle-outline"
-              />
+              {renderCreateButton()}
               <Icon onPress={() => navigation.navigate(RouteName.PROFILE)} as={Ionicons} name="person-circle-outline" />
             </HStack>
           </HStack>
