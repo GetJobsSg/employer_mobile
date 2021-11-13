@@ -5,6 +5,7 @@ import { participantListingReducers } from './features/participant-listings/slic
 import { jobDetailsReducers } from './features/job-details/slice';
 import { workerListingReducers } from './features/worker-listings/slice';
 import { attendanceRecordReducers } from './features/attendance-record/slice';
+import { errorHandlerReducers } from './features/error-handler/slices';
 
 const rootReducer = {
   auth: authReducers,
@@ -14,6 +15,7 @@ const rootReducer = {
   participantListings: participantListingReducers,
   jobAttendaceRecord: attendanceRecordReducers,
   jobDetails: jobDetailsReducers,
+  errors: errorHandlerReducers,
 };
 
 export default rootReducer;
