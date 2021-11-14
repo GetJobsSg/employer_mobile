@@ -10,9 +10,13 @@ const Header = (props: HeaderProps) => {
     return (
       <HStack justifyContent="space-between" alignItems="center">
         <HStack alignItems="center">
-          {iconLeft && <View p={2}>{iconLeft}</View>}
+          {iconLeft && (
+            <View p={2} pr={4}>
+              {iconLeft}
+            </View>
+          )}
           {title && (
-            <Heading px={4} fontWeight="600" size="sm" color="black">
+            <Heading fontWeight="600" size="sm" color="gray.600">
               {title}
             </Heading>
           )}

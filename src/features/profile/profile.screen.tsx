@@ -1,6 +1,6 @@
-import React from 'react';
-import { Heading, Icon, VStack, HStack, Text, Divider } from 'native-base';
-import { Alert, Pressable } from 'react-native';
+import React, { useMemo } from 'react';
+import { Box, Heading, Icon, VStack, HStack, Text, Stack } from 'native-base';
+import { Alert, TouchableOpacity } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 
@@ -10,6 +10,20 @@ import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { RoleLevel } from 'src/constants/role';
 import { RouteName } from 'src/navigator/route';
 import { authActions } from '../auth/slice';
+
+const CTAItem = (props: { label: string; onAction: () => void }) => {
+  const { label, onAction } = props;
+  return (
+    <TouchableOpacity onPress={onAction}>
+      <HStack py={4} alignItems="center" justifyContent="space-between" borderBottomWidth={0.5} borderColor="gray.200">
+        <Text color="gray.600" fontWeight="300" fontSize="sm">
+          {label}
+        </Text>
+        <Icon color="gray.400" as={Ionicons} name="chevron-forward-outline" size={5} />
+      </HStack>
+    </TouchableOpacity>
+  );
+};
 
 const ProfileScreen = () => {
   const dispatch = useAppDispatch();
@@ -23,65 +37,60 @@ const ProfileScreen = () => {
   const navigation = useNavigation();
 
   const handleLogout = () => {
-    Alert.alert('Logout', 'Would you like to logout your account ?', [
-      { text: 'Cancel' },
+    Alert.alert('Logout', 'Are you sure would like to logout your account?', [
+      { text: 'No' },
       {
-        text: 'Logout',
+        text: 'Yes',
         onPress: () => dispatch(authActions.logout()),
       },
     ]);
   };
 
+  const username = useMemo(() => `${firstName} ${lastName}`.toUpperCase(), [firstName, lastName]);
+
   return (
     <VStack bg="white" flex={1}>
       <Header
-        iconLeft={<Icon as={Ionicons} name="chevron-back-outline" onPress={() => navigation.goBack()} />}
-        title="My Profile"
+        iconLeft={
+          <Icon
+            as={Ionicons}
+            size={6}
+            name="chevron-back-outline"
+            color="gray.500"
+            onPress={() => navigation.goBack()}
+          />
+        }
+        title="Profile"
       />
-      <VStack px={CommonLayout.containerX} py={CommonLayout.containerX}>
-        <Heading size="lg">{`${firstName} ${lastName}`}</Heading>
-        <Heading size="xs" fontWeight="400" color="gray.500">
-          {email}
-        </Heading>
 
-        <VStack mt={3} space={1}>
-          <HStack space={2}>
-            <Icon as={Ionicons} name="people-circle-outline" color="gray.400" size="sm" />
-            <Heading size="sm" fontWeight="400" color="gray.500">
-              {id ? RoleLevel[id] : ''}
-            </Heading>
+      <Stack px={CommonLayout.containerX} pt={4}>
+        <Box p={4} borderRadius={4} shadow={1} backgroundColor="white">
+          <HStack justifyContent="space-between" alignItems="center">
+            <VStack>
+              <Heading size="md" color="gray.600">
+                {username}
+              </Heading>
+              <Heading size="sm" fontWeight="400" color="gray.600">
+                {email}
+              </Heading>
+            </VStack>
+            <Icon as={Ionicons} name="arrow-forward-outline" size={5} color="gray.500" />
           </HStack>
 
-          <HStack space={2}>
-            <Icon as={Ionicons} name="business-outline" color="gray.400" size={5} mr={1} />
-            <Heading size="sm" fontWeight="400" color="gray.500">
-              {companyName}
-            </Heading>
-          </HStack>
-        </VStack>
-      </VStack>
+          <Heading size="xs" mt={1} fontWeight="300" color="gray.600">
+            {id ? RoleLevel[id] : ''}
+          </Heading>
+          <Heading size="xs" fontWeight="300" color="gray.600">
+            {companyName}
+          </Heading>
+        </Box>
+      </Stack>
 
-      <Divider />
-
-      <VStack mt={4} px={CommonLayout.containerX}>
-        <HStack my={4} alignItems="center">
-          <Icon as={Ionicons} name="lock-closed-outline" size="sm" mr={4} />
-          <Text>Change Password (TODO)</Text>
-        </HStack>
-
-        <Pressable onPress={() => navigation.navigate(RouteName.PAYMENT_METHODS)}>
-          <HStack my={4} alignItems="center">
-            <Icon as={Ionicons} name="card-outline" size="sm" mr={4} />
-            <Text>Payment Method</Text>
-          </HStack>
-        </Pressable>
-
-        <Pressable onPress={handleLogout}>
-          <HStack my={4} alignItems="center">
-            <Icon as={Ionicons} name="log-out-outline" size="sm" mr={4} pl={0.5} />
-            <Text>Logout</Text>
-          </HStack>
-        </Pressable>
+      <VStack px={CommonLayout.containerX} pt={2} pb={4}>
+        <CTAItem label="Change Password" onAction={() => {}} />
+        <CTAItem label="Terms and Conditions" onAction={() => {}} />
+        <CTAItem label="Billing and Payment" onAction={() => navigation.navigate(RouteName.PAYMENT_METHODS)} />
+        <CTAItem label="Logout" onAction={handleLogout} />
       </VStack>
     </VStack>
   );
