@@ -89,7 +89,8 @@ const ProfileScreen = () => {
       <VStack px={CommonLayout.containerX} pt={2} pb={4}>
         <CTAItem label="Change Password" onAction={() => {}} />
         <CTAItem label="Terms and Conditions" onAction={() => {}} />
-        <CTAItem label="Billing and Payment" onAction={() => navigation.navigate(RouteName.PAYMENT_METHODS)} />
+        <CTAItem label="Payment Method" onAction={() => navigation.navigate(RouteName.PAYMENT_METHODS)} />
+        <CTAItem label="Billing Address" onAction={() => navigation.navigate(RouteName.BILLING_ADDRESS)} />
         <CTAItem label="Logout" onAction={handleLogout} />
       </VStack>
     </VStack>

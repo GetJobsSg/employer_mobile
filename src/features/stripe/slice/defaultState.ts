@@ -2,7 +2,9 @@ import { IStripeInitialState } from './types';
 
 const stripeDefaultState: IStripeInitialState = {
   isLoadingPaymentMethods: false,
+  isLoadingBillingAddress: false,
   isLoadingAddPaymentMethods: false,
+  isLoadingBillingAddressUpdate: false,
   error: null,
   otherMethod: [],
   defaultMethod: {
@@ -10,6 +12,15 @@ const stripeDefaultState: IStripeInitialState = {
     brand: '',
     last4: '',
     type: '',
+  },
+  billingAddress: {
+    name: '',
+    email: '',
+    address: '',
+    unitNo: '',
+    blockNo: '',
+    postalCode: '',
+    country: '',
   },
 };
 

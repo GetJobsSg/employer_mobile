@@ -15,4 +15,5 @@ export type RootStackParams = {
 
   [RouteName.PAYMENT_METHODS]: undefined;
   [RouteName.COLLECT_CARD_DETAILS]: undefined;
+  [RouteName.BILLING_ADDRESS]: undefined;
 };

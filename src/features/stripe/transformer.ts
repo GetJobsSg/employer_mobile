@@ -1,5 +1,5 @@
 import { IPaymentMethodResponse } from './apis';
-import { MethodDetails } from './slice/types';
+import { BillingAddressApiDetails, BillingAddressDetails, BillingAddressResponse, MethodDetails } from './slice/types';
 
 export const stripeTransformer = {
   toState(data: IPaymentMethodResponse) {
@@ -36,6 +36,32 @@ export const stripeTransformer = {
     return {
       defaultMethod,
       otherMethod,
+    };
+  },
+};
+
+export const billingAddressTransformer = {
+  toApi(data: BillingAddressDetails): BillingAddressApiDetails {
+    return {
+      name: data.name,
+      email: data.email,
+      address: data.address,
+      unit_no: data.unitNo,
+      block_no: data.blockNo,
+      postal_code: data.postalCode,
+      country: data.country,
+    };
+  },
+
+  toState(res: BillingAddressResponse): BillingAddressDetails {
+    return {
+      name: res.data.name || '',
+      email: res.data.email || '',
+      address: res.data.address || '',
+      unitNo: res.data.unit_no || '',
+      blockNo: res.data.block_no || '',
+      postalCode: res.data.postal_code || '',
+      country: res.data.country || '',
     };
   },
 };
