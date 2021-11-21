@@ -1,3 +1,5 @@
+import { IApiResponse } from 'src/shared/types';
+
 export interface IJobLocation {
   id: number;
   address: string;
@@ -55,3 +57,12 @@ export interface IJobDetailsResponse {
     job_locations: IJobLocation[];
   };
 }
+
+export interface IDressCode {
+  id: number;
+  name: string;
+  date_updated: string;
+  date_created: string;
+}
+
+export type IDressCodeResponse = IApiResponse<IDressCode[]>;

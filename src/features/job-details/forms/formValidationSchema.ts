@@ -36,6 +36,7 @@ export const formValidationSchema = [
     [FieldName.jobDescription]: yup.string().required('Job description is required'),
     [FieldName.hourlyRate]: yup.string().required('Please insert the amount of salary per hour'),
     [FieldName.category]: yup.number().required('Please select a job cateogry'),
+    [FieldName.dresscode]: yup.number().required('Please select a dresscode'),
   }),
 
   // Stage 3

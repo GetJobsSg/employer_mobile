@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { CommonTypes } from 'src/shared';
-import { ICategory, ICreateJobResponsePayload, IJobDetailsResponsePayload } from './types';
+import { ICommonPayload } from 'src/shared/types';
+import { ICategory, ICreateJobResponsePayload, IDressCodePayload, IJobDetailsResponsePayload } from './types';
 import { jobDetailInitialState } from './defaultState';
 
 const jobDetailSlice = createSlice({
@@ -42,6 +43,18 @@ const jobDetailSlice = createSlice({
       state.isLoadingGetAllCategories = false;
       state.allCategoriesErr = action.payload.error ? action.payload.error : null;
       state.allCategories = action.payload.error ? state.allCategories : action.payload.list;
+    },
+
+    // get all dresscode
+    getAllDresscodeRequest(state) {
+      state.isLoadingGetAllDresscode = true;
+      state.allDresscodeErr = null;
+    },
+
+    getAllDresscodeResponse(state, action: PayloadAction<ICommonPayload<IDressCodePayload[]>>) {
+      state.isLoadingGetAllDresscode = false;
+      state.allDresscodeErr = action.payload.error ? action.payload.error : null;
+      state.allDresscode = action.payload.error ? state.allDresscode : action.payload.data;
     },
   },
 });

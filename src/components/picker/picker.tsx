@@ -1,5 +1,5 @@
 import React, { useRef, useMemo } from 'react';
-import { Box, HStack, Icon, Pressable, Text, VStack } from 'native-base';
+import { Box, HStack, Icon, Pressable, Text, VStack, Spinner } from 'native-base';
 import { Picker as RNPicker } from '@react-native-picker/picker';
 import RNSheet from 'react-native-raw-bottom-sheet';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -8,7 +8,7 @@ import { isIOS, isAndroid } from 'src/utils/platform';
 import { PickerProps } from './picker.props';
 
 const Picker = (props: PickerProps) => {
-  const { onChange, label, options, placeholder, selectedValue } = props;
+  const { onChange, label, options, placeholder, selectedValue, isLoading = false } = props;
   const sheetRef = useRef<any>();
   const androidPickerRef = useRef<any>();
 
@@ -18,6 +18,16 @@ const Picker = (props: PickerProps) => {
       onChange(options[0].value);
     }
     sheetRef.current.close();
+  };
+
+  const handleIOSPickerPress = () => {
+    if (isLoading) return;
+    sheetRef.current.open();
+  };
+
+  const handleAndroidPickerPress = () => {
+    if (isLoading) return;
+    androidPickerRef.current.focus();
   };
 
   // transfrom options array to { [value]:[label] }
@@ -33,26 +43,30 @@ const Picker = (props: PickerProps) => {
   if (isIOS) {
     return (
       <>
-        <Pressable onPress={() => sheetRef.current.open()}>
+        <Pressable disabled={isLoading} onPress={handleIOSPickerPress}>
           <HStack alignItems="center" py={2} pb={4} borderBottomWidth={1} borderBottomColor="gray.100">
             <VStack flex={1}>
               <Text mb={2} fontSize="xs" color="gray.500">
                 {label}
               </Text>
 
-              {!selectedValue && (
+              {selectedValue === '' && (
                 <Text fontWeight="600" color="gray.400">
                   {placeholder || 'Select an option'}
                 </Text>
               )}
 
-              {selectedValue && (
+              {selectedValue !== '' && (
                 <Text fontWeight="600" color="black">
                   {optionsMap[selectedValue]}
                 </Text>
               )}
             </VStack>
-            <Icon as={Ionicons} color="gray.400" name="chevron-forward-outline" size={5} />
+            {isLoading ? (
+              <Spinner size="sm" />
+            ) : (
+              <Icon as={Ionicons} color="gray.400" name="chevron-forward-outline" size={5} />
+            )}
           </HStack>
         </Pressable>
 
@@ -93,9 +107,10 @@ const Picker = (props: PickerProps) => {
               ))}
             </RNPicker>
 
-            {!selectedValue && (
+            {selectedValue === '' && (
               <Pressable
-                onPress={() => androidPickerRef.current.focus()}
+                disabled={isLoading}
+                onPress={handleAndroidPickerPress}
                 flex={1}
                 bg="white"
                 position="absolute"

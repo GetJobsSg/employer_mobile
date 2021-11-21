@@ -15,6 +15,11 @@ export interface IJobDetailInitialState {
   isLoadingGetAllCategories: boolean;
   allCategories: Pick<ICategory, 'id' | 'name'>[];
   allCategoriesErr: null | any;
+
+  // getAll dresscode
+  isLoadingGetAllDresscode: boolean;
+  allDresscode: IDressCodePayload[];
+  allDresscodeErr: null | any;
 }
 
 /**
@@ -31,6 +36,7 @@ export interface ICreateJobRequestPayload {
   title: string;
   desc: string;
   job_category_id: number;
+  dress_code_id: number;
   requirements: string;
   responsibilities: string;
   start_date: string;
@@ -79,4 +85,9 @@ export interface IJobDetailsPayload {
 export interface IJobDetailsResponsePayload {
   data: IJobDetailsPayload | {};
   error: null | any;
+}
+
+export interface IDressCodePayload {
+  id: number;
+  name: string;
 }

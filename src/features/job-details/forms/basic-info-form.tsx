@@ -14,18 +14,32 @@ interface BasicInfoFormProps {
 
 const BasicInfoForm = (props: BasicInfoFormProps) => {
   const dispatch = useAppDispatch();
-  const { allCategories } = useAppSelector((state) => state.jobDetails);
+  const { allCategories, isLoadingGetAllCategories, allDresscode, isLoadingGetAllDresscode } = useAppSelector(
+    (state) => state.jobDetails,
+  );
   const { formValues, formErrors, setFormFieldValue } = props;
 
   useEffect(() => {
-    dispatch(jobDetailsActions.getAllCategoriesRequest());
-  }, [dispatch]);
+    if (allCategories.length === 0) {
+      dispatch(jobDetailsActions.getAllCategoriesRequest());
+    }
+
+    if (allDresscode.length === 0) {
+      dispatch(jobDetailsActions.getAllDresscodeRequest());
+    }
+  }, [allCategories.length, allDresscode.length, dispatch]);
 
   const handleCategorySelect = (selectedOption: any) => {
     setFormFieldValue(FieldName.category, selectedOption);
   };
 
+  const handleDresscodeSelect = (selectedOption: any) => {
+    setFormFieldValue(FieldName.dresscode, selectedOption);
+  };
+
   const categoryOptionList = useMemo(() => allCategories.map((c) => ({ label: c.name, value: c.id })), [allCategories]);
+
+  const dresscodeOptionList = useMemo(() => allDresscode.map((d) => ({ label: d.name, value: d.id })), [allDresscode]);
 
   return (
     <>
@@ -86,9 +100,21 @@ const BasicInfoForm = (props: BasicInfoFormProps) => {
         <FormControl isInvalid mb={2}>
           <Picker
             label="Category"
+            isLoading={isLoadingGetAllCategories}
             selectedValue={formValues[FieldName.category]}
             onChange={handleCategorySelect}
             options={categoryOptionList}
+          />
+          <FormControl.ErrorMessage>{formErrors[FieldName.category]}</FormControl.ErrorMessage>
+        </FormControl>
+
+        <FormControl isInvalid mb={100}>
+          <Picker
+            label="Dresscode"
+            isLoading={isLoadingGetAllDresscode}
+            selectedValue={formValues[FieldName.dresscode]}
+            onChange={handleDresscodeSelect}
+            options={dresscodeOptionList}
           />
           <FormControl.ErrorMessage>{formErrors[FieldName.category]}</FormControl.ErrorMessage>
         </FormControl>

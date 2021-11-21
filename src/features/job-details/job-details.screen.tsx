@@ -41,12 +41,10 @@ const JobDetailScreen = () => {
   const [currStep, setCurrStep] = useState(mode === 'create' ? FormStep.DATETIME_INFO : FormStep.PREVIEW);
 
   const { values, dirty, errors, handleSubmit, setFieldValue } = useFormik({
-    initialValues: formInitialValues, // edit mode ? initialize all value
+    initialValues: formInitialValues,
     validationSchema: formValidationSchema[currStep],
     validateOnChange: false,
-    onSubmit: (_values) => {
-      // eslint-disable-next-line no-console
-      console.log(_values);
+    onSubmit: () => {
       setCurrStep(currStep + 1);
     },
   });

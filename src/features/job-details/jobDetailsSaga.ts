@@ -4,10 +4,10 @@ import { JobStatus } from 'src/constants/status';
 import { CommonTypes } from 'src/shared';
 import { jobDetailsActions } from './slice';
 import { createJobTransformer, jobDetailsTransformer } from './transformer';
-import { createJob, getAllCategories, getJobDetails } from './apis';
+import { createJob, getAllCategories, getAllDressCode, getJobDetails } from './apis';
 import { IGetAllCategoriesResponse, IJobDetailsPayload } from './slice/types';
 import { jobListingActions } from '../job-listings/slice';
-import { IJobDetailsResponse } from './apis/types';
+import { IDressCodeResponse, IJobDetailsResponse } from './apis/types';
 
 function* createJobSaga(action: PayloadAction<any>) {
   const jobData = action.payload;
@@ -43,10 +43,21 @@ function* getAllCategoriesSaga() {
   }
 }
 
+function* getAllDresscodeSaga() {
+  try {
+    const res: IDressCodeResponse = yield call(getAllDressCode);
+    const list = res.data.map((dress) => ({ id: dress.id, name: dress.name }));
+    yield put(jobDetailsActions.getAllDresscodeResponse({ data: list, error: null }));
+  } catch (e) {
+    yield put(jobDetailsActions.getAllDresscodeResponse({ data: [], error: e }));
+  }
+}
+
 function* watchJobDetailSaga() {
   yield takeLatest(jobDetailsActions.createJobRequest, createJobSaga);
   yield takeLatest(jobDetailsActions.getJobDetailsRequest, getJobDetailSaga);
   yield takeLatest(jobDetailsActions.getAllCategoriesRequest, getAllCategoriesSaga);
+  yield takeLatest(jobDetailsActions.getAllDresscodeRequest, getAllDresscodeSaga);
 }
 
 const jobDetailSaga = [fork(watchJobDetailSaga)];

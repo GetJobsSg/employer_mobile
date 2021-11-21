@@ -30,4 +30,9 @@ export const jobDetailInitialState: IJobDetailInitialState = {
   isLoadingGetAllCategories: false,
   allCategories: [],
   allCategoriesErr: null,
+
+  // getAll dresscodes
+  isLoadingGetAllDresscode: false,
+  allDresscode: [],
+  allDresscodeErr: null,
 };

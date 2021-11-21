@@ -35,7 +35,7 @@ export interface BillingAddressDetails {
   country: string;
 }
 
-export type BillingAddressPayload = ICommonPayload<BillingAddressDetails>;
+export type BillingAddressPayload = ICommonPayload<BillingAddressDetails | null>;
 
 export interface IStripeInitialState {
   isLoadingPaymentMethods: boolean;

@@ -9,4 +9,5 @@ export interface PickerProps {
   onChange: (option: any) => void;
   options: PickerOption[];
   selectedValue: any;
+  isLoading?: boolean;
 }

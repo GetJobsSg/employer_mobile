@@ -7,6 +7,6 @@ export interface IApiResponse<T> {
 }
 
 export interface ICommonPayload<T> {
-  data: T | null;
+  data: T;
   error: null | any;
 }

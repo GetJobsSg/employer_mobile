@@ -19,6 +19,7 @@ export enum FieldName {
   jobDescription = 'jobDescription',
   hourlyRate = 'hourlyRate',
   category = 'category',
+  dresscode = 'dresscode',
 
   // FormStep.REQUIREMENT_INFO
   requirement = 'requirement',
@@ -41,6 +42,8 @@ export const formInitialValues = {
   [FieldName.jobTitle]: '',
   [FieldName.jobDescription]: '',
   [FieldName.hourlyRate]: '',
+  [FieldName.category]: '',
+  [FieldName.dresscode]: '',
   [FieldName.requirement]: '',
   [FieldName.responsiblities]: '',
   [FieldName.address]: '',
