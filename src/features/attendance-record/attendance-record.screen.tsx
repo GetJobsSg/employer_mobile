@@ -134,10 +134,19 @@ const AttendanceRecordScreen = () => {
   const renderAttendanceData = () => {
     if (isLoadingAttendanceRecords) return <Spinner size="sm" />;
     if (attendanceRecords.length === 0) return <Banner message="You do not have any workers" />;
+
+    // hide "Pay Workers" button for Completed Job
+    if (jobStatus === 'completed')
+      return (
+        <VStack style={{ flex: 1 }}>
+          <FlatList data={attendanceRecords} renderItem={renderList} keyExtractor={(item) => item.id} />
+        </VStack>
+      );
+
+    // show "Pay Workers" button and Flatlist for Ongoing Job
     return (
       <VStack style={{ flex: 1 }}>
         <FlatList data={attendanceRecords} renderItem={renderList} keyExtractor={(item) => item.id} />
-
         <Stack px={4} py={2} mb={insets.bottom}>
           <Button
             onPress={handleConcludeJob}
@@ -147,7 +156,7 @@ const AttendanceRecordScreen = () => {
             borderWidth={2}
           >
             <Text fontWeight="500" color="white">
-              Conclude Job
+              Pay Workers
             </Text>
           </Button>
         </Stack>
@@ -194,6 +203,7 @@ const AttendanceRecordScreen = () => {
     <VStack bg="white" flex={1}>
       {renderHeader()}
       {renderJobInfo()}
+      {/* only completed job need to render tab */}
       {jobStatus === 'completed' ? renderTab() : null}
       {selectedTab.id === 0 && renderBillingInfo()}
       {selectedTab.id === 1 && renderAttendanceData()}
