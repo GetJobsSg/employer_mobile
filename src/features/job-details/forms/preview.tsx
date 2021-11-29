@@ -97,14 +97,6 @@ const Preview = (props: IPreviewProps) => {
         <PreviewItem label="Dresscode" value={selectedDresscode} />
       </Section>
 
-      <Section title="Requirement" onEdit={() => onSectionEdit(FormStep.REQUIREMENT_INFO)}>
-        <PreviewItem label="Requirement" value={formValues[FieldName.requirement]} />
-      </Section>
-
-      <Section title="Responsibilities" onEdit={() => onSectionEdit(FormStep.RESPONSIBLITY_INFO)}>
-        <PreviewItem label="Responsibilities" value={formValues[FieldName.responsiblities]} />
-      </Section>
-
       <Section title="Location" onEdit={() => onSectionEdit(FormStep.LOCATION_INFO)}>
         <PreviewItem label="Address" value={formValues[FieldName.address]} />
         <PreviewItem label="Block No" value={formValues[FieldName.blockNo]} />

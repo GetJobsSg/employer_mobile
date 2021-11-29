@@ -10,8 +10,6 @@ export const createJobTransformer = {
       desc: jobData.jobDescription,
       job_category_id: jobData.category || 1,
       dress_code_id: jobData.dresscode || 1,
-      requirements: jobData.requirement,
-      responsibilities: jobData.responsibilities,
       start_date: moment(jobData.startDate).toISOString(),
       end_date: moment(jobData.endDate).toISOString(), // we only need to cater single day, start_date and end_date will be the same
       start_time: generateSpecialISOString(moment(jobData.startTime).toISOString()),
@@ -46,9 +44,6 @@ export const jobDetailsTransformer = {
       jobDescription: job.desc,
       hourlyRate: job.hourly_rate,
       category: job.job_category.id,
-      // long text info
-      requirements: job.requirements,
-      responsiblities: job.responsibilities,
       // location related
       address: job_locations[0].address,
       postalCode: job_locations[0].postal_code,

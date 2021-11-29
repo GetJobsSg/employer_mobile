@@ -1,8 +1,6 @@
 export enum FormStep {
   DATETIME_INFO,
   BASIC_INFO,
-  REQUIREMENT_INFO,
-  RESPONSIBLITY_INFO,
   LOCATION_INFO,
   PREVIEW,
 }
@@ -21,12 +19,6 @@ export enum FieldName {
   category = 'category',
   dresscode = 'dresscode',
 
-  // FormStep.REQUIREMENT_INFO
-  requirement = 'requirement',
-
-  // FormStep.RESPONSIBLITY_INFO
-  responsiblities = 'responsibilities',
-
   // FormStep.LOCATION_INFO
   address = 'address',
   postalCode = 'postalCode',
@@ -44,8 +36,6 @@ export const formInitialValues = {
   [FieldName.hourlyRate]: '',
   [FieldName.category]: '',
   [FieldName.dresscode]: '',
-  [FieldName.requirement]: '',
-  [FieldName.responsiblities]: '',
   [FieldName.address]: '',
   [FieldName.postalCode]: '',
   [FieldName.blockNo]: '',

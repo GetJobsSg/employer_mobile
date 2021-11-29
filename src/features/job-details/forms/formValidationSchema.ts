@@ -3,7 +3,7 @@ import moment from 'moment';
 import { FieldName } from './formInitialValues';
 
 export const formValidationSchema = [
-  // Stage 1
+  // Step 1
   yup.object({
     [FieldName.startDate]: yup
       .date()
@@ -30,7 +30,7 @@ export const formValidationSchema = [
     ),
   }),
 
-  // Stage 2
+  // Step 2
   yup.object({
     [FieldName.jobTitle]: yup.string().required('Job title is required'),
     [FieldName.jobDescription]: yup.string().required('Job description is required'),
@@ -39,17 +39,7 @@ export const formValidationSchema = [
     [FieldName.dresscode]: yup.number().required('Please select a dresscode'),
   }),
 
-  // Stage 3
-  yup.object({
-    [FieldName.requirement]: yup.string().required('Please input job requirement'),
-  }),
-
-  // Stage 4
-  yup.object({
-    [FieldName.responsiblities]: yup.string().required('Please input job responsibilities'),
-  }),
-
-  // Stage 5
+  // Step 3
   yup.object({
     [FieldName.address]: yup.string().required('Please insert the address'),
     [FieldName.postalCode]: yup.string().required('Please insert postal code'),

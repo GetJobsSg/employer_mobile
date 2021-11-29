@@ -37,8 +37,6 @@ export interface ICreateJobRequestPayload {
   desc: string;
   job_category_id: number;
   dress_code_id: number;
-  requirements: string;
-  responsibilities: string;
   start_date: string;
   end_date: string;
   start_time: string;
@@ -74,8 +72,6 @@ export interface IJobDetailsPayload {
   jobDescription: string;
   hourlyRate: number;
   category: number;
-  requirements: string;
-  responsiblities: string;
   address: string;
   postalCode: string;
   blockNo: string;

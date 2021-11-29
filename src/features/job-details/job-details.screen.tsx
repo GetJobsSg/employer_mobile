@@ -17,8 +17,6 @@ import { formValidationSchema } from './forms/formValidationSchema';
 
 import DateTimeForm from './forms/date-time-form';
 import BasicInfoForm from './forms/basic-info-form';
-import RequirementForm from './forms/requirement-form';
-import ResponsibilitiesForm from './forms/responsiblity-form';
 import LocationForm from './forms/location-form';
 import Preview from './forms/preview';
 
@@ -30,13 +28,7 @@ const JobDetailScreen = () => {
 
   const navigation = useNavigation();
   const { params } = useRoute<RouteProp<RootStackParams, RouteName.JOB_DETAILS>>();
-  const { mode, jobId } = params;
-
-  useEffect(() => {
-    if (mode === 'preview' && jobId) {
-      dispatch(jobDetailsActions.getJobDetailsRequest({ jobId }));
-    }
-  }, [dispatch, mode, jobId]);
+  const { mode } = params;
 
   const [currStep, setCurrStep] = useState(mode === 'create' ? FormStep.DATETIME_INFO : FormStep.PREVIEW);
 
@@ -70,12 +62,6 @@ const JobDetailScreen = () => {
 
       case FormStep.BASIC_INFO:
         return <BasicInfoForm formValues={values} formErrors={errors} setFormFieldValue={setFieldValue} />;
-
-      case FormStep.REQUIREMENT_INFO:
-        return <RequirementForm formValues={values} formErrors={errors} setFormFieldValue={setFieldValue} />;
-
-      case FormStep.RESPONSIBLITY_INFO:
-        return <ResponsibilitiesForm formValues={values} formErrors={errors} setFormFieldValue={setFieldValue} />;
 
       case FormStep.LOCATION_INFO:
         return <LocationForm formValues={values} formErrors={errors} setFormFieldValue={setFieldValue} />;

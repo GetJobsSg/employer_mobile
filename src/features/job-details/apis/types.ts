@@ -15,8 +15,6 @@ export interface IJobResponse {
   reference_code: string;
   title: string;
   desc: string;
-  requirements: string;
-  responsibilities: string;
   start_date: string;
   end_date: string;
   start_time: string;
