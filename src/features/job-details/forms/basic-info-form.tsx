@@ -65,7 +65,7 @@ const BasicInfoForm = (props: BasicInfoFormProps) => {
             textAlignVertical="top"
             multiline
             returnKeyType="next"
-            height={200}
+            height={70}
             value={formValues[FieldName.jobDescription]}
             onChangeText={(descrip) => setFormFieldValue(FieldName.jobDescription, descrip)}
           />
