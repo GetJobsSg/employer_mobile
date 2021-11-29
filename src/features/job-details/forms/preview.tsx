@@ -93,6 +93,7 @@ const Preview = (props: IPreviewProps) => {
         <PreviewItem label="Job Title" value={formValues[FieldName.jobTitle]} />
         <PreviewItem label="Job Description" value={formValues[FieldName.jobDescription]} />
         <PreviewItem label="Hourly Rate" value={`$${formValues[FieldName.hourlyRate]} / hour`} />
+        <PreviewItem label="Vacancy" value={`${formValues[FieldName.vacancy]} person`} />
         <PreviewItem label="Category" value={selectedCategory} />
         <PreviewItem label="Dresscode" value={selectedDresscode} />
       </Section>

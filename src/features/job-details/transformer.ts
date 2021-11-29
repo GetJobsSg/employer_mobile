@@ -16,6 +16,7 @@ export const createJobTransformer = {
       end_time: generateSpecialISOString(moment(jobData.endTime).toISOString()),
       hourly_rate: Number(jobData.hourlyRate),
       hourly_bill_rate: Number(jobData.hourlyRate), // TODO: need to remove when backend make this optional
+      vacancy: Number(jobData.vacancy), // TODO: need to remove when backend make this optional
       job_location: [
         {
           address: jobData.address,
@@ -43,6 +44,7 @@ export const jobDetailsTransformer = {
       jobTitle: job.title,
       jobDescription: job.desc,
       hourlyRate: job.hourly_rate,
+      vacancy: job.vacancy,
       category: job.job_category.id,
       // location related
       address: job_locations[0].address,

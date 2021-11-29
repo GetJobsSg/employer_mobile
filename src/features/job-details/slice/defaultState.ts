@@ -16,6 +16,7 @@ export const jobDetailInitialState: IJobDetailInitialState = {
     jobTitle: '',
     jobDescription: '',
     hourlyRate: 0,
+    vacancy: 0,
     category: 0,
     address: '',
     postalCode: '',

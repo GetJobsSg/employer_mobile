@@ -18,6 +18,7 @@ export enum FieldName {
   hourlyRate = 'hourlyRate',
   category = 'category',
   dresscode = 'dresscode',
+  vacancy = 'vacancy',
 
   // FormStep.LOCATION_INFO
   address = 'address',
@@ -33,6 +34,7 @@ export const formInitialValues = {
   [FieldName.endTime]: undefined,
   [FieldName.jobTitle]: '',
   [FieldName.jobDescription]: '',
+  [FieldName.vacancy]: 0,
   [FieldName.hourlyRate]: '',
   [FieldName.category]: '',
   [FieldName.dresscode]: '',

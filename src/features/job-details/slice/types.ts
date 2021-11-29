@@ -43,6 +43,7 @@ export interface ICreateJobRequestPayload {
   end_time: string;
   hourly_rate: number;
   hourly_bill_rate: number;
+  vacancy: number;
   job_location: ICreateJobRequestPayloadLocation[]; // request backend to use object instead
 }
 export interface ICreateJobResponsePayload {
@@ -71,6 +72,7 @@ export interface IJobDetailsPayload {
   jobTitle: string;
   jobDescription: string;
   hourlyRate: number;
+  vacancy: number;
   category: number;
   address: string;
   postalCode: string;

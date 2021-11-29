@@ -74,7 +74,7 @@ const BasicInfoForm = (props: BasicInfoFormProps) => {
           )}
         </FormControl>
 
-        <FormControl isInvalid={formErrors[FieldName.hourlyRate]} mb={4}>
+        <FormControl isInvalid={formErrors[FieldName.hourlyRate]}>
           <Text fontSize="xs" mb={1} color="gray.400" fontWeight="500">
             Hourly Rate
           </Text>
@@ -94,6 +94,21 @@ const BasicInfoForm = (props: BasicInfoFormProps) => {
           />
           {formErrors[FieldName.hourlyRate] && (
             <FormControl.ErrorMessage>{formErrors[FieldName.hourlyRate]}</FormControl.ErrorMessage>
+          )}
+        </FormControl>
+
+        <FormControl isInvalid={formErrors[FieldName.vacancy]}>
+          <Text fontSize="xs" mb={1} color="gray.400" fontWeight="500">
+            Vacancy
+          </Text>
+          <Input
+            returnKeyType="done"
+            value={formValues[FieldName.vacancy]}
+            keyboardType="number-pad"
+            onChangeText={(vacancyNo) => setFormFieldValue(FieldName.vacancy, vacancyNo)}
+          />
+          {formErrors[FieldName.vacancy] && (
+            <FormControl.ErrorMessage>{formErrors[FieldName.vacancy]}</FormControl.ErrorMessage>
           )}
         </FormControl>
 

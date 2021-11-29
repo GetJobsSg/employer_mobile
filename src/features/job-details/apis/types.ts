@@ -21,6 +21,7 @@ export interface IJobResponse {
   end_time: string;
   hourly_rate: number;
   hourly_bill_rate: number;
+  vacancy: number;
   start_code: string;
   end_code: string;
   date_updated: string;
