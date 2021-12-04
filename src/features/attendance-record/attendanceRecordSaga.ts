@@ -1,11 +1,13 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { call, fork, put, takeLatest } from 'redux-saga/effects';
 import { CommonTypes } from 'src/shared';
+import { JobStatus } from 'src/constants/status';
 import { attendanceRecordActions } from './slice';
 import { adjustWorkingData, concludeJob, getAttendanceRecord, getBillingInfo } from './apis';
 import { IAttendanceAllRes, IBillingInfoRes } from './apis/types';
 import { attendanceRecordTransformer, billingInfoTransformer } from './transformer';
 import { IAttendanceRecord, IBillingInfo, IWorkingDataRequestPayload } from './slice/types';
+import { jobListingActions } from '../job-listings/slice';
 
 function* getAttendanceRecordSaga(action: PayloadAction<CommonTypes.ICommonJobRequest>) {
   try {
@@ -47,6 +49,8 @@ function* concludeJobSaga(action: PayloadAction<CommonTypes.ICommonJobRequest>) 
   try {
     const { jobId } = action.payload;
     yield call(concludeJob, jobId);
+    yield put(jobListingActions.getOngoingJobListRequest(JobStatus.ONGOING));
+    yield put(jobListingActions.getCompletedJobListRequest(JobStatus.COMPLETED));
     yield put(attendanceRecordActions.concludeJobResponse({ error: null }));
   } catch (e) {
     yield put(attendanceRecordActions.concludeJobResponse({ error: e }));

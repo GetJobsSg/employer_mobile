@@ -74,7 +74,7 @@ const ProfileScreen = () => {
                 {email}
               </Heading>
             </VStack>
-            <Icon as={Ionicons} name="arrow-forward-outline" size={5} color="gray.500" />
+            {/* <Icon as={Ionicons} name="arrow-forward-outline" size={5} color="gray.500" /> */}
           </HStack>
 
           <Heading size="xs" mt={1} fontWeight="300" color="gray.600">

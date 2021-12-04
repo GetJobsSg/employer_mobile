@@ -8,7 +8,7 @@ import { Banner, Header, WorkerCard, JobMainInfo, Tab } from 'src/components';
 
 import { constructJobDate } from 'src/utils/dateTime';
 import { DD_MMM_YYYY } from 'src/constants/dateTime';
-import { useAppDispatch, useAppSelector } from 'src/hooks';
+import { useAppDispatch, useAppSelector, useCheckSuccess } from 'src/hooks';
 import { RootStackParams } from 'src/navigator/types';
 import { RouteName } from 'src/navigator/route';
 import { attendanceRecordActions } from './slice';
@@ -29,6 +29,8 @@ const AttendanceRecordScreen = () => {
   const {
     isLoadingAttendanceRecords,
     isLoadingGetBillingInfo,
+    isConcludingJob,
+    errorConcludeJob,
     attendanceRecords,
     billingInfo,
     isLoadingUpdateWorkingData,
@@ -67,6 +69,14 @@ const AttendanceRecordScreen = () => {
     }
   }, [isLoadingUpdateWorkingData, errorUpdateWorkingData]);
 
+  // successfully conclude job
+  const successConclude = useCheckSuccess({ loadingState: isConcludingJob, error: errorConcludeJob });
+  useEffect(() => {
+    if (successConclude) {
+      navigation.goBack();
+    }
+  }, [navigation, successConclude]);
+
   const handleConcludeJob = () => {
     Alert.alert('Conclude Job', 'Would you like to conclude this job now and process wages to your worker?', [
       { text: 'Cancel' },
@@ -97,10 +107,10 @@ const AttendanceRecordScreen = () => {
       name={item.name}
       onCardClick={() => {
         // only ongoing job can ammend work hour record
-        // if (jobStatus === 'ongoing') {
-        setAttendanceModalData(item);
-        setAttendanceModalOpen(true);
-        // }
+        if (jobStatus === 'ongoing') {
+          setAttendanceModalData(item);
+          setAttendanceModalOpen(true);
+        }
       }}
       clockInTime={item.clockInTime}
       clockOutTime={item.clockOutTime}
