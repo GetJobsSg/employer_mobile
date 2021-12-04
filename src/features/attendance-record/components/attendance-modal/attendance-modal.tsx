@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Keyboard } from 'react-native';
 import { Button, VStack, HStack, Modal, Text, Icon, TextArea } from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { getHoursAndMins } from 'src/utils/dateTime';
 import { IAttendanceModalProps } from './attendance-modal.props';
 import { IWorkingDataRequestPayload } from '../../slice/types';
 
@@ -15,6 +16,8 @@ enum Target {
 }
 
 interface IAdjustmentProps {
+  disabled?: boolean;
+  type?: 'hourAndMin' | 'rating';
   title: string;
   value: number;
   minValue?: number;
@@ -24,28 +27,45 @@ interface IAdjustmentProps {
 }
 
 const Adjustment = (props: IAdjustmentProps) => {
-  const { title, value, minValue = 0, maxValue = 8.0, onDecrement, onIncrement } = props;
+  const {
+    disabled = false,
+    type = 'hourAndMin',
+    title,
+    value,
+    minValue = 0,
+    maxValue = 8.0,
+    onDecrement,
+    onIncrement,
+  } = props;
+
   return (
-    <HStack alignItems="center" justifyContent="space-between">
-      <Text fontSize="sm">{title}</Text>
-      <HStack space={2} alignItems="center">
-        <Icon
-          color={value === minValue ? 'gray.300' : 'black'}
-          onPress={value === minValue ? noop : onDecrement}
-          as={Ionicons}
-          name="remove-circle-outline"
-        />
-        <Text w={10} fontWeight="bold" textAlign="center">
-          {value === 0 ? 0 : value.toFixed(1)}
+    <VStack space={1}>
+      <Text color="gray.500" flex={1} fontSize="sm">
+        {title}
+      </Text>
+      <HStack alignItems="center" justifyContent="space-between">
+        <Text fontWeight="bold" textAlign="center">
+          {type === 'hourAndMin' && getHoursAndMins(value)}
+          {type === 'rating' && value.toFixed(1)}
         </Text>
-        <Icon
-          color={value === maxValue ? 'gray.300' : 'black'}
-          onPress={value === maxValue ? noop : onIncrement}
-          as={Ionicons}
-          name="add-circle-outline"
-        />
+
+        <HStack space={4}>
+          <Icon
+            color={value === minValue || disabled ? 'gray.300' : 'black'}
+            onPress={value === minValue || disabled ? noop : onDecrement}
+            as={Ionicons}
+            name="remove-circle-outline"
+          />
+
+          <Icon
+            color={value === maxValue || disabled ? 'gray.300' : 'black'}
+            onPress={value === maxValue || disabled ? noop : onIncrement}
+            as={Ionicons}
+            name="add-circle-outline"
+          />
+        </HStack>
       </HStack>
-    </HStack>
+    </VStack>
   );
 };
 
@@ -110,7 +130,8 @@ const AttendanceModal = (props: IAttendanceModalProps) => {
         <Modal.Body>
           <VStack space={4}>
             <Adjustment
-              title="Normal Work Hours"
+              disabled
+              title="System Computed Hours"
               value={normalWorkHours}
               minValue={0}
               maxValue={20}
@@ -119,7 +140,7 @@ const AttendanceModal = (props: IAttendanceModalProps) => {
             />
 
             <Adjustment
-              title="OT Work Hours"
+              title="Additional Hours"
               value={otHours}
               minValue={0}
               maxValue={12}
@@ -129,6 +150,7 @@ const AttendanceModal = (props: IAttendanceModalProps) => {
 
             <Adjustment
               title="Rating"
+              type="rating"
               value={rating}
               minValue={0}
               maxValue={5}

@@ -97,10 +97,10 @@ const AttendanceRecordScreen = () => {
       name={item.name}
       onCardClick={() => {
         // only ongoing job can ammend work hour record
-        if (jobStatus === 'ongoing') {
-          setAttendanceModalData(item);
-          setAttendanceModalOpen(true);
-        }
+        // if (jobStatus === 'ongoing') {
+        setAttendanceModalData(item);
+        setAttendanceModalOpen(true);
+        // }
       }}
       clockInTime={item.clockInTime}
       clockOutTime={item.clockOutTime}

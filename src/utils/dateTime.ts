@@ -55,3 +55,14 @@ export const constructJobDate = (startDate: string, endDate: string, format = DD
   const cEndDay = getCalendarDay(endDate);
   return `${formattedStartDate} (${cStartDay})  - ${formattedEndDate} (${cEndDay})`;
 };
+
+export const getHoursAndMins = (decimalHour: number) => {
+  const totalMins = decimalHour * 60;
+  const numberOfHours = Math.floor(totalMins / 60);
+  const numberOfMins = totalMins % 60;
+
+  const hourUnitLabel = numberOfHours > 1 ? 'hours' : 'hour';
+  const minUnitLabel = numberOfMins > 1 ? 'mins' : 'min';
+
+  return `${numberOfHours} ${hourUnitLabel}, ${numberOfMins} ${minUnitLabel}`;
+};
