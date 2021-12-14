@@ -35,7 +35,7 @@ const JobListingScreen = () => {
   }, [dispatch]);
 
   const handleCreate = () => {
-    if (!defaultMethod.id) {
+    if (!defaultMethod?.id) {
       Alert.alert('No Payment Method', 'Please insert your credit card details and start to create job.', [
         {
           text: 'Add Payment',

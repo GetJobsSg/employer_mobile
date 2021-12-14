@@ -17,7 +17,7 @@ const PaymenMethodScreen = (props: PaymentMethodScreenProps) => {
     dispatch(stripeActions.getPaymentMethodRequest());
   }, [dispatch]);
 
-  const hasDefaultMethod = !!defaultMethod.id;
+  const hasDefaultMethod = !!defaultMethod?.id;
 
   if (isLoadingPaymentMethods) {
     return (
