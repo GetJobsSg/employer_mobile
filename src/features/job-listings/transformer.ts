@@ -1,3 +1,4 @@
+import { JobApplicationStatus } from 'src/constants/status';
 import { constructJobDate, convertTimeToAmPm } from 'src/utils/dateTime';
 import { IJobResponse } from './apis/types';
 import { IJobActive } from './slice/types';
@@ -26,6 +27,12 @@ export const jobListingTransformer = {
           id: job.job_category.id,
           name: job.job_category.name,
         },
+        totalAcceptedCount: item.job_participants.filter(
+          (p) => p.job_application_status.id === JobApplicationStatus.ACCEPTED,
+        ).length,
+        totalOfferedCount: item.job_participants.filter(
+          (p) => p.job_application_status.id === JobApplicationStatus.OFFERED,
+        ).length,
       };
     });
   },

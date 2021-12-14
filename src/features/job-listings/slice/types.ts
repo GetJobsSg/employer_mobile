@@ -19,7 +19,10 @@ export interface IJobCommon {
   };
 }
 
-export interface IJobActive extends IJobCommon {}
+export interface IJobActive extends IJobCommon {
+  totalOfferedCount: number;
+  totalAcceptedCount: number;
+}
 
 export interface IJobOngoing extends IJobCommon {}
 

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { ListRenderItem, FlatList, RefreshControl } from 'react-native';
-import { Box, Spinner, Pressable, Text } from 'native-base';
+import { Badge, Box, Spinner, Pressable, Row, Text } from 'native-base';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { JobStatus } from 'src/constants/status';
 import { useNavigation } from '@react-navigation/native';
@@ -35,6 +35,14 @@ const ActiveList = () => {
       </Text>
       <Text fontSize="sm">{item.formattedDate}</Text>
       <Text fontSize="sm">{`${item.startTime} - ${item.endTime}`}</Text>
+      <Row mt={2} space={2}>
+        <Badge borderRadius={10} px={2} py={1} colorScheme="coolGray">
+          {`Offered - ${item.totalOfferedCount}`}
+        </Badge>
+        <Badge borderRadius={10} px={2} py={1} colorScheme="success">
+          {`Accepted - ${item.totalAcceptedCount}`}
+        </Badge>
+      </Row>
     </Pressable>
   );
 
