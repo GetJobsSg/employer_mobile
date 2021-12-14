@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { ListRenderItem, FlatList, RefreshControl } from 'react-native';
-import { Box, Spinner, Text, Pressable } from 'native-base';
+import { Box, Spinner, Text, Pressable, Row, Badge } from 'native-base';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { JobStatus } from 'src/constants/status';
 import { RouteName } from 'src/navigator/route';
@@ -33,6 +33,11 @@ const CompletedList = () => {
       </Text>
       <Text fontSize="sm">{item.formattedDate}</Text>
       <Text fontSize="sm">{`${item.startTime} - ${item.endTime}`}</Text>
+      <Row mt={2} space={2}>
+        <Badge borderRadius={10} px={2} py={1} colorScheme="success">
+          {`Workers - ${item.totalAcceptedCount}`}
+        </Badge>
+      </Row>
     </Pressable>
   );
 

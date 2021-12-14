@@ -17,12 +17,11 @@ export interface IJobCommon {
     id: number | undefined;
     name: string;
   };
-}
-
-export interface IJobActive extends IJobCommon {
   totalOfferedCount: number;
   totalAcceptedCount: number;
 }
+
+export interface IJobActive extends IJobCommon {}
 
 export interface IJobOngoing extends IJobCommon {}
 
