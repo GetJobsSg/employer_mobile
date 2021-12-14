@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Alert, Box, Button, FormControl, Heading, Input, Text, VStack } from 'native-base';
+import { Alert, Box, Button, FormControl, Image, Input, Text, VStack } from 'native-base';
 import { useIsFocused } from '@react-navigation/native';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
@@ -8,6 +8,7 @@ import { emailValidator, passwordValidator } from 'src/utils/validator';
 import { authActions } from 'src/features/auth/slice';
 import { getFirebaseErrMessage } from 'src/utils/errors';
 import { RouteName } from 'src/navigator/route';
+import GetJobsBusinessLogo from 'src/assets/getjob-business-logo.png';
 import { LoginScreenProps } from '../../types';
 
 const loginSchema = yup.object({
@@ -56,9 +57,9 @@ const LoginScreen = (props: LoginScreenProps) => {
   return (
     <Box pt={8} safeArea bg="white" position="relative" h="100%" w="100%">
       <VStack space={6} mx={4}>
-        <Heading color="gray.900" size="lg">
-          GetJobs Business
-        </Heading>
+        <Box px={10}>
+          <Image alt="logo" height={40} resizeMode="contain" style={{}} source={GetJobsBusinessLogo} />
+        </Box>
 
         <FormControl isInvalid={touched[FieldName.email] && Boolean(errors[FieldName.email])}>
           <Input
