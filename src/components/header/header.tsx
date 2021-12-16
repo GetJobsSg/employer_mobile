@@ -8,7 +8,7 @@ const Header = (props: HeaderProps) => {
   const renderHeaderContent = () => {
     if (children) return children;
     return (
-      <HStack justifyContent="space-between" alignItems="center">
+      <HStack justifyContent="space-between" alignItems="center" py={1}>
         <HStack alignItems="center">
           {iconLeft && (
             <View p={2} pr={4}>
@@ -31,14 +31,7 @@ const Header = (props: HeaderProps) => {
   };
 
   return (
-    <Box
-      bg="white"
-      minHeight={24}
-      justifyContent="center"
-      borderBottomWidth={1}
-      borderBottomColor="gray.100"
-      safeAreaTop
-    >
+    <Box bg="white" justifyContent="center" borderBottomWidth={1} borderBottomColor="gray.100" safeAreaTop>
       {renderHeaderContent()}
     </Box>
   );
