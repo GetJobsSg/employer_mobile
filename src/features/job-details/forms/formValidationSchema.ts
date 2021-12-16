@@ -22,12 +22,7 @@ export const formValidationSchema = [
         return moment(mEndDate).isSameOrAfter(mToday);
       }),
     [FieldName.startTime]: yup.date().required('Please select start time'),
-    [FieldName.endTime]: yup.date().when(FieldName.startTime, (startTime: Date) =>
-      yup
-        .date()
-        .required('Please select end time')
-        .test('endTime', 'End time must be later than start time', (endTime) => moment(endTime).isAfter(startTime)),
-    ),
+    [FieldName.endTime]: yup.date().required('Please select end time'),
   }),
 
   // Step 2
