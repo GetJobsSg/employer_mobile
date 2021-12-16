@@ -35,7 +35,7 @@ const CompletedList = () => {
       <Text fontSize="sm">{`${item.startTime} - ${item.endTime}`}</Text>
       <Row mt={2} space={2}>
         <Badge borderRadius={10} px={2} py={1} colorScheme="success">
-          {`Workers - ${item.totalAcceptedCount}`}
+          {`${item.totalAcceptedCount} worker${item.totalAcceptedCount > 1 ? 's' : ''}`}
         </Badge>
       </Row>
     </Pressable>
