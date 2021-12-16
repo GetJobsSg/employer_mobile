@@ -9,6 +9,7 @@ export interface IJobCommon {
   startCode: string | null;
   endCode: string | null;
   hourlyRate: number;
+  vacancy: number;
   company: {
     id: number | undefined;
     name: string;

@@ -36,11 +36,13 @@ const ActiveList = () => {
       <Text fontSize="sm">{item.formattedDate}</Text>
       <Text fontSize="sm">{`${item.startTime} - ${item.endTime}`}</Text>
       <Row mt={2} space={2}>
-        <Badge borderRadius={10} px={2} py={1} colorScheme="coolGray">
-          {`Offered - ${item.totalOfferedCount}`}
-        </Badge>
-        <Badge borderRadius={10} px={2} py={1} colorScheme="success">
-          {`Accepted - ${item.totalAcceptedCount}`}
+        <Badge
+          borderRadius={10}
+          px={2}
+          py={1}
+          colorScheme={item.totalAcceptedCount >= item.vacancy ? 'success' : 'coolGray'}
+        >
+          {`Filled - ${item.totalAcceptedCount}/${item.vacancy}`}
         </Badge>
       </Row>
     </Pressable>

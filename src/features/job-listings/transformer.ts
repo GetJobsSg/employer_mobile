@@ -19,6 +19,7 @@ export const jobListingTransformer = {
         startCode: job.start_code || null,
         endCode: job.end_code || null,
         hourlyRate: job.hourly_rate || 0,
+        vacancy: job.vacancy,
         company: {
           id: job.company.id,
           name: job.company.name,

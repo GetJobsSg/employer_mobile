@@ -5,6 +5,7 @@ export interface IJob {
   desc: string;
   requirements: string;
   responsibilities: string;
+  vacancy: number;
   start_date: string;
   end_date: string;
   start_time: string;
