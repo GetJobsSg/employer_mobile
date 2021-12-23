@@ -64,10 +64,13 @@ const JobDetailScreen = () => {
   const successUpdateJob = useCheckSuccess({ loadingState: isLoadingUpdateJob, error: errorUpdateJob });
 
   useEffect(() => {
-    if (successCreateJob || successUpdateJob) {
+    if (successCreateJob) {
       navigation.goBack();
     }
-  }, [navigation, successCreateJob, successUpdateJob]);
+    if (successUpdateJob) {
+      navigation.navigate(RouteName.PARTICIPANTS_LISTING, { updatedTitle: values.jobTitle });
+    }
+  }, [navigation, successCreateJob, successUpdateJob, values.jobTitle]);
 
   const handlePrevStage = () => {
     if (currStep > 0) {
