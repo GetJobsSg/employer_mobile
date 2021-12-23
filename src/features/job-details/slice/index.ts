@@ -25,7 +25,7 @@ const jobDetailSlice = createSlice({
     },
     getJobDetailsResponse(state, action: PayloadAction<IJobDetailsResponsePayload>) {
       state.isLoadingGetJobDetails = false;
-      state.jobDetails = action.payload.error ? state.jobDetails : action.payload.data;
+      state.info = action.payload.error ? state.info : action.payload.data;
       state.errorJobDetails = action.payload.error ? action.payload.error : null;
     },
 

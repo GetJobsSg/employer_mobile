@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { FormControl, VStack } from 'native-base';
 
 import { DatePicker } from 'src/components';
@@ -14,9 +14,6 @@ interface DateTimeFormProps {
 
 const DateTimeForm = (props: DateTimeFormProps) => {
   const { formValues, formErrors, setFormFieldValue } = props;
-
-  const startDate = formValues[FieldName.startDate];
-  useEffect(() => {}, [startDate]);
 
   return (
     <VStack py={4}>

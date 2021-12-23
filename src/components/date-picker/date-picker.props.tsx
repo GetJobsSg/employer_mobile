@@ -3,6 +3,7 @@ import { DD_MMM_YYYY, DD_MMM, HH_MM_A } from 'src/constants/dateTime';
 type FormatType = typeof DD_MMM_YYYY | typeof DD_MMM | typeof HH_MM_A;
 
 export interface DatePickerProps {
+  disabled?: boolean;
   label: string;
   placeholder?: string;
   selectedDate: Date | undefined;

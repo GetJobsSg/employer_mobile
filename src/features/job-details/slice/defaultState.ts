@@ -7,7 +7,7 @@ export const jobDetailInitialState: IJobDetailInitialState = {
 
   // get job details
   isLoadingGetJobDetails: false,
-  jobDetails: {
+  info: {
     id: 0,
     startDate: '',
     endDate: '',

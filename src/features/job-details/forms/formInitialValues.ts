@@ -27,7 +27,7 @@ export enum FieldName {
   unitNo = 'unitNo',
 }
 
-export const formInitialValues = {
+export const defaultFormInitialValues = {
   [FieldName.startDate]: undefined,
   [FieldName.endDate]: undefined,
   [FieldName.startTime]: undefined,
@@ -43,3 +43,20 @@ export const formInitialValues = {
   [FieldName.blockNo]: '',
   [FieldName.unitNo]: '',
 };
+
+export const formInitialValuesFromDb = (jobInfo: any) => ({
+  [FieldName.startDate]: jobInfo?.startDate,
+  [FieldName.endDate]: jobInfo?.endDate,
+  [FieldName.startTime]: `${jobInfo?.startDate} ${jobInfo?.startTime}`,
+  [FieldName.endTime]: `${jobInfo?.endDate} ${jobInfo?.endTime}`,
+  [FieldName.jobTitle]: jobInfo?.jobTitle,
+  [FieldName.jobDescription]: jobInfo?.jobDescription,
+  [FieldName.vacancy]: String(jobInfo?.vacancy),
+  [FieldName.hourlyRate]: String(jobInfo?.hourlyRate),
+  [FieldName.category]: jobInfo?.category,
+  [FieldName.dresscode]: jobInfo?.dressCode,
+  [FieldName.address]: jobInfo?.address,
+  [FieldName.postalCode]: jobInfo?.postalCode,
+  [FieldName.blockNo]: jobInfo?.blockNo,
+  [FieldName.unitNo]: jobInfo?.unitNo,
+});

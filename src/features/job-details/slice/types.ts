@@ -8,7 +8,7 @@ export interface IJobDetailInitialState {
 
   // get job details
   isLoadingGetJobDetails: boolean;
-  jobDetails: IJobDetailsPayload | {};
+  info: IJobDetailsPayload | {};
   errorJobDetails: null;
 
   // getAll categories
@@ -72,6 +72,7 @@ export interface IJobDetailsPayload {
   jobTitle: string;
   jobDescription: string;
   hourlyRate: number;
+  dressCode: number;
   vacancy: number;
   category: number;
   address: string;

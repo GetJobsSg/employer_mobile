@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import { Alert, Platform } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
-import { KeyboardAvoidingView, ScrollView, HStack, VStack, Text, Button, Icon } from 'native-base';
+import { KeyboardAvoidingView, ScrollView, HStack, VStack, Text, Button, Icon, Spinner } from 'native-base';
 
 import { CommonLayout } from 'src/constants/layout';
 import { Footer, Header } from 'src/components';
@@ -12,7 +12,7 @@ import { useAppSelector, useCheckSuccess } from 'src/hooks';
 import { RootStackParams } from 'src/navigator/types';
 import { RouteName } from 'src/navigator/route';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { formInitialValues, FormStep } from './forms/formInitialValues';
+import { FormStep, defaultFormInitialValues, formInitialValuesFromDb } from './forms/formInitialValues';
 import { formValidationSchema } from './forms/formValidationSchema';
 
 import DateTimeForm from './forms/date-time-form';
@@ -24,22 +24,36 @@ import { jobDetailsActions } from './slice';
 
 const JobDetailScreen = () => {
   const dispatch = useDispatch();
-  const { isLoadingCreateJob, errorCreateJob } = useAppSelector((state) => state.jobDetails);
+  const { info, isLoadingCreateJob, isLoadingGetJobDetails, errorCreateJob } = useAppSelector(
+    (state) => state.jobDetails,
+  );
 
   const navigation = useNavigation();
   const { params } = useRoute<RouteProp<RootStackParams, RouteName.JOB_DETAILS>>();
-  const { mode } = params;
+  const { mode, jobId } = params;
 
-  const [currStep, setCurrStep] = useState(mode === 'create' ? FormStep.DATETIME_INFO : FormStep.PREVIEW);
+  const isCreateMode = mode === 'create';
+  const isEditMode = mode === 'edit';
+  const isPreviewMode = mode === 'preview';
+
+  const [currStep, setCurrStep] = useState(FormStep.DATETIME_INFO);
 
   const { values, dirty, errors, handleSubmit, setFieldValue } = useFormik({
-    initialValues: formInitialValues,
+    enableReinitialize: true,
+    initialValues: isCreateMode ? defaultFormInitialValues : formInitialValuesFromDb(info),
     validationSchema: formValidationSchema[currStep],
     validateOnChange: false,
     onSubmit: () => {
       setCurrStep(currStep + 1);
     },
   });
+
+  // load job details if it is 'edit' or 'preview' mode
+  useEffect(() => {
+    if (isEditMode) {
+      dispatch(jobDetailsActions.getJobDetailsRequest({ jobId: Number(jobId) }));
+    }
+  }, [dispatch, isEditMode, jobId]);
 
   // successfully created job
   const successCreateJob = useCheckSuccess({ loadingState: isLoadingCreateJob, error: errorCreateJob });
@@ -104,9 +118,24 @@ const JobDetailScreen = () => {
     );
   };
 
+  const getHeaderTitle = () => {
+    if (isCreateMode) return 'Create Job';
+    if (isEditMode) return 'Edit Job Info';
+    return 'Job Details';
+  };
+
+  if (!isCreateMode && !isEditMode && !isPreviewMode) return null;
+
+  if (isLoadingGetJobDetails)
+    return (
+      <VStack flex={1} justifyContent="center">
+        <Spinner size="sm" />
+      </VStack>
+    );
+
   return (
     <VStack flex={1}>
-      <Header title="Create Job" iconLeft={<Icon as={Ionicons} name="close-outline" onPress={handleClose} />} />
+      <Header title={getHeaderTitle()} iconLeft={<Icon as={Ionicons} name="close-outline" onPress={handleClose} />} />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} flex={1}>
         <ScrollView px={CommonLayout.containerX} bg="white">
           {renderFormContent()}

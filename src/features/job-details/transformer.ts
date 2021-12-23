@@ -46,6 +46,7 @@ export const jobDetailsTransformer = {
       hourlyRate: job.hourly_rate,
       vacancy: job.vacancy,
       category: job.job_category.id,
+      dressCode: job.dress_code.id,
       // location related
       address: job_locations[0].address,
       postalCode: job_locations[0].postal_code,
