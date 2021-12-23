@@ -14,6 +14,7 @@ import ParticipantCard from './components/participants-card';
 import { participantListingActions } from './slice';
 import { IJobCommon } from '../job-listings/slice/types';
 import { IParticipant } from './slice/types';
+import { RouteName } from '../../navigator/route';
 
 const tabOptions = [
   { id: JobApplicationStatus.PENDING, label: 'Applicants' },
@@ -207,6 +208,10 @@ const ParticipantListingScreen = () => {
           time={`${startTime} - ${endTime}`}
           startCode={startCode}
           endCode={endCode}
+          action={{
+            label: 'Edit',
+            onPress: () => navigation.navigate(RouteName.JOB_DETAILS, { mode: 'edit', jobId: id }),
+          }}
         />
 
         <VStack h="100%">

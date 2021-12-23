@@ -12,10 +12,22 @@ const jobDetailSlice = createSlice({
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     createJobRequest(state, action: PayloadAction<any>) {
       state.isLoadingCreateJob = true;
+      state.errorCreateJob = null;
     },
     createJobResponse(state, action: PayloadAction<ICreateJobResponsePayload>) {
       state.isLoadingCreateJob = false;
       state.errorCreateJob = action.payload.error ? action.payload.error : null;
+    },
+
+    // update job details
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    updateJobDetailsRequest(state, action: PayloadAction<any>) {
+      state.isLoadingUpdateJob = true;
+      state.errorUpdateJob = null;
+    },
+    updateJobDetailsResponse(state, action: PayloadAction<{ error: null | any }>) {
+      state.isLoadingUpdateJob = false;
+      state.errorUpdateJob = action.payload.error ? action.payload.error : null;
     },
 
     // get job details

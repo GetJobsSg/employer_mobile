@@ -7,6 +7,7 @@ import { FieldName } from './formInitialValues';
 import { jobDetailsActions } from '../slice';
 
 interface BasicInfoFormProps {
+  isEditMode: boolean;
   formValues: any;
   formErrors: any;
   setFormFieldValue: any;
@@ -17,7 +18,7 @@ const BasicInfoForm = (props: BasicInfoFormProps) => {
   const { allCategories, isLoadingGetAllCategories, allDresscode, isLoadingGetAllDresscode } = useAppSelector(
     (state) => state.jobDetails,
   );
-  const { formValues, formErrors, setFormFieldValue } = props;
+  const { isEditMode, formValues, formErrors, setFormFieldValue } = props;
 
   useEffect(() => {
     if (allCategories.length === 0) {
@@ -79,6 +80,7 @@ const BasicInfoForm = (props: BasicInfoFormProps) => {
             Hourly Rate
           </Text>
           <Input
+            isDisabled={isEditMode}
             returnKeyType="done"
             value={formValues[FieldName.hourlyRate]}
             keyboardType="decimal-pad"

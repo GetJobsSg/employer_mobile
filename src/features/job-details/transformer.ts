@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { generateSpecialISOString } from 'src/utils/dateTime';
 import { IJobDetailsResponse } from './apis/types';
-import { ICreateJobRequestPayload, IJobDetailsPayload } from './slice/types';
+import { ICreateJobRequestPayload, IJobDetailsPayload, IUpdateJobRequestPayload } from './slice/types';
 
 export const createJobTransformer = {
   toApi(jobData: any): ICreateJobRequestPayload {
@@ -15,8 +15,28 @@ export const createJobTransformer = {
       start_time: generateSpecialISOString(moment(jobData.startTime).toISOString()),
       end_time: generateSpecialISOString(moment(jobData.endTime).toISOString()),
       hourly_rate: Number(jobData.hourlyRate),
-      hourly_bill_rate: Number(jobData.hourlyRate), // TODO: need to remove when backend make this optional
-      vacancy: Number(jobData.vacancy), // TODO: need to remove when backend make this optional
+      hourly_bill_rate: Number(jobData.hourlyRate),
+      vacancy: Number(jobData.vacancy),
+      job_location: [
+        {
+          address: jobData.address,
+          postal_code: jobData.postalCode,
+          block_no: jobData.blockNo,
+          unit_no: jobData.unitNo,
+        },
+      ],
+    };
+  },
+};
+
+export const updateJobTransformer = {
+  toApi(jobData: any): IUpdateJobRequestPayload {
+    return {
+      title: jobData.jobTitle,
+      desc: jobData.jobDescription,
+      job_category_id: jobData.category,
+      dress_code_id: jobData.dresscode,
+      vacancy: Number(jobData.vacancy),
       job_location: [
         {
           address: jobData.address,

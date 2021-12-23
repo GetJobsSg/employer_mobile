@@ -24,9 +24,8 @@ import { jobDetailsActions } from './slice';
 
 const JobDetailScreen = () => {
   const dispatch = useDispatch();
-  const { info, isLoadingCreateJob, isLoadingGetJobDetails, errorCreateJob } = useAppSelector(
-    (state) => state.jobDetails,
-  );
+  const { info, isLoadingCreateJob, isLoadingUpdateJob, isLoadingGetJobDetails, errorCreateJob, errorUpdateJob } =
+    useAppSelector((state) => state.jobDetails);
 
   const navigation = useNavigation();
   const { params } = useRoute<RouteProp<RootStackParams, RouteName.JOB_DETAILS>>();
@@ -38,7 +37,13 @@ const JobDetailScreen = () => {
 
   const [currStep, setCurrStep] = useState(FormStep.DATETIME_INFO);
 
-  const { values, dirty, errors, handleSubmit, setFieldValue } = useFormik({
+  const {
+    values,
+    dirty,
+    errors,
+    handleSubmit: handleNextStep,
+    setFieldValue,
+  } = useFormik({
     enableReinitialize: true,
     initialValues: isCreateMode ? defaultFormInitialValues : formInitialValuesFromDb(info),
     validationSchema: formValidationSchema[currStep],
@@ -55,13 +60,14 @@ const JobDetailScreen = () => {
     }
   }, [dispatch, isEditMode, jobId]);
 
-  // successfully created job
   const successCreateJob = useCheckSuccess({ loadingState: isLoadingCreateJob, error: errorCreateJob });
+  const successUpdateJob = useCheckSuccess({ loadingState: isLoadingUpdateJob, error: errorUpdateJob });
+
   useEffect(() => {
-    if (successCreateJob) {
+    if (successCreateJob || successUpdateJob) {
       navigation.goBack();
     }
-  }, [navigation, successCreateJob]);
+  }, [navigation, successCreateJob, successUpdateJob]);
 
   const handlePrevStage = () => {
     if (currStep > 0) {
@@ -72,10 +78,24 @@ const JobDetailScreen = () => {
   const renderFormContent = () => {
     switch (currStep) {
       case FormStep.DATETIME_INFO:
-        return <DateTimeForm formValues={values} formErrors={errors} setFormFieldValue={setFieldValue} />;
+        return (
+          <DateTimeForm
+            isEditMode={isEditMode}
+            formValues={values}
+            formErrors={errors}
+            setFormFieldValue={setFieldValue}
+          />
+        );
 
       case FormStep.BASIC_INFO:
-        return <BasicInfoForm formValues={values} formErrors={errors} setFormFieldValue={setFieldValue} />;
+        return (
+          <BasicInfoForm
+            isEditMode={isEditMode}
+            formValues={values}
+            formErrors={errors}
+            setFormFieldValue={setFieldValue}
+          />
+        );
 
       case FormStep.LOCATION_INFO:
         return <LocationForm formValues={values} formErrors={errors} setFormFieldValue={setFieldValue} />;
@@ -98,14 +118,18 @@ const JobDetailScreen = () => {
     return navigation.goBack();
   };
 
-  const handleCreate = () => {
-    dispatch(jobDetailsActions.createJobRequest(values));
+  const handleCreateOrUpdate = () => {
+    if (isEditMode) {
+      dispatch(jobDetailsActions.updateJobDetailsRequest({ jobId, data: values }));
+    } else {
+      dispatch(jobDetailsActions.createJobRequest(values));
+    }
   };
 
   const renderButtonLabel = () => {
     let label = 'Next';
     if (currStep === FormStep.PREVIEW) {
-      label = 'Create';
+      label = isEditMode ? 'Update' : 'Create';
     }
     if (currStep === FormStep.LOCATION_INFO) {
       label = 'Preview';
@@ -158,8 +182,8 @@ const JobDetailScreen = () => {
             borderColor="gray.900"
             borderWidth={2}
             flex={1}
-            isLoading={isLoadingCreateJob}
-            onPress={currStep === FormStep.PREVIEW ? handleCreate : handleSubmit}
+            isLoading={isLoadingCreateJob || isLoadingUpdateJob}
+            onPress={currStep === FormStep.PREVIEW ? handleCreateOrUpdate : handleNextStep}
           >
             {renderButtonLabel()}
           </Button>

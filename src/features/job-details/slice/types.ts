@@ -6,6 +6,10 @@ export interface IJobDetailInitialState {
   isLoadingCreateJob: boolean;
   errorCreateJob: null | any;
 
+  // update
+  isLoadingUpdateJob: boolean;
+  errorUpdateJob: null | any;
+
   // get job details
   isLoadingGetJobDetails: boolean;
   info: IJobDetailsPayload | {};
@@ -44,8 +48,14 @@ export interface ICreateJobRequestPayload {
   hourly_rate: number;
   hourly_bill_rate: number;
   vacancy: number;
-  job_location: ICreateJobRequestPayloadLocation[]; // request backend to use object instead
+  job_location: ICreateJobRequestPayloadLocation[];
 }
+
+export type IUpdateJobRequestPayload = Omit<
+  ICreateJobRequestPayload,
+  'start_date' | 'end_date' | 'start_time' | 'end_time' | 'hourly_rate' | 'hourly_bill_rate'
+>;
+
 export interface ICreateJobResponsePayload {
   error: null | any;
 }

@@ -5,6 +5,10 @@ export const jobDetailInitialState: IJobDetailInitialState = {
   isLoadingCreateJob: false,
   errorCreateJob: null,
 
+  // update
+  isLoadingUpdateJob: false,
+  errorUpdateJob: null,
+
   // get job details
   isLoadingGetJobDetails: false,
   info: {
