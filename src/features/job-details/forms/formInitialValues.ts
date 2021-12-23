@@ -34,7 +34,7 @@ export const formInitialValues = {
   [FieldName.endTime]: undefined,
   [FieldName.jobTitle]: '',
   [FieldName.jobDescription]: '',
-  [FieldName.vacancy]: 0,
+  [FieldName.vacancy]: '',
   [FieldName.hourlyRate]: '',
   [FieldName.category]: '',
   [FieldName.dresscode]: '',
