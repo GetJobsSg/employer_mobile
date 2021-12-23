@@ -6,4 +6,8 @@ export interface JobMainInfoProps {
   time: string;
   startCode: string | null;
   endCode: string | null;
+  action?: {
+    label: string;
+    onPress: () => void;
+  };
 }

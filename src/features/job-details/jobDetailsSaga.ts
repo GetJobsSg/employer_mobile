@@ -3,8 +3,8 @@ import { call, fork, put, takeLatest } from 'redux-saga/effects';
 import { JobStatus } from 'src/constants/status';
 import { CommonTypes } from 'src/shared';
 import { jobDetailsActions } from './slice';
-import { createJobTransformer, jobDetailsTransformer } from './transformer';
-import { createJob, getAllCategories, getAllDressCode, getJobDetails } from './apis';
+import { createJobTransformer, jobDetailsTransformer, updateJobTransformer } from './transformer';
+import { createJob, getAllCategories, getAllDressCode, getJobDetails, updateJob } from './apis';
 import { IGetAllCategoriesResponse, IJobDetailsPayload } from './slice/types';
 import { jobListingActions } from '../job-listings/slice';
 import { IDressCodeResponse, IJobDetailsResponse } from './apis/types';
@@ -19,6 +19,19 @@ function* createJobSaga(action: PayloadAction<any>) {
     yield put(jobListingActions.getActiveJobListRequest(JobStatus.OPEN));
   } catch (e) {
     yield put(jobDetailsActions.createJobResponse({ error: e }));
+  }
+}
+
+function* updateJobSaga(action: PayloadAction<{ data: any; jobId: number }>) {
+  const dataToUpdate = action.payload.data;
+  const { jobId } = action.payload;
+
+  try {
+    yield call(updateJob, jobId, updateJobTransformer.toApi(dataToUpdate));
+    yield put(jobDetailsActions.updateJobDetailsResponse({ error: null }));
+    yield put(jobListingActions.getActiveJobListRequest(JobStatus.OPEN));
+  } catch (e) {
+    yield put(jobDetailsActions.updateJobDetailsResponse({ error: e }));
   }
 }
 
@@ -55,6 +68,7 @@ function* getAllDresscodeSaga() {
 
 function* watchJobDetailSaga() {
   yield takeLatest(jobDetailsActions.createJobRequest, createJobSaga);
+  yield takeLatest(jobDetailsActions.updateJobDetailsRequest, updateJobSaga);
   yield takeLatest(jobDetailsActions.getJobDetailsRequest, getJobDetailSaga);
   yield takeLatest(jobDetailsActions.getAllCategoriesRequest, getAllCategoriesSaga);
   yield takeLatest(jobDetailsActions.getAllDresscodeRequest, getAllDresscodeSaga);

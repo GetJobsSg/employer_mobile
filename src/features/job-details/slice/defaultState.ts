@@ -5,14 +5,18 @@ export const jobDetailInitialState: IJobDetailInitialState = {
   isLoadingCreateJob: false,
   errorCreateJob: null,
 
+  // update
+  isLoadingUpdateJob: false,
+  errorUpdateJob: null,
+
   // get job details
   isLoadingGetJobDetails: false,
-  jobDetails: {
+  info: {
     id: 0,
-    startDate: '',
-    endDate: '',
-    startTime: '',
-    endTime: '',
+    startDate: undefined,
+    endDate: undefined,
+    startTime: undefined,
+    endTime: undefined,
     jobTitle: '',
     jobDescription: '',
     hourlyRate: 0,

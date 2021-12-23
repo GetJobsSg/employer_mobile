@@ -12,6 +12,7 @@ const screenWidth = Dimensions.get('window').width;
 
 const DatePicker = (props: DatePickerProps) => {
   const {
+    disabled = false,
     format = DD_MMM_YYYY,
     label,
     onChange,
@@ -30,7 +31,7 @@ const DatePicker = (props: DatePickerProps) => {
 
   return (
     <>
-      <Pressable onPress={() => sheetRef.current.open()}>
+      <Pressable onPress={!disabled ? () => sheetRef.current.open() : null}>
         <HStack alignItems="center" py={2} pb={4} borderBottomWidth={1} borderBottomColor="gray.100">
           <VStack flex={1}>
             <Text mb={2} fontSize="xs" color="gray.500">
@@ -47,7 +48,7 @@ const DatePicker = (props: DatePickerProps) => {
               </Text>
             )}
           </VStack>
-          <Icon as={Ionicons} color="gray.400" name="chevron-forward-outline" size={5} />
+          {!disabled && <Icon as={Ionicons} color="gray.400" name="chevron-forward-outline" size={5} />}
         </HStack>
       </Pressable>
 

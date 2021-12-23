@@ -14,6 +14,7 @@ import ParticipantCard from './components/participants-card';
 import { participantListingActions } from './slice';
 import { IJobCommon } from '../job-listings/slice/types';
 import { IParticipant } from './slice/types';
+import { RouteName } from '../../navigator/route';
 
 const tabOptions = [
   { id: JobApplicationStatus.PENDING, label: 'Applicants' },
@@ -43,6 +44,10 @@ const ParticipantListingScreen = () => {
 
   const { params } = useRoute();
   const { id, title, hourlyRate, startDate, endDate, startTime, endTime, startCode, endCode } = params as IJobCommon;
+
+  // passing the updated job title back to this screen from 'jobUpdateScreen'
+  const { updatedTitle } = params as any;
+
   const jobId = id as number;
 
   useEffect(() => {
@@ -201,12 +206,16 @@ const ParticipantListingScreen = () => {
       <VStack bg="white">
         <JobMainInfo
           id={id}
-          title={title}
+          title={updatedTitle || title}
           hourlyRate={hourlyRate}
           date={constructJobDate(startDate, endDate, DD_MMM_YYYY)}
           time={`${startTime} - ${endTime}`}
           startCode={startCode}
           endCode={endCode}
+          action={{
+            label: 'Edit',
+            onPress: () => navigation.navigate(RouteName.JOB_DETAILS, { mode: 'edit', jobId: id }),
+          }}
         />
 
         <VStack h="100%">

@@ -30,7 +30,10 @@ export const formValidationSchema = [
     [FieldName.jobTitle]: yup.string().required('Job title is required'),
     [FieldName.jobDescription]: yup.string().required('Job description is required'),
     [FieldName.hourlyRate]: yup.string().required('Please insert the amount of salary per hour'),
-    [FieldName.vacancy]: yup.string().required('Please insert number of vacancy needed'),
+    [FieldName.vacancy]: yup
+      .string()
+      .required('Please insert number of vacancy needed')
+      .test('vacancy', 'Vacancy count must greater than 0', (vacancy) => Number(vacancy) !== 0),
     [FieldName.category]: yup.number().required('Please select a job cateogry'),
     [FieldName.dresscode]: yup.number().required('Please select a dresscode'),
   }),

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { FormControl, VStack } from 'native-base';
 
 import { DatePicker } from 'src/components';
@@ -7,21 +7,20 @@ import { DD_MMM_YYYY, HH_MM_A } from 'src/constants/dateTime';
 import { FieldName } from './formInitialValues';
 
 interface DateTimeFormProps {
+  isEditMode: boolean;
   formValues: any;
   formErrors: any;
   setFormFieldValue: any;
 }
 
 const DateTimeForm = (props: DateTimeFormProps) => {
-  const { formValues, formErrors, setFormFieldValue } = props;
-
-  const startDate = formValues[FieldName.startDate];
-  useEffect(() => {}, [startDate]);
+  const { isEditMode, formValues, formErrors, setFormFieldValue } = props;
 
   return (
     <VStack py={4}>
       <FormControl isInvalid mb={2}>
         <DatePicker
+          disabled={isEditMode} // datetime is not editable upon creation
           label="Date"
           placeholder="Select date"
           selectedDate={formValues[FieldName.startDate]}
@@ -38,6 +37,7 @@ const DateTimeForm = (props: DateTimeFormProps) => {
 
       <FormControl isInvalid mb={2}>
         <DatePicker
+          disabled={isEditMode} // datetime is not editable upon creation
           label="Start Time"
           placeholder="Select start time"
           selectedDate={formValues[FieldName.startTime]}
@@ -51,6 +51,7 @@ const DateTimeForm = (props: DateTimeFormProps) => {
 
       <FormControl isInvalid mb={2}>
         <DatePicker
+          disabled={isEditMode} // datetime is not editable upon creation
           label="End Time"
           placeholder="Select end time"
           selectedDate={formValues[FieldName.endTime]}

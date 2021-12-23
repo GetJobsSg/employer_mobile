@@ -35,6 +35,12 @@ export interface IJobResponse {
     date_updated: string;
     date_created: string;
   };
+  dress_code: {
+    id: number;
+    name: string;
+    date_updated: string;
+    date_created: string;
+  };
   job_category: {
     id: number;
     name: string;
