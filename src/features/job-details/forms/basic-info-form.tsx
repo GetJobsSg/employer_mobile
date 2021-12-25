@@ -124,13 +124,7 @@ const BasicInfoForm = (props: BasicInfoFormProps) => {
             isLoading={isLoadingGetAllCategories}
             selectedValue={formValues[FieldName.category]}
             onChange={handleCategorySelect}
-            // options={categoryOptionList}
-            options={[
-              { label: 'Event', value: 1 },
-              { label: 'Retail', value: 2 },
-              { label: 'Banquet', value: 3 },
-              { label: 'F & B', value: 4 },
-            ]}
+            options={categoryOptionList}
           />
           <FormControl.ErrorMessage>{formErrors[FieldName.category]}</FormControl.ErrorMessage>
         </FormControl>
@@ -141,12 +135,7 @@ const BasicInfoForm = (props: BasicInfoFormProps) => {
             isLoading={isLoadingGetAllDresscode}
             selectedValue={formValues[FieldName.dresscode]}
             onChange={handleDresscodeSelect}
-            // options={dresscodeOptionList}
-            options={[
-              { label: 'Casual', value: 1 },
-              { label: 'Smart Casual', value: 2 },
-              { label: 'Formal', value: 3 },
-            ]}
+            options={dresscodeOptionList}
           />
           <FormControl.ErrorMessage>{formErrors[FieldName.category]}</FormControl.ErrorMessage>
         </FormControl>
