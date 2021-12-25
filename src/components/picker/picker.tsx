@@ -1,16 +1,28 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useMemo, useState, useEffect } from 'react';
 import { Box, HStack, Icon, Pressable, Text, VStack, Spinner } from 'native-base';
 import { Picker as RNPicker } from '@react-native-picker/picker';
 import RNSheet from 'react-native-raw-bottom-sheet';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { isIOS, isAndroid } from 'src/utils/platform';
+import { usePrevious } from 'src/hooks';
 import { PickerProps } from './picker.props';
 
 const Picker = (props: PickerProps) => {
+  const [androidFocus, setAndroidFocus] = useState(false);
+
   const { onChange, label, options, placeholder, selectedValue, isLoading = false } = props;
   const sheetRef = useRef<any>();
   const androidPickerRef = useRef<any>();
+
+  // fix android issue - https://github.com/GetJobsSg/employer_mobile/issues/28
+  // first option cannot be selected on android device, onChange is not triggered
+  const prevAndroidFocus = usePrevious(androidFocus);
+  useEffect(() => {
+    if (prevAndroidFocus && !androidFocus && !selectedValue) {
+      onChange(options[0].value);
+    }
+  }, [onChange, options, selectedValue, prevAndroidFocus, androidFocus]);
 
   const handleDone = () => {
     // user open picker and then click done without roll to select, pick the first option
@@ -100,6 +112,8 @@ const Picker = (props: PickerProps) => {
               ref={androidPickerRef}
               style={{ marginLeft: -16, marginTop: -8 }}
               selectedValue={selectedValue}
+              onFocus={() => setAndroidFocus(true)}
+              onBlur={() => setAndroidFocus(false)}
               onValueChange={onChange}
             >
               {options.map((option) => (
