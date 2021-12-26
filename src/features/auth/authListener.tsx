@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Spinner, Center } from 'native-base';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import SplashScreen from 'react-native-splash-screen';
 import { node } from 'prop-types';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { authActions } from 'src/features/auth/slice';
@@ -27,14 +27,13 @@ const AuthListener: React.FC = (props) => {
     return subscriber;
   }, []);
 
-  if (initializing || isLoadingSetCurrentUser) {
-    return (
-      <Center w="100%" h="100%">
-        <Spinner size="sm" />
-      </Center>
-    );
-  }
-  return <>{children}</>;
+  useEffect(() => {
+    if (!initializing && !isLoadingSetCurrentUser) {
+      SplashScreen.hide();
+    }
+  }, [initializing, isLoadingSetCurrentUser]);
+
+  return initializing || isLoadingSetCurrentUser ? null : <>{children}</>;
 };
 
 AuthListener.propTypes = {
