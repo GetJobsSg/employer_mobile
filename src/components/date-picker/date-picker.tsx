@@ -43,7 +43,7 @@ const DatePicker = (props: DatePickerProps) => {
               </Text>
             )}
             {selectedDate && (
-              <Text fontWeight="600" color="black">
+              <Text fontWeight="600" color={disabled ? 'gray.400' : 'black'}>
                 {moment(selectedDate).format(format)}
               </Text>
             )}

@@ -45,7 +45,7 @@ const JobDetailScreen = () => {
     setFieldValue,
   } = useFormik({
     enableReinitialize: true,
-    initialValues: isCreateMode ? defaultFormInitialValues : formInitialValuesFromDb(info),
+    initialValues: isCreateMode ? defaultFormInitialValues : formInitialValuesFromDb(info), // if edit mode, initialize form field with data retrieve from apis
     validationSchema: formValidationSchema[currStep],
     validateOnChange: false,
     onSubmit: () => {

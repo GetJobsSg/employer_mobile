@@ -6,7 +6,6 @@ import AuthListener from 'src/features/auth/authListener';
 import StripeProvider from 'src/features/stripe/stripeProvider';
 import RootNavigator from 'src/navigator/root-navigator';
 import ErrorHandler from 'src/features/error-handler';
-
 import { store } from 'src/store';
 
 const App = () => (
