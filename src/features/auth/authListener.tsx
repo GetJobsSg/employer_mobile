@@ -33,7 +33,7 @@ const AuthListener: React.FC = (props) => {
     }
   }, [initializing, isLoadingSetCurrentUser]);
 
-  return initializing || isLoadingSetCurrentUser ? null : <>{children}</>;
+  return <>{children}</>;
 };
 
 AuthListener.propTypes = {

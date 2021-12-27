@@ -22,7 +22,7 @@ const ForgetPasswordScreen = (props: ForgetPasswordScreenProps) => {
   const { navigation } = props;
 
   const dispatch = useAppDispatch();
-  const { isLoadingSendResetPasswordEmail, error: firebaseError } = useAppSelector((state) => state.auth);
+  const { isLoadingSendResetPasswordEmail, errorResetPassword } = useAppSelector((state) => state.auth);
 
   const { errors, handleChange, handleSubmit, touched, values } = useFormik({
     initialValues: {
@@ -36,11 +36,14 @@ const ForgetPasswordScreen = (props: ForgetPasswordScreenProps) => {
   });
 
   // successfully send email
-  const successSentEmail = useCheckSuccess({ loadingState: isLoadingSendResetPasswordEmail, error: firebaseError });
+  const successSentEmail = useCheckSuccess({
+    loadingState: isLoadingSendResetPasswordEmail,
+    error: errorResetPassword,
+  });
 
   const renderErrorContent = () => {
-    if (!firebaseError) return null;
-    const msg = getFirebaseErrMessage(firebaseError);
+    if (!errorResetPassword) return null;
+    const msg = getFirebaseErrMessage(errorResetPassword);
     return (
       <Alert status="error">
         <Alert.Icon size="xs" />

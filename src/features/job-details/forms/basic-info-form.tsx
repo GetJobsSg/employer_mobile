@@ -39,12 +39,7 @@ const BasicInfoForm = (props: BasicInfoFormProps) => {
   };
 
   const categoryOptionList = useMemo(() => allCategories.map((c) => ({ label: c.name, value: c.id })), [allCategories]);
-
   const dresscodeOptionList = useMemo(() => allDresscode.map((d) => ({ label: d.name, value: d.id })), [allDresscode]);
-
-  console.log(categoryOptionList);
-
-  console.log(dresscodeOptionList);
 
   return (
     <>
