@@ -3,8 +3,9 @@ import { call, fork, put, takeLatest } from 'redux-saga/effects';
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 
 import { setItem, removeItem, StorageKey } from 'src/utils/storage';
-import { login, logout, sendPasswordResetEmail } from 'src/utils/firebase';
+import { changePassword, login, logout, sendPasswordResetEmail } from 'src/utils/firebase';
 
+import { IChangePasswordPayload } from 'src/shared/types';
 import { authTransformer } from './transformer';
 import { authActions, authSlice } from './slice/index';
 import { getProfile } from './apis';
@@ -58,6 +59,15 @@ function* setCurrentUserSaga(action: PayloadAction<FirebaseAuthTypes.User | null
   }
 }
 
+function* changePasswordSaga(action: PayloadAction<IChangePasswordPayload>) {
+  try {
+    yield call(changePassword, action.payload);
+    yield put(authActions.changePasswordResponse(null));
+  } catch (e) {
+    yield put(authActions.changePasswordResponse(e));
+  }
+}
+
 function* logoutSaga() {
   try {
     yield call(logout);
@@ -72,6 +82,7 @@ function* watchAuthSaga() {
   yield takeLatest(authActions.logout.type, logoutSaga);
   yield takeLatest(authActions.setCurrentUser.type, setCurrentUserSaga);
   yield takeLatest(authActions.sendResetPasswordEmail.type, sendPasswordResetEmailSaga);
+  yield takeLatest(authActions.changePasswordRequest.type, changePasswordSaga);
 }
 
 const authSaga = [fork(watchAuthSaga)];

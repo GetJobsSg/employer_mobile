@@ -10,3 +10,9 @@ export interface ICommonPayload<T> {
   data: T;
   error: null | any;
 }
+
+export interface IChangePasswordPayload {
+  currentEmail: string;
+  currentPassword: string;
+  newPassword: string;
+}

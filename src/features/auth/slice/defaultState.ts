@@ -5,6 +5,7 @@ const authInitialState: IAuthInitialState = {
   isLoadingLogout: false,
   isLoadingSendResetPasswordEmail: false,
   isLoadingSetCurrentUser: false,
+  isLoadingChangePassword: false,
 
   accessToken: '',
   isAuthenticated: false,
@@ -24,7 +25,10 @@ const authInitialState: IAuthInitialState = {
       name: '',
     },
   },
+
   error: null,
+  errorResetPassword: null,
+  errorChangePassword: null,
 };
 
 export default authInitialState;

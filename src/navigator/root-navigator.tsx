@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { ForgetPasswordScreen, LoginScreen } from 'src/features/auth';
+import { ForgetPasswordScreen, LoginScreen, ChangePasswordScreen } from 'src/features/auth';
 import { ParticipantListingScreen } from 'src/features/participant-listings';
 import { JobDetailScreen } from 'src/features/job-details';
 import { JobListingScreen } from 'src/features/job-listings';
@@ -48,6 +48,7 @@ const RootNavigator = () => {
             <RootStack.Screen name={RouteName.BILLING_ADDRESS} component={BillingAddressScreen} />
             <RootStack.Screen name={RouteName.PRIVACY_POLICY} component={PrivacyPolicyScreen} />
             <RootStack.Screen name={RouteName.TERMS_OF_USE} component={TermsOfUseScreen} />
+            <RootStack.Screen name={RouteName.AUTH_CHANGE_PASSWORD} component={ChangePasswordScreen} />
           </>
         )}
       </RootStack.Navigator>

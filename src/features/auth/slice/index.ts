@@ -1,5 +1,6 @@
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IChangePasswordPayload } from 'src/shared/types';
 import { ILoginCredential } from '../types';
 import { ICurrentUserInfo } from './types';
 import authInitialState from './defaultState';
@@ -31,20 +32,34 @@ export const authSlice = createSlice({
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     sendResetPasswordEmail(state, action: PayloadAction<string>) {
       state.isLoadingSendResetPasswordEmail = true;
+      state.errorResetPassword = null;
     },
     sendResetPasswordEmailSuccess(state) {
-      state.error = null;
+      state.errorResetPassword = null;
       state.isLoadingSendResetPasswordEmail = false;
     },
     sendResetPasswordEmailError(state, action) {
-      state.error = action.payload;
+      state.errorResetPassword = action.payload;
       state.isLoadingSendResetPasswordEmail = false;
+    },
+
+    // change password
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    changePasswordRequest(state, action: PayloadAction<IChangePasswordPayload>) {
+      state.isLoadingChangePassword = true;
+      state.errorChangePassword = null;
+    },
+
+    changePasswordResponse(state, action) {
+      state.isLoadingChangePassword = false;
+      state.errorChangePassword = action.payload;
     },
 
     // login
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     login(state, action: PayloadAction<ILoginCredential>) {
       state.isLoadingLogin = true;
+      state.error = null;
     },
     loginSuccess(state) {
       state.error = null;
