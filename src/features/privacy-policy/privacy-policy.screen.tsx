@@ -5,7 +5,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Header } from 'src/components';
 import { useNavigation } from '@react-navigation/native';
 import { Linking } from 'react-native';
-import PrivacyHtml from './privacy-policy.html';
 
 const PrivacyPolicyScreen = () => {
   const navigation = useNavigation();
@@ -16,7 +15,7 @@ const PrivacyPolicyScreen = () => {
         iconLeft={<Icon as={Ionicons} name="chevron-back-outline" onPress={() => navigation.goBack()} />}
       />
       <WebView
-        source={PrivacyHtml}
+        source={{ uri: 'https://www.getjobsfor.me/privacy' }}
         press
         onNavigationStateChange={(event) => {
           if (!event.url.includes('privacy-policy.html')) {
