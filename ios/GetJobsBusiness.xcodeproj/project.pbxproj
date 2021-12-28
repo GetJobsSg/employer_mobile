@@ -14,6 +14,7 @@
 		32A9F2375F680CD38E36CC6F /* libPods-GetJobsBusiness-GetJobsBusinessTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B822D3A95B0B7B5E70025CBA /* libPods-GetJobsBusiness-GetJobsBusinessTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		885EC2DCFA532B1606449AA3 /* libPods-GetJobsBusiness.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA91818037339DC7BCBC2781 /* libPods-GetJobsBusiness.a */; };
+		F5A6EF97277B445D0050C9A3 /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5A6EF96277B445D0050C9A3 /* AppCenter-Config.plist */; };
 		F798012B268F6569002B3662 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F798012A268F6569002B3662 /* GoogleService-Info.plist */; };
 		F7AE3556269B48C3000D1FA4 /* fix.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7AE3555269B48C3000D1FA4 /* fix.swift */; };
 /* End PBXBuildFile section */
@@ -44,6 +45,7 @@
 		B822D3A95B0B7B5E70025CBA /* libPods-GetJobsBusiness-GetJobsBusinessTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GetJobsBusiness-GetJobsBusinessTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F46EC3EC0E3C55C69D1B6809 /* Pods-GetJobsBusiness.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetJobsBusiness.release.xcconfig"; path = "Target Support Files/Pods-GetJobsBusiness/Pods-GetJobsBusiness.release.xcconfig"; sourceTree = "<group>"; };
+		F5A6EF96277B445D0050C9A3 /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "AppCenter-Config.plist"; path = "GetJobsBusiness/AppCenter-Config.plist"; sourceTree = "<group>"; };
 		F798012A268F6569002B3662 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F7AE3554269B48C2000D1FA4 /* GetJobsBusiness-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GetJobsBusiness-Bridging-Header.h"; sourceTree = "<group>"; };
 		F7AE3555269B48C3000D1FA4 /* fix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fix.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 		13B07FAE1A68108700A75B9A /* GetJobsBusiness */ = {
 			isa = PBXGroup;
 			children = (
+				F5A6EF96277B445D0050C9A3 /* AppCenter-Config.plist */,
 				F798012A268F6569002B3662 /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -262,6 +265,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				F5A6EF97277B445D0050C9A3 /* AppCenter-Config.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				F798012B268F6569002B3662 /* GoogleService-Info.plist in Resources */,
 			);
