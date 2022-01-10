@@ -11,7 +11,7 @@ import { AttendanceRecordScreen } from 'src/features/attendance-record';
 import { ProfileScreen } from 'src/features/profile';
 import { TermsOfUseScreen } from 'src/features/terms-of-use';
 import { PrivacyPolicyScreen } from 'src/features/privacy-policy';
-import { BillingAddressScreen, CollectCardDetailScreen, PaymenMethodScreen } from 'src/features/stripe';
+// import { BillingAddressScreen, CollectCardDetailScreen, PaymenMethodScreen } from 'src/features/stripe';
 
 import { useAppSelector } from 'src/hooks';
 import { RouteName } from './route';
@@ -43,9 +43,9 @@ const RootNavigator = () => {
             <RootStack.Screen name={RouteName.WORKER_LISTING} component={WorkerListingScreen} />
             <RootStack.Screen name={RouteName.ATTENDANCE_RECORD} component={AttendanceRecordScreen} />
             <RootStack.Screen name={RouteName.PROFILE} component={ProfileScreen} />
-            <RootStack.Screen name={RouteName.PAYMENT_METHODS} component={PaymenMethodScreen} />
-            <RootStack.Screen name={RouteName.COLLECT_CARD_DETAILS} component={CollectCardDetailScreen} />
-            <RootStack.Screen name={RouteName.BILLING_ADDRESS} component={BillingAddressScreen} />
+            {/* <RootStack.Screen name={RouteName.PAYMENT_METHODS} component={PaymenMethodScreen} /> */}
+            {/* <RootStack.Screen name={RouteName.COLLECT_CARD_DETAILS} component={CollectCardDetailScreen} /> */}
+            {/* <RootStack.Screen name={RouteName.BILLING_ADDRESS} component={BillingAddressScreen} /> */}
             <RootStack.Screen name={RouteName.PRIVACY_POLICY} component={PrivacyPolicyScreen} />
             <RootStack.Screen name={RouteName.TERMS_OF_USE} component={TermsOfUseScreen} />
             <RootStack.Screen name={RouteName.AUTH_CHANGE_PASSWORD} component={ChangePasswordScreen} />
